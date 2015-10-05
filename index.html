@@ -28,7 +28,6 @@
           io.socket.on('wallboardUpdate', function () {
             io.socket.get('/wallboard', function (response) {
               $scope.ircs = response;
-              console.log(response);
               $scope.$apply();
             });
           });
