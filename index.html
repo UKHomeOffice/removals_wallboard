@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Wall Board</title>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js" crossorigin="anonymous"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
+        crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
+          integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ=="
+          crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
+        crossorigin="anonymous">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.js" crossorigin="anonymous"></script>
+  <script src="bower_components/sails.io.js/dist/sails.io.js"></script>
+  <script>
+
+    io.sails.url = location.search.split('backend=')[1] || 'http://localhost:8080';
+    angular.module('wallboardApp', [
+      'wallboardApp.controllers'
+    ]);
+    angular.module('wallboardApp.controllers', []).
+        controller('wallboardController', function ($scope) {
+          $scope.ircs = [];
+
+          io.socket.on('wallboardUpdate', function () {
+            io.socket.get('/wallboard', function (response) {
+              $scope.ircs = response;
+              console.log(response);
+              $scope.$apply();
+            });
+          });
+
+        }).directive('highlighter', ['$timeout', function ($timeout) {
+          return {
+            scope: {
+              model: '=highlighter'
+            },
+            link: function (scope, element) {
+              scope.$watch('model', function (newvalue, oldvalue) {
+                if (newvalue > oldvalue) {
+                  element.addClass('highlight-up')
+                }
+                else if (newvalue < oldvalue) {
+                  element.addClass('highlight-down')
+                }
+                // auto remove after some delay
+                $timeout(function () {
+                  element.removeClass('highlight-up');
+                  element.removeClass('highlight-down');
+                }, 1000);
+              });
+            }
+          };
+        }]);
+  </script>
+  <style>
+    body {
+      background: black;
+      color: white;
+      font-size: 2em;
+    }
+
+    .highlight-down:after {
+      font: normal normal normal 1em FontAwesome;
+      content: "\f063";
+    }
+
+    .highlight-up:after {
+      font: normal normal normal 1em FontAwesome;
+      content: "\f062";
+    }
+
+    .icon {
+      font-size: 3em;
+      padding-bottom: 0.2em;
+    }
+
+    .irc {
+      border: 1px dashed darkslategrey;
+    }
+  </style>
+</head>
+
+<body ng-app="wallboardApp" ng-controller="wallboardController">
+<div class="container">
+
+  <div class="row">
+    <div class="col-xs-5 irc" ng-repeat="irc in ircs track by $index">
+      <h1 class="text-primary" id="centre-{{irc.centre_id}}">{{irc.name}}</h1>
+
+      <div class="row">
+        <div class="col-xs-4 text-center">
+          <i class="icon text-success fa fa-ticket"></i>
+        </div>
+        <div class="col-xs-8">
+          <span class="booked">Booked: <span highlighter="irc.booked">{{irc.booked}}</span></span><br/>
+          <span class="reserved">Reserved: <span highlighter="irc.reserved">{{irc.reserved}}</span></span>
+        </div>
+
+      </div>
+
+
+      <div class="row">
+        <div class="col-xs-4 text-center">
+          <i class="icon text-info fa fa-male"></i>
+        </div>
+        <div class="col-xs-8">
+          <span class="male-capactity">Capacity: <span
+              highlighter="irc.male_capacity">{{irc.male_capacity}}</span></span><br/>
+          <span class="male-available">Available: <span
+              highlighter="irc.male_available">{{irc.male_available}}</span></span><br/>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-4 text-center">
+          <i class="icon text-danger fa fa-female"></i>
+        </div>
+        <div class="col-xs-8">
+          <span class="female-capactity">Capacity: <span
+              highlighter="irc.female_capacity">{{irc.female_capacity}}</span></span><br/>
+          <span class="female-available">Available: <span
+              highlighter="irc.female_available">{{irc.female_available}}</span></span><br/>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>

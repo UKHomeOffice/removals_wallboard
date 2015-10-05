@@ -1,0 +1,23 @@
+{
+  "name": "removals_wallboard",
+  "version": "0.0.1",
+  "authors": [
+    "Chris Nesbitt-Smith <chris@cns.me.uk>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "sails.io.js": "~0.11.7"
+  }
+}
