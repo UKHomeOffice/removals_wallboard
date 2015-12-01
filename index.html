@@ -18,64 +18,49 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.js" crossorigin="anonymous"></script>
   <script src="https://cdn.rawgit.com/balderdashy/sails.io.js/master/dist/sails.io.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js" crossorigin="anonymous"></script>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js" crossorigin="anonymous"></script>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/1.0.0-beta.2/angular-moment.min.js"
           crossorigin="anonymous"></script>
   <script>
 
+    var sailsBind = (model, identifier, scope, io) => {
+      scope[model + 's'] = [];
+
+      io.socket.get('/' + model, response =>
+        scope.$apply(() => scope[model + 's'] = response.data)
+      );
+
+      io.socket.on(model, response =>
+        scope.$apply(() => {
+          var index = _.findIndex(scope[model + 's'], _.matchesProperty(identifier, response.data[identifier]));
+          if (response.verb === 'deleted') {
+            delete scope[model + 's'][index];
+          }
+          else {
+            //update
+            if (index !== -1) {
+              scope[model + 's'][index] = _.merge(scope[model + 's'][index], response.data);
+            }
+            //create
+            else {
+              scope[model + 's'].push(response.data);
+            }
+          }
+        })
+      );
+    };
     io.sails.url = location.search.split('backend=')[1] || 'http://localhost:8080';
     angular.module('wallboardApp', [
       'wallboardApp.controllers', 'angularMoment'
     ]);
     angular.module('wallboardApp.controllers', []).
-      controller('wallboardController', function ($scope) {
-        $scope.ircs = [];
-        io.socket.on('connect', function () {
-          $scope.connected = true;
-          io.socket.get('/centre', function (response) {
-            $scope.ircs = response.data;
-            $scope.$apply();
-
-            io.socket.on('centre', function (message) {
-              var index = _.findIndex($scope.ircs, _.matchesProperty('centre_id', message.data.centre_id));
-              if (index !== -1) {
-                $scope.ircs[index] = _.merge($scope.ircs[index], message.data);
-              }
-              else {
-                $scope.ircs.push(message.data);
-              }
-              $scope.$apply();
-            });
-          });
+      controller('wallboardController', ($scope) => {
+        io.socket.on('connect',  () => {
+          $scope.$apply(() => $scope.connected = true);
+          sailsBind('centre', 'centre_id', $scope, io);
         });
-        io.socket.on('disconnect', function () {
-          $scope.connected = false;
-          $scope.$apply();
-        });
-      }).directive('highlighter', ['$timeout', function ($timeout) {
-        return {
-          scope: {
-            model: '=highlighter'
-          },
-          link: function (scope, element) {
-            scope.$watch('model', function (newvalue, oldvalue) {
-              if (newvalue > oldvalue) {
-                element.addClass('highlight-up')
-              }
-              else if (newvalue < oldvalue) {
-                element.addClass('highlight-down')
-              }
-              // auto remove after some delay
-              $timeout(function () {
-                element.removeClass('highlight-up');
-                element.removeClass('highlight-down');
-              }, 1000);
-            });
-          }
-        };
-      }]);
+        io.socket.on('disconnect', () => $scope.$apply(() => $scope.connected = false));
+      });
   </script>
   <style>
     body {
@@ -83,16 +68,6 @@
       color: white;
       font-size: 2em;
       white-space: nowrap;
-    }
-
-    .highlight-down:after {
-      font: normal normal normal 1em FontAwesome;
-      content: "\f063";
-    }
-
-    .highlight-up:after {
-      font: normal normal normal 1em FontAwesome;
-      content: "\f062";
     }
 
     .icon {
@@ -150,7 +125,7 @@
 <div class="disconnected message fa" ng-if="!connected">DISCONNECTED</div>
 <div class="container" ng-class="{'disconnected' : !connected}">
   <div class="row">
-    <div class="col-xs-5 irc" ng-repeat="irc in ircs track by $index">
+    <div class="col-xs-5 irc" ng-repeat="irc in centres track by $index">
       <h1 class="text-primary" id="centre-{{irc.centre_id}}">{{irc.name}}</h1>
       <span class="time" am-time-ago="irc.updated | amParse:'YYYY-MM-DDTHH:mm:ss:SSSZ'"></span>
 
@@ -159,22 +134,18 @@
           <i class="icon text-danger fa fa-{{bed.type}}"></i>
         </div>
         <div class="col-xs-10">
-          <span class="{{bed.type}}-capacity text-info">Capacity: <span
-            highlighter="bed.capacity">{{bed.capacity}}</span></span><br/>
+          <span class="{{bed.type}}-capacity text-info">Capacity: <span>{{bed.capacity}}</span></span><br/>
 
-          <span class="{{bed.type}}-occupied text-info">Occupied: <span
-            highlighter="bed.occupied">{{bed.occupied}}</span></span><br/>
+          <span class="{{bed.type}}-occupied text-info">Occupied: <span>{{bed.occupied}}</span></span><br/>
 
-          <span class="{{bed.type}}-ooc text-info">Out of commission: <span
-            highlighter="bed.ooc">{{bed.ooc}}</span></span><br/>
+          <span class="{{bed.type}}-ooc text-info">Out of commission: <span>{{bed.ooc}}</span></span><br/>
 
-          <span class="{{bed.type}}-available bold">Available: <span
-            highlighter="bed.capacity - bed.occupied - bed.ooc">{{bed.capacity - bed.occupied - bed.ooc}}</span></span><br/>
+          <span
+            class="{{bed.type}}-available bold">Available: <span>{{bed.capacity - bed.occupied - bed.ooc}}</span></span><br/>
         </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 </body>
 </html>
