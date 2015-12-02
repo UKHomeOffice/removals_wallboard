@@ -15,6 +15,9 @@
         crossorigin="anonymous">
 
 
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.js" crossorigin="anonymous"></script>
   <script src="https://cdn.rawgit.com/balderdashy/sails.io.js/master/dist/sails.io.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js" crossorigin="anonymous"></script>
@@ -50,6 +53,7 @@
       );
     };
     io.sails.url = location.search.split('backend=')[1] || 'http://localhost:8080';
+    io.sails.transports = ['websocket'];
     angular.module('wallboardApp', [
       'wallboardApp.controllers', 'angularMoment'
     ]);
@@ -62,7 +66,7 @@
         io.socket.on('disconnect', () => $scope.$apply(() => $scope.connected = false));
       });
   </script>
-  <style>
+  <!--<style>
     body {
       background: black;
       color: white;
@@ -118,30 +122,103 @@
       font-weight: bold;
     }
 
+  </style>-->
+
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+    }
+    .text-primary {
+      color: black;
+    }
+    .stats {display:none;}
+    .stats-container {
+      background: #eee;
+      padding:1em 1em 1em 2em;
+    }
+    .updated {
+      font-size: 0.8em;
+    }
+    header img {
+      max-height: 90px;
+    }
+    header {
+      padding: 1em;
+      border-bottom: 2px solid #ccc;
+    }
+
+    h1, h2, h3 {
+      font-weight: bold;
+    }
+    .available {
+      font-size: 1em;
+    }
+    .fa {
+      color: #555;
+      font-size: 1.5em;
+    }
+
+    .disconnected.message {
+      top: 50%;
+      transform: translateY(-50%);
+      display: block;
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      font-size: 3em;
+    }
+
+    .disconnected.message:before,
+    .disconnected.message:after {
+      content: "\f071";
+      padding: 0 0.3em;
+    }
+
+    .container.disconnected {
+      -webkit-filter: blur(5px);
+      -moz-filter: blur(5px);
+      -o-filter: blur(5px);
+      -ms-filter: blur(5px);
+      filter: blur(5px);
+    }
+
+    @media (min-width: 768px) {
+      .col-sm-4 {
+          padding:2em;
+      }
+    }
   </style>
 </head>
 
 <body ng-app="wallboardApp" ng-controller="wallboardController">
 <div class="disconnected message fa" ng-if="!connected">DISCONNECTED</div>
 <div class="container" ng-class="{'disconnected' : !connected}">
+  <header class="row">
+    <img src="http://static.london.gov.uk/surveys/foreign-workers/ukvi%20logo01.jpg">
+  </header>
   <div class="row">
-    <div class="col-xs-5 irc" ng-repeat="irc in centres track by $index">
+    <div class="col-sm-4 irc" ng-repeat="irc in ircs track by $index">
+      <div class="updated pull-right"><em><span class="time" am-time-ago="irc.updated | amParse:'YYYY-MM-DDTHH:mm:ss:SSSZ'"></span></em></div>
       <h1 class="text-primary" id="centre-{{irc.centre_id}}">{{irc.name}}</h1>
-      <span class="time" am-time-ago="irc.updated | amParse:'YYYY-MM-DDTHH:mm:ss:SSSZ'"></span>
 
-      <div ng-repeat="bed in irc.beds" class="row bed">
-        <div class="col-xs-2 text-center">
-          <i class="icon text-danger fa fa-{{bed.type}}"></i>
-        </div>
-        <div class="col-xs-10">
-          <span class="{{bed.type}}-capacity text-info">Capacity: <span>{{bed.capacity}}</span></span><br/>
+      <div class="row stats-container">
+        <div ng-repeat="bed in irc.beds" class="col-xs-6 row bed">
+          <div class="col-sm-12">
+            <div class="stats">
+              <span class="{{bed.type}}-capacity text-info">Capacity: <span
+                highlighter="bed.capacity">{{bed.capacity}}</span></span><br/>
 
-          <span class="{{bed.type}}-occupied text-info">Occupied: <span>{{bed.occupied}}</span></span><br/>
+              <span class="{{bed.type}}-occupied text-info">Occupied: <span
+                highlighter="bed.occupied">{{bed.occupied}}</span></span><br/>
 
-          <span class="{{bed.type}}-ooc text-info">Out of commission: <span>{{bed.ooc}}</span></span><br/>
-
-          <span
-            class="{{bed.type}}-available bold">Available: <span>{{bed.capacity - bed.occupied - bed.ooc}}</span></span><br/>
+              <span class="{{bed.type}}-ooc text-info">Out of commission: <span
+                highlighter="bed.ooc">{{bed.ooc}}</span></span><br/>
+            </div>
+            <div class="row available">
+              <div class="{{bed.type}}-available bold col-xs-12"><i class="icon fa fa-{{bed.type}}"></i> <span
+                highlighter="bed.capacity - bed.occupied - bed.ooc">{{bed.capacity - bed.occupied - bed.ooc}}</span></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
