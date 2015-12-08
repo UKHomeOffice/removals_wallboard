@@ -52,7 +52,7 @@
         })
       );
     };
-    io.sails.url = location.search.split('backend=')[1] || 'http://localhost:8080';
+    io.sails.url = location.search.split('backend=')[1] || 'https://api.ircbd.homeoffice.gov.uk:443';
     io.sails.transports = ['websocket'];
     angular.module('wallboardApp', [
       'wallboardApp.controllers', 'angularMoment'
