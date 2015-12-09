@@ -58,13 +58,59 @@
       'wallboardApp.controllers', 'angularMoment'
     ]);
     angular.module('wallboardApp.controllers', []).
-      controller('wallboardController', ($scope) => {
-        io.socket.on('connect',  () => {
-          $scope.$apply(() => $scope.connected = true);
-          sailsBind('centre', 'centre_id', $scope, io);
+    controller('wallboardController', function ($scope) {
+      $scope.ircs = [];
+      io.socket.on('connect', function () {
+        $scope.connected = true;
+        io.socket.get('/centre', function (response) {
+          $scope.ircs = response.data;
+          $scope.$apply();
+          io.socket.on('centre', function (message) {
+            var index = _.findIndex($scope.ircs, _.matchesProperty('centre_id', message.data.centre_id));
+            if (index !== -1) {
+              $scope.ircs[index] = _.merge($scope.ircs[index], message.data);
+            }
+            else {
+              $scope.ircs.push(message.data);
+            }
+            $scope.$apply();
+          });
         });
-        io.socket.on('disconnect', () => $scope.$apply(() => $scope.connected = false));
       });
+      io.socket.on('disconnect', function () {
+        $scope.connected = false;
+        $scope.$apply();
+      });
+    }).directive('highlighter', ['$timeout', function ($timeout) {
+        return {
+          scope: {
+            model: '=highlighter'
+          },
+          link: function (scope, element) {
+            scope.$watch('model', function (newvalue, oldvalue) {
+              if (newvalue > oldvalue) {
+                element.addClass('highlight-up')
+              }
+              else if (newvalue < oldvalue) {
+                element.addClass('highlight-down')
+              }
+              // auto remove after some delay
+              $timeout(function () {
+                element.removeClass('highlight-up');
+                element.removeClass('highlight-down');
+              }, 1000);
+            });
+          }
+        };
+      }]);
+
+      $(function() {
+        $('.showStats').click(function(){
+          $('.stats').slideToggle(150);
+        });
+      });
+
+>>>>>>> Restyling, stats styling, toggle button, logo:index.html
   </script>
   <!--<style>
     body {
@@ -125,16 +171,199 @@
   </style>-->
 
   <style>
+  ## Adding midsmall column layout from https://gist.github.com/andyl/6360906
+
+  .col-ms-1,
+.col-ms-2,
+.col-ms-3,
+.col-ms-4,
+.col-ms-5,
+.col-ms-6,
+.col-ms-7,
+.col-ms-8,
+.col-ms-9,
+.col-ms-10,
+.col-ms-11,
+.col-ms-12 {
+  position: relative;
+  min-height: 1px;
+  padding-left: 7.5px;
+  padding-right: 7.5px;
+}
+
+@media (min-width: 480px) and (max-width: 768px) {
+  .container {
+    max-width: 748px;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 768px) {
+  .col-ms-1,
+  .col-ms-2,
+  .col-ms-3,
+  .col-ms-4,
+  .col-ms-5,
+  .col-ms-6,
+  .col-ms-7,
+  .col-ms-8,
+  .col-ms-9,
+  .col-ms-10,
+  .col-ms-11 {
+    float: left;
+  }
+  .col-ms-1 {
+    width: 8.33333%;
+  }
+  .col-ms-2 {
+    width: 16.66667%;
+  }
+  .col-ms-3 {
+    width: 25%;
+  }
+  .col-ms-4 {
+    width: 33.33333%;
+  }
+  .col-ms-5 {
+    width: 41.66667%;
+  }
+  .col-ms-6 {
+    width: 50%;
+  }
+  .col-ms-7 {
+    width: 58.33333%;
+  }
+  .col-ms-8 {
+    width: 66.66667%;
+  }
+  .col-ms-9 {
+    width: 75%;
+  }
+  .col-ms-10 {
+    width: 83.33333%;
+  }
+  .col-ms-11 {
+    width: 91.66667%;
+  }
+  .col-ms-12 {
+    width: 100%;
+  }
+  .col-ms-push-1 {
+    left: 8.33333%;
+  }
+  .col-ms-push-2 {
+    left: 16.66667%;
+  }
+  .col-ms-push-3 {
+    left: 25%;
+  }
+  .col-ms-push-4 {
+    left: 33.33333%;
+  }
+  .col-ms-push-5 {
+    left: 41.66667%;
+  }
+  .col-ms-push-6 {
+    left: 50%;
+  }
+  .col-ms-push-7 {
+    left: 58.33333%;
+  }
+  .col-ms-push-8 {
+    left: 66.66667%;
+  }
+  .col-ms-push-9 {
+    left: 75%;
+  }
+  .col-ms-push-10 {
+    left: 83.33333%;
+  }
+  .col-ms-push-11 {
+    left: 91.66667%;
+  }
+  .col-ms-pull-1 {
+    right: 8.33333%;
+  }
+  .col-ms-pull-2 {
+    right: 16.66667%;
+  }
+  .col-ms-pull-3 {
+    right: 25%;
+  }
+  .col-ms-pull-4 {
+    right: 33.33333%;
+  }
+  .col-ms-pull-5 {
+    right: 41.66667%;
+  }
+  .col-ms-pull-6 {
+    right: 50%;
+  }
+  .col-ms-pull-7 {
+    right: 58.33333%;
+  }
+  .col-ms-pull-8 {
+    right: 66.66667%;
+  }
+  .col-ms-pull-9 {
+    right: 75%;
+  }
+  .col-ms-pull-10 {
+    right: 83.33333%;
+  }
+  .col-ms-pull-11 {
+    right: 91.66667%;
+  }
+  .col-ms-offset-1 {
+    margin-left: 8.33333%;
+  }
+  .col-ms-offset-2 {
+    margin-left: 16.66667%;
+  }
+  .col-ms-offset-3 {
+    margin-left: 25%;
+  }
+  .col-ms-offset-4 {
+    margin-left: 33.33333%;
+  }
+  .col-ms-offset-5 {
+    margin-left: 41.66667%;
+  }
+  .col-ms-offset-6 {
+    margin-left: 50%;
+  }
+  .col-ms-offset-7 {
+    margin-left: 58.33333%;
+  }
+  .col-ms-offset-8 {
+    margin-left: 66.66667%;
+  }
+  .col-ms-offset-9 {
+    margin-left: 75%;
+  }
+  .col-ms-offset-10 {
+    margin-left: 83.33333%;
+  }
+  .col-ms-offset-11 {
+    margin-left: 91.66667%;
+  }
+}
+
+
     body {
       font-family: 'Open Sans', sans-serif;
     }
     .text-primary {
       color: black;
     }
-    .stats {display:none;}
+    .stats {
+      display:none;
+      border-bottom: 1px solid #bbb;
+      padding-bottom: 1em;
+      margin-bottom: 1em;
+    }
     .stats-container {
       background: #eee;
-      padding:1em 1em 1em 2em;
+      padding:1em;
     }
     .updated {
       font-size: 0.8em;
@@ -182,8 +411,8 @@
       filter: blur(5px);
     }
 
-    @media (min-width: 768px) {
-      .col-sm-4 {
+    @media (min-width: 480px) {
+      .irc {
           padding:2em;
       }
     }
@@ -194,29 +423,32 @@
 <div class="disconnected message fa" ng-if="!connected">DISCONNECTED</div>
 <div class="container" ng-class="{'disconnected' : !connected}">
   <header class="row">
-    <img src="http://static.london.gov.uk/surveys/foreign-workers/ukvi%20logo01.jpg">
+    <img src="ukvi.png">
+    <a class="pull-right showStats" href="#">Show/Hide Stats</a>
   </header>
   <div class="row">
-    <div class="col-sm-4 irc" ng-repeat="irc in ircs track by $index">
+    <div class="col-ms-6 col-sm-4 col-lg-4 col-xl-3 irc" ng-repeat="irc in ircs track by $index">
       <div class="updated pull-right"><em><span class="time" am-time-ago="irc.updated | amParse:'YYYY-MM-DDTHH:mm:ss:SSSZ'"></span></em></div>
       <h1 class="text-primary" id="centre-{{irc.centre_id}}">{{irc.name}}</h1>
 
-      <div class="row stats-container">
-        <div ng-repeat="bed in irc.beds" class="col-xs-6 row bed">
-          <div class="col-sm-12">
-            <div class="stats">
-              <span class="{{bed.type}}-capacity text-info">Capacity: <span
-                highlighter="bed.capacity">{{bed.capacity}}</span></span><br/>
+      <div class="stats-container">
+        <div class="row">
+          <div ng-repeat="bed in irc.beds" class="col-xs-6  bed">
+            <div>
+              <div class="stats">
+                <span class="{{bed.type}}-capacity"><strong><span
+                  highlighter="bed.capacity">{{bed.capacity}}</span></strong> capacity</span><br/>
 
-              <span class="{{bed.type}}-occupied text-info">Occupied: <span
-                highlighter="bed.occupied">{{bed.occupied}}</span></span><br/>
+                <span class="{{bed.type}}-occupied "><strong><span
+                  highlighter="bed.occupied">{{bed.occupied}}</span></strong> occupied</span><br/>
 
-              <span class="{{bed.type}}-ooc text-info">Out of commission: <span
-                highlighter="bed.ooc">{{bed.ooc}}</span></span><br/>
-            </div>
-            <div class="row available">
-              <div class="{{bed.type}}-available bold col-xs-12"><i class="icon fa fa-{{bed.type}}"></i> <span
-                highlighter="bed.capacity - bed.occupied - bed.ooc">{{bed.capacity - bed.occupied - bed.ooc}}</span></div>
+                <span class="{{bed.type}}-ooc "><strong><span
+                  highlighter="bed.ooc">{{bed.ooc}}</span></strong> out of commission</span><br/>
+              </div>
+              <div class="row available">
+                <div class="{{bed.type}}-available bold col-xs-12"><i class="icon fa fa-{{bed.type}}"></i> <span
+                  highlighter="bed.capacity - bed.occupied - bed.ooc">{{bed.capacity - bed.occupied - bed.ooc}}</span></div>
+              </div>
             </div>
           </div>
         </div>
