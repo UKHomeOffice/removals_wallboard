@@ -423,7 +423,7 @@
 <div class="disconnected message fa" ng-if="!connected">DISCONNECTED</div>
 <div class="container" ng-class="{'disconnected' : !connected}">
   <header class="row">
-    <img src="ukvi.png">
+    <img src="ie.png">
     <a class="pull-right showStats" href="#">Show/Hide Stats</a>
   </header>
   <div class="row">
@@ -433,7 +433,8 @@
 
       <div class="stats-container">
         <div class="row">
-          <div ng-repeat="bed in irc.beds" class="col-xs-6  bed">
+          <div ng-repeat="bed in irc.beds"  class="col-xs-6 bed" ng-class="irc.beds.length == 2 ? 'col-md-6' : 'col-md-12'">
+            <!--{{irc.beds.length}}-->
             <div>
               <div class="stats">
                 <span class="{{bed.type}}-capacity"><strong><span
