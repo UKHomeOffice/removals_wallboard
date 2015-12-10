@@ -4,128 +4,146 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>Wall Board</title>
   <script src="https://code.jquery.com/jquery-2.1.4.min.js" crossorigin="anonymous"></script>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
-        crossorigin="anonymous">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
           integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ=="
           crossorigin="anonymous"></script>
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
         crossorigin="anonymous">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
+        crossorigin="anonymous">
+
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.js" crossorigin="anonymous"></script>
   <script src="https://cdn.rawgit.com/balderdashy/sails.io.js/master/dist/sails.io.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/1.0.0-beta.2/angular-moment.min.js"
+          crossorigin="anonymous"></script>
   <script>
 
+    var sailsBind = (model, identifier, scope, io) => {
+      scope[model + 's'] = [];
+
+      io.socket.get('/' + model, response =>
+        scope.$apply(() => scope[model + 's'] = response.data)
+      );
+
+      io.socket.on(model, response =>
+        scope.$apply(() => {
+          var index = _.findIndex(scope[model + 's'], _.matchesProperty(identifier, response.data[identifier]));
+          if (response.verb === 'deleted') {
+            delete scope[model + 's'][index];
+          }
+          else {
+            //update
+            if (index !== -1) {
+              scope[model + 's'][index] = _.merge(scope[model + 's'][index], response.data);
+            }
+            //create
+            else {
+              scope[model + 's'].push(response.data);
+            }
+          }
+        })
+      );
+    };
     io.sails.url = location.search.split('backend=')[1] || 'http://localhost:8080';
     angular.module('wallboardApp', [
-      'wallboardApp.controllers'
+      'wallboardApp.controllers', 'angularMoment'
     ]);
     angular.module('wallboardApp.controllers', []).
-        controller('wallboardController', function ($scope) {
-          $scope.ircs = [];
-
-          io.socket.on('wallboardUpdate', function () {
-            io.socket.get('/wallboard', function (response) {
-              $scope.ircs = response;
-              $scope.$apply();
-            });
-          });
-
-        }).directive('highlighter', ['$timeout', function ($timeout) {
-          return {
-            scope: {
-              model: '=highlighter'
-            },
-            link: function (scope, element) {
-              scope.$watch('model', function (newvalue, oldvalue) {
-                if (newvalue > oldvalue) {
-                  element.addClass('highlight-up')
-                }
-                else if (newvalue < oldvalue) {
-                  element.addClass('highlight-down')
-                }
-                // auto remove after some delay
-                $timeout(function () {
-                  element.removeClass('highlight-up');
-                  element.removeClass('highlight-down');
-                }, 1000);
-              });
-            }
-          };
-        }]);
+      controller('wallboardController', ($scope) => {
+        io.socket.on('connect',  () => {
+          $scope.$apply(() => $scope.connected = true);
+          sailsBind('centre', 'centre_id', $scope, io);
+        });
+        io.socket.on('disconnect', () => $scope.$apply(() => $scope.connected = false));
+      });
   </script>
   <style>
     body {
       background: black;
       color: white;
       font-size: 2em;
-    }
-
-    .highlight-down:after {
-      font: normal normal normal 1em FontAwesome;
-      content: "\f063";
-    }
-
-    .highlight-up:after {
-      font: normal normal normal 1em FontAwesome;
-      content: "\f062";
+      white-space: nowrap;
     }
 
     .icon {
       font-size: 3em;
-      padding-bottom: 0.2em;
+      padding: 0.4em 0 0.4em 0.1em;
     }
 
     .irc {
       border: 1px dashed darkslategrey;
     }
+
+    .bed.row {
+      padding-bottom: 1em;
+    }
+
+    .time {
+      display: block;
+      float: right;
+      margin-top: -4.5em;
+      font-size: 0.75em;
+    }
+
+    .disconnected.message {
+      top: 50%;
+      transform: translateY(-50%);
+      display: block;
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      font-size: 3em;
+    }
+
+    .disconnected.message:before,
+    .disconnected.message:after {
+      content: "\f071";
+      padding: 0 0.3em;
+    }
+
+    .container.disconnected {
+      -webkit-filter: blur(5px);
+      -moz-filter: blur(5px);
+      -o-filter: blur(5px);
+      -ms-filter: blur(5px);
+      filter: blur(5px);
+    }
+
+    .bold {
+      font-weight: bold;
+    }
+
   </style>
 </head>
 
 <body ng-app="wallboardApp" ng-controller="wallboardController">
-<div class="container">
-
+<div class="disconnected message fa" ng-if="!connected">DISCONNECTED</div>
+<div class="container" ng-class="{'disconnected' : !connected}">
   <div class="row">
-    <div class="col-xs-5 irc" ng-repeat="irc in ircs track by $index">
+    <div class="col-xs-5 irc" ng-repeat="irc in centres track by $index">
       <h1 class="text-primary" id="centre-{{irc.centre_id}}">{{irc.name}}</h1>
+      <span class="time" am-time-ago="irc.updated | amParse:'YYYY-MM-DDTHH:mm:ss:SSSZ'"></span>
 
-      <div class="row">
-        <div class="col-xs-4 text-center">
-          <i class="icon text-success fa fa-ticket"></i>
+      <div ng-repeat="bed in irc.beds" class="row bed">
+        <div class="col-xs-2 text-center">
+          <i class="icon text-danger fa fa-{{bed.type}}"></i>
         </div>
-        <div class="col-xs-8">
-          <span class="booked">Booked: <span highlighter="irc.booked">{{irc.booked}}</span></span><br/>
-          <span class="reserved">Reserved: <span highlighter="irc.reserved">{{irc.reserved}}</span></span>
-        </div>
+        <div class="col-xs-10">
+          <span class="{{bed.type}}-capacity text-info">Capacity: <span>{{bed.capacity}}</span></span><br/>
 
-      </div>
+          <span class="{{bed.type}}-occupied text-info">Occupied: <span>{{bed.occupied}}</span></span><br/>
 
+          <span class="{{bed.type}}-ooc text-info">Out of commission: <span>{{bed.ooc}}</span></span><br/>
 
-      <div class="row">
-        <div class="col-xs-4 text-center">
-          <i class="icon text-info fa fa-male"></i>
-        </div>
-        <div class="col-xs-8">
-          <span class="male-capactity">Capacity: <span
-              highlighter="irc.male_capacity">{{irc.male_capacity}}</span></span><br/>
-          <span class="male-available">Available: <span
-              highlighter="irc.male_available">{{irc.male_available}}</span></span><br/>
+          <span
+            class="{{bed.type}}-available bold">Available: <span>{{bed.capacity - bed.occupied - bed.ooc}}</span></span><br/>
         </div>
       </div>
-
-      <div class="row">
-        <div class="col-xs-4 text-center">
-          <i class="icon text-danger fa fa-female"></i>
-        </div>
-        <div class="col-xs-8">
-          <span class="female-capactity">Capacity: <span
-              highlighter="irc.female_capacity">{{irc.female_capacity}}</span></span><br/>
-          <span class="female-available">Available: <span
-              highlighter="irc.female_available">{{irc.female_available}}</span></span><br/>
-        </div>
-      </div>
-
     </div>
   </div>
 </div>
