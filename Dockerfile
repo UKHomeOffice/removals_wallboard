@@ -8,7 +8,7 @@ RUN ln -s /dev/stderr /var/log/nginx/error.log && ln -s /dev/stdout /var/log/ngi
 
 COPY entry-point.sh /entry-point.sh
 WORKDIR /usr/share/nginx/html/
-COPY html/* .
+COPY app/* .
 
-ENTRYPOINT /entry-point.sh
+ENTRYPOINT ["/entry-point.sh"]
 CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
