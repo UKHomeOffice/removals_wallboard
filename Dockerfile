@@ -1,6 +1,7 @@
 FROM quay.io/ukhomeofficedigital/centos-base
 
-RUN yum install -y yum-utils epel-release && \
+RUN rpm --rebuilddb && \
+    yum install -y yum-utils epel-release && \
     yum-config-manager --enable cr && \
     yum install -y nginx 
 
