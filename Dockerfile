@@ -5,10 +5,12 @@ RUN rpm --rebuilddb && \
     yum-config-manager --enable cr && \
     yum install -y nginx 
 
-RUN ln -s /dev/stderr /var/log/nginx/error.log && ln -s /dev/stdout /var/log/nginx/access.log
+RUN ln -s /dev/stderr /var/log/nginx/error.log && \
+    ln -s /dev/stdout /var/log/nginx/access.log && \
+    mkdir -p /usr/share/nginx/html
 
 COPY entry-point.sh /entry-point.sh
-WORKDIR /usr/share/nginx/html/
+WORKDIR /usr/share/nginx/html
 COPY app/* .
 
 ENTRYPOINT ["/entry-point.sh"]
