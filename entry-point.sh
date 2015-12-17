@@ -15,4 +15,24 @@ cat <<- EOF > config.json
 }
 EOF
 
+cat <<- EOF > /etc/nginx/conf.d/server.conf
+server {
+    listen       ${PORT:-8000} default_server;
+    listen       [::]:${PORT:-8000} default_server;
+    server_name  _;
+    root         /usr/share/nginx/html;
+
+    location / {
+    }
+
+    error_page 404 /404.html;
+       location = /40x.html {
+    }
+
+    error_page 500 502 503 504 /50x.html;
+        location = /50x.html {
+    }
+}
+EOF
+
 exec "$@"
