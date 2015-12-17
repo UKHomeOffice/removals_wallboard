@@ -15,6 +15,10 @@ cat <<- EOF > config.json
 }
 EOF
 
+
+sed -i '/include \/etc\/nginx\/conf.d/q' /etc/nginx/nginx.conf
+echo '}' >> /etc/nginx/nginx.conf 
+
 cat <<- EOF > /etc/nginx/conf.d/server.conf
 server {
     listen       ${PORT:-8000} default_server;
