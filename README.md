@@ -1,11 +1,19 @@
 # Removals Wallboard
   
+## Settings
 
+Can either be set as an environment or as a secret.
 
-## Quick start
+* BACKEND - Where the Sails API can be found.  Defaults to http://localhost:8080
 
-- Clone repo
-- Serve index.html e.g. `python -m SimpleHTTPServer`
-navigate to a page like:
-http://localhost:8000/?backend=http://localhost:8080
-where backend parameter is the backend
+### Use (for devs)
+
+```
+docker build -t wallboard .
+docker run 
+    -e BACKEND=http://localhost:8080
+    -p 8000:80 
+    -v ${PWD}/app:/usr/share/nginx/html/
+    wallboard
+```
+
