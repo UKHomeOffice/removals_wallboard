@@ -425,6 +425,7 @@
             top: 50%;
             transform: translateY(-50%);
             display: block;
+            z-index: 1;
             position: absolute;
             width: 100%;
             text-align: center;
@@ -454,7 +455,7 @@
 </head>
 
 <body ng-app="wallboardApp" ng-controller="wallboardController">
-<div class="disconnected message fa" ng-if="!connected">DISCONNECTED</div>
+<div class="disconnected message fa" ng-if="!connected">CONNECTING</div>
 <div class="container" ng-class="{'disconnected' : !connected}">
     <header class="row">
         <img src="ie.png">
