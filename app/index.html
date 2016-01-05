@@ -31,6 +31,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/1.0.0-beta.2/angular-moment.min.js"
             crossorigin="anonymous"></script>
     <script>
+        var sailsBind = (model, identifier, scope, io) => {
+            scope[model + 's'] = [];
+            io.socket.get('/' + model, response =>
+            scope.$apply(() => scope[model + 's'] = response.data)
+        );
+            io.socket.on(model, response =>
+            scope.$apply(() => {
+                var index = _.findIndex(scope[model + 's'], _.matchesProperty(identifier, response.data[identifier]));
+                if (response.verb === 'deleted') {
+                    delete scope[model + 's'][index];
+                }
+                else {
+                    //update
+                    if (index !== -1) {
+                        scope[model + 's'][index] = _.merge(scope[model + 's'][index], response.data);
+                    }
+                    //create
+                    else {
+                        scope[model + 's'].push(response.data);
+                    }
+                }
+            })
+        );
+        };
+
         io.sails.url = location.search.split('backend=')[1] || 'https://api.ircbd.homeoffice.gov.uk:443';
         io.sails.transports = ['polling'];
         angular.module('wallboardApp', [
@@ -40,21 +65,23 @@
         controller('wallboardController', function ($scope) {
             $scope.ircs = [];
             io.socket.on('connect', function () {
-                $scope.connected = true;
-                io.socket.get('/centre', function (response) {
-                    $scope.ircs = response.data;
-                    $scope.$apply();
-                    io.socket.on('centre', function (message) {
-                        var index = _.findIndex($scope.ircs, _.matchesProperty('centre_id', message.data.centre_id));
-                        if (index !== -1) {
-                            $scope.ircs[index] = _.merge($scope.ircs[index], message.data);
-                        }
-                        else {
-                            $scope.ircs.push(message.data);
-                        }
-                        $scope.$apply();
-                    });
-                });
+                $scope.$apply(() => $scope.connected = true);
+                sailsBind('centre', 'centre_id', $scope, io);
+//                $scope.connected = true;
+//                io.socket.get('/centre', function (response) {
+//                    $scope.ircs = response.data;
+//                    $scope.$apply();
+//                    io.socket.on('centre', function (message) {
+//                        var index = _.findIndex($scope.ircs, _.matchesProperty('centre_id', message.data.centre_id));
+//                        if (index !== -1) {
+//                            $scope.ircs[index] = _.merge($scope.ircs[index], message.data);
+//                        }
+//                        else {
+//                            $scope.ircs.push(message.data);
+//                        }
+//                        $scope.$apply();
+//                    });
+//                });
             });
             io.socket.on('disconnect', function () {
                 $scope.connected = false;
@@ -462,16 +489,13 @@
         <a class="pull-right showStats" href="#">Show/Hide Stats</a>
     </header>
     <div class="row">
-        <div class="col-ms-6 col-sm-4 col-lg-4 col-xl-3 irc" ng-repeat="irc in ircs track by $index">
-            <div class="updated pull-right"><em><span class="time"
-                                                      am-time-ago="irc.updated | amParse:'YYYY-MM-DDTHH:mm:ss:SSSZ'"></span></em>
-            </div>
+        <div class="col-ms-6 col-sm-4 col-lg-4 col-xl-3 irc" ng-repeat="irc in centres track by $index">
+            <div class="updated pull-right"><em><span class="time" am-time-ago="irc.updated | amParse:'YYYY-MM-DDTHH:mm:ss:SSSZ'"></span></em></div>
             <h1 class="text-primary" id="centre-{{irc.centre_id}}">{{irc.name}}</h1>
 
             <div class="stats-container">
                 <div class="row">
-                    <div ng-repeat="bed in irc.beds" class="col-xs-6 bed"
-                         ng-class="irc.beds.length == 2 ? 'col-md-6' : 'col-md-12'">
+                    <div ng-repeat="bed in irc.beds" class="col-xs-6 bed" ng-class="irc.beds.length == 2 ? 'col-md-6' : 'col-md-12'">
                         <!--{{irc.beds.length}}-->
                         <div>
                             <div class="stats">
@@ -485,8 +509,7 @@
                         highlighter="bed.ooc">{{bed.ooc}}</span></strong> out of commission</span><br/>
                             </div>
                             <div class="row available">
-                                <div class="{{bed.type}}-available bold col-xs-12"><i
-                                        class="icon fa fa-{{bed.type}}"></i> <span
+                                <div class="{{bed.type}}-available bold col-xs-12"><i class="icon fa fa-{{bed.type}}"></i> <span
                                         highlighter="bed.capacity - bed.occupied - bed.ooc">{{bed.capacity - bed.occupied - bed.ooc}}</span>
                                 </div>
                             </div>
