@@ -67,21 +67,6 @@
             io.socket.on('connect', function () {
                 $scope.$apply(() => $scope.connected = true);
                 sailsBind('centre', 'centre_id', $scope, io);
-//                $scope.connected = true;
-//                io.socket.get('/centre', function (response) {
-//                    $scope.ircs = response.data;
-//                    $scope.$apply();
-//                    io.socket.on('centre', function (message) {
-//                        var index = _.findIndex($scope.ircs, _.matchesProperty('centre_id', message.data.centre_id));
-//                        if (index !== -1) {
-//                            $scope.ircs[index] = _.merge($scope.ircs[index], message.data);
-//                        }
-//                        else {
-//                            $scope.ircs.push(message.data);
-//                        }
-//                        $scope.$apply();
-//                    });
-//                });
             });
             io.socket.on('disconnect', function () {
                 $scope.connected = false;
@@ -115,73 +100,7 @@
             });
         });
     </script>
-    <!--<style>
-      body {
-        background: black;
-        color: white;
-        font-size: 2em;
-        white-space: nowrap;
-      }
-      .highlight-down:after {
-        font: normal normal normal 1em FontAwesome;
-        content: "\f063";
-      }
-      .highlight-up:after {
-        font: normal normal normal 1em FontAwesome;
-        content: "\f062";
-      }
-      .icon {
-        font-size: 3em;
-        padding: 0.4em 0 0.4em 0.1em;
-      }
-      .irc {
-        border: 1px dashed darkslategrey;
-      }
-      .bed.row {
-        padding-bottom: 1em;
-      }
-      .time {
-        display: block;
-        float: right;
-        margin-top: -4.5em;
-        font-size: 0.75em;
-      }
-      .disconnected.message {
-        top: 50%;
-        transform: translateY(-50%);
-        display: block;
-        position: absolute;
-        width: 100%;
-        text-align: center;
-        font-size: 3em;
-      }
-      .disconnected.message:before,
-      .disconnected.message:after {
-        content: "\f071";
-        padding: 0 0.3em;
-      }
-      .container.disconnected {
-        -webkit-filter: blur(5px);
-        -moz-filter: blur(5px);
-        -o-filter: blur(5px);
-        -ms-filter: blur(5px);
-        filter: blur(5px);
-      }
-      .bold {
-        font-weight: bold;
-      }
-    </style>-->
-
     <style>
-        #
-        #
-        Adding midsmall column layout from https:
-
-        /
-        /
-        gist.github.com /andyl/
-
-        6360906
         .col-ms-1,
         .col-ms-2,
         .col-ms-3,
