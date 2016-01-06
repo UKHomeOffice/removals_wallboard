@@ -1,3 +1,4 @@
+
 FROM quay.io/ukhomeofficedigital/centos-base
 
 RUN rpm --rebuilddb && \

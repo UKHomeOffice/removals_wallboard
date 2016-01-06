@@ -16,4 +16,3 @@ docker run
     -v ${PWD}/app:/usr/share/nginx/html/
     wallboard
 ```
-

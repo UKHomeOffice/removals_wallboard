@@ -1,151 +1,444 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>Wall Board</title>
-  <script src="https://code.jquery.com/jquery-2.1.4.min.js" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
-          integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ=="
-          crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Wall Board</title>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
+            integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ=="
+            crossorigin="anonymous"></script>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
-        crossorigin="anonymous">
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
+          crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
+          crossorigin="anonymous">
 
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.rawgit.com/balderdashy/sails.io.js/master/dist/sails.io.js" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/1.0.0-beta.2/angular-moment.min.js"
-          crossorigin="anonymous"></script>
-  <script>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,700italic' rel='stylesheet'
+          type='text/css'>
 
-    var sailsBind = (model, identifier, scope, io) => {
-      scope[model + 's'] = [];
 
-      io.socket.get('/' + model, response =>
-        scope.$apply(() => scope[model + 's'] = response.data)
-      );
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/balderdashy/sails.io.js/master/dist/sails.io.js"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"
+            crossorigin="anonymous"></script>
 
-      io.socket.on(model, response =>
-        scope.$apply(() => {
-          var index = _.findIndex(scope[model + 's'], _.matchesProperty(identifier, response.data[identifier]));
-          if (response.verb === 'deleted') {
-            delete scope[model + 's'][index];
-          }
-          else {
-            //update
-            if (index !== -1) {
-              scope[model + 's'][index] = _.merge(scope[model + 's'][index], response.data);
-            }
-            //create
-            else {
-              scope[model + 's'].push(response.data);
-            }
-          }
-        })
-      );
-    };
-    io.sails.url = location.search.split('backend=')[1] || 'http://localhost:8080';
-    angular.module('wallboardApp', [
-      'wallboardApp.controllers', 'angularMoment'
-    ]);
-    angular.module('wallboardApp.controllers', []).
-      controller('wallboardController', ($scope) => {
-        io.socket.on('connect',  () => {
-          $scope.$apply(() => $scope.connected = true);
-          sailsBind('centre', 'centre_id', $scope, io);
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/1.0.0-beta.2/angular-moment.min.js"
+            crossorigin="anonymous"></script>
+    <script>
+        var sailsBind = (model, identifier, scope, io) => {
+            scope[model + 's'] = [];
+            io.socket.get('/' + model, response =>
+            scope.$apply(() => scope[model + 's'] = response.data)
+        );
+            io.socket.on(model, response =>
+            scope.$apply(() => {
+                var index = _.findIndex(scope[model + 's'], _.matchesProperty(identifier, response.data[identifier]));
+                if (response.verb === 'deleted') {
+                    delete scope[model + 's'][index];
+                }
+                else {
+                    //update
+                    if (index !== -1) {
+                        scope[model + 's'][index] = _.merge(scope[model + 's'][index], response.data);
+                    }
+                    //create
+                    else {
+                        scope[model + 's'].push(response.data);
+                    }
+                }
+            })
+        );
+        };
+
+        io.sails.url = location.search.split('backend=')[1] || 'https://api.ircbd.homeoffice.gov.uk:443';
+        io.sails.transports = ['polling'];
+        angular.module('wallboardApp', [
+            'wallboardApp.controllers', 'angularMoment'
+        ]);
+        angular.module('wallboardApp.controllers', []).
+        controller('wallboardController', function ($scope) {
+            $scope.ircs = [];
+            io.socket.on('connect', function () {
+                $scope.$apply(() => $scope.connected = true);
+                sailsBind('centre', 'centre_id', $scope, io);
+            });
+            io.socket.on('disconnect', function () {
+                $scope.connected = false;
+                $scope.$apply();
+            });
+        }).directive('highlighter', ['$timeout', function ($timeout) {
+            return {
+                scope: {
+                    model: '=highlighter'
+                },
+                link: function (scope, element) {
+                    scope.$watch('model', function (newvalue, oldvalue) {
+                        if (newvalue > oldvalue) {
+                            element.addClass('highlight-up')
+                        }
+                        else if (newvalue < oldvalue) {
+                            element.addClass('highlight-down')
+                        }
+                        // auto remove after some delay
+                        $timeout(function () {
+                            element.removeClass('highlight-up');
+                            element.removeClass('highlight-down');
+                        }, 1000);
+                    });
+                }
+            };
+        }]);
+        $(function () {
+            $('.showStats').click(function () {
+                $('.stats').slideToggle(150);
+            });
         });
-        io.socket.on('disconnect', () => $scope.$apply(() => $scope.connected = false));
-      });
-  </script>
-  <style>
-    body {
-      background: black;
-      color: white;
-      font-size: 2em;
-      white-space: nowrap;
-    }
+    </script>
+    <style>
+        .col-ms-1,
+        .col-ms-2,
+        .col-ms-3,
+        .col-ms-4,
+        .col-ms-5,
+        .col-ms-6,
+        .col-ms-7,
+        .col-ms-8,
+        .col-ms-9,
+        .col-ms-10,
+        .col-ms-11,
+        .col-ms-12 {
+            position: relative;
+            min-height: 1px;
+            padding-left: 7.5px;
+            padding-right: 7.5px;
+        }
 
-    .icon {
-      font-size: 3em;
-      padding: 0.4em 0 0.4em 0.1em;
-    }
+        @media (min-width: 480px) and (max-width: 768px) {
+            .container {
+                max-width: 748px;
+            }
+        }
 
-    .irc {
-      border: 1px dashed darkslategrey;
-    }
+        @media (min-width: 480px) and (max-width: 768px) {
+            .col-ms-1,
+            .col-ms-2,
+            .col-ms-3,
+            .col-ms-4,
+            .col-ms-5,
+            .col-ms-6,
+            .col-ms-7,
+            .col-ms-8,
+            .col-ms-9,
+            .col-ms-10,
+            .col-ms-11 {
+                float: left;
+            }
 
-    .bed.row {
-      padding-bottom: 1em;
-    }
+            .col-ms-1 {
+                width: 8.33333%;
+            }
 
-    .time {
-      display: block;
-      float: right;
-      margin-top: -4.5em;
-      font-size: 0.75em;
-    }
+            .col-ms-2 {
+                width: 16.66667%;
+            }
 
-    .disconnected.message {
-      top: 50%;
-      transform: translateY(-50%);
-      display: block;
-      position: absolute;
-      width: 100%;
-      text-align: center;
-      font-size: 3em;
-    }
+            .col-ms-3 {
+                width: 25%;
+            }
 
-    .disconnected.message:before,
-    .disconnected.message:after {
-      content: "\f071";
-      padding: 0 0.3em;
-    }
+            .col-ms-4 {
+                width: 33.33333%;
+            }
 
-    .container.disconnected {
-      -webkit-filter: blur(5px);
-      -moz-filter: blur(5px);
-      -o-filter: blur(5px);
-      -ms-filter: blur(5px);
-      filter: blur(5px);
-    }
+            .col-ms-5 {
+                width: 41.66667%;
+            }
 
-    .bold {
-      font-weight: bold;
-    }
+            .col-ms-6 {
+                width: 50%;
+            }
 
-  </style>
+            .col-ms-7 {
+                width: 58.33333%;
+            }
+
+            .col-ms-8 {
+                width: 66.66667%;
+            }
+
+            .col-ms-9 {
+                width: 75%;
+            }
+
+            .col-ms-10 {
+                width: 83.33333%;
+            }
+
+            .col-ms-11 {
+                width: 91.66667%;
+            }
+
+            .col-ms-12 {
+                width: 100%;
+            }
+
+            .col-ms-push-1 {
+                left: 8.33333%;
+            }
+
+            .col-ms-push-2 {
+                left: 16.66667%;
+            }
+
+            .col-ms-push-3 {
+                left: 25%;
+            }
+
+            .col-ms-push-4 {
+                left: 33.33333%;
+            }
+
+            .col-ms-push-5 {
+                left: 41.66667%;
+            }
+
+            .col-ms-push-6 {
+                left: 50%;
+            }
+
+            .col-ms-push-7 {
+                left: 58.33333%;
+            }
+
+            .col-ms-push-8 {
+                left: 66.66667%;
+            }
+
+            .col-ms-push-9 {
+                left: 75%;
+            }
+
+            .col-ms-push-10 {
+                left: 83.33333%;
+            }
+
+            .col-ms-push-11 {
+                left: 91.66667%;
+            }
+
+            .col-ms-pull-1 {
+                right: 8.33333%;
+            }
+
+            .col-ms-pull-2 {
+                right: 16.66667%;
+            }
+
+            .col-ms-pull-3 {
+                right: 25%;
+            }
+
+            .col-ms-pull-4 {
+                right: 33.33333%;
+            }
+
+            .col-ms-pull-5 {
+                right: 41.66667%;
+            }
+
+            .col-ms-pull-6 {
+                right: 50%;
+            }
+
+            .col-ms-pull-7 {
+                right: 58.33333%;
+            }
+
+            .col-ms-pull-8 {
+                right: 66.66667%;
+            }
+
+            .col-ms-pull-9 {
+                right: 75%;
+            }
+
+            .col-ms-pull-10 {
+                right: 83.33333%;
+            }
+
+            .col-ms-pull-11 {
+                right: 91.66667%;
+            }
+
+            .col-ms-offset-1 {
+                margin-left: 8.33333%;
+            }
+
+            .col-ms-offset-2 {
+                margin-left: 16.66667%;
+            }
+
+            .col-ms-offset-3 {
+                margin-left: 25%;
+            }
+
+            .col-ms-offset-4 {
+                margin-left: 33.33333%;
+            }
+
+            .col-ms-offset-5 {
+                margin-left: 41.66667%;
+            }
+
+            .col-ms-offset-6 {
+                margin-left: 50%;
+            }
+
+            .col-ms-offset-7 {
+                margin-left: 58.33333%;
+            }
+
+            .col-ms-offset-8 {
+                margin-left: 66.66667%;
+            }
+
+            .col-ms-offset-9 {
+                margin-left: 75%;
+            }
+
+            .col-ms-offset-10 {
+                margin-left: 83.33333%;
+            }
+
+            .col-ms-offset-11 {
+                margin-left: 91.66667%;
+            }
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .text-primary {
+            color: black;
+        }
+
+        .stats {
+            display: none;
+            border-bottom: 1px solid #bbb;
+            padding-bottom: 1em;
+            margin-bottom: 1em;
+        }
+
+        .stats-container {
+            background: #eee;
+            padding: 1em;
+        }
+
+        .updated {
+            font-size: 0.8em;
+        }
+
+        header img {
+            max-height: 90px;
+        }
+
+        header {
+            padding: 1em;
+            border-bottom: 2px solid #ccc;
+        }
+
+        h1, h2, h3 {
+            font-weight: bold;
+        }
+
+        .available {
+            font-size: 1em;
+        }
+
+        .fa {
+            color: #555;
+            font-size: 1.5em;
+        }
+
+        .disconnected.message {
+            top: 50%;
+            transform: translateY(-50%);
+            display: block;
+            z-index: 1;
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            font-size: 3em;
+        }
+
+        .disconnected.message:before,
+        .disconnected.message:after {
+            content: "\f071";
+            padding: 0 0.3em;
+        }
+
+        .container.disconnected {
+            -webkit-filter: blur(5px);
+            -moz-filter: blur(5px);
+            -o-filter: blur(5px);
+            -ms-filter: blur(5px);
+            filter: blur(5px);
+        }
+
+        @media (min-width: 480px) {
+            .irc {
+                padding: 2em;
+            }
+        }
+    </style>
 </head>
 
 <body ng-app="wallboardApp" ng-controller="wallboardController">
-<div class="disconnected message fa" ng-if="!connected">DISCONNECTED</div>
+<div class="disconnected message fa" ng-if="!connected">CONNECTING</div>
 <div class="container" ng-class="{'disconnected' : !connected}">
-  <div class="row">
-    <div class="col-xs-5 irc" ng-repeat="irc in centres track by $index">
-      <h1 class="text-primary" id="centre-{{irc.centre_id}}">{{irc.name}}</h1>
-      <span class="time" am-time-ago="irc.updated | amParse:'YYYY-MM-DDTHH:mm:ss:SSSZ'"></span>
+    <header class="row">
+        <img src="ie.png">
+        <a class="pull-right showStats" href="#">Show/Hide Stats</a>
+    </header>
+    <div class="row">
+        <div class="col-ms-6 col-sm-4 col-lg-4 col-xl-3 irc" ng-repeat="irc in centres track by $index">
+            <div class="updated pull-right"><em><span class="time" am-time-ago="irc.updated | amParse:'YYYY-MM-DDTHH:mm:ss:SSSZ'"></span></em></div>
+            <h1 class="text-primary" id="centre-{{irc.centre_id}}">{{irc.name}}</h1>
 
-      <div ng-repeat="bed in irc.beds" class="row bed">
-        <div class="col-xs-2 text-center">
-          <i class="icon text-danger fa fa-{{bed.type}}"></i>
+            <div class="stats-container">
+                <div class="row">
+                    <div ng-repeat="bed in irc.beds" class="col-xs-6 bed" ng-class="irc.beds.length == 2 ? 'col-md-6' : 'col-md-12'">
+                        <!--{{irc.beds.length}}-->
+                        <div>
+                            <div class="stats">
+                <span class="{{bed.type}}-capacity"><strong><span
+                        highlighter="bed.capacity">{{bed.capacity}}</span></strong> capacity</span><br/>
+
+                <span class="{{bed.type}}-occupied "><strong><span
+                        highlighter="bed.occupied">{{bed.occupied}}</span></strong> occupied</span><br/>
+
+                <span class="{{bed.type}}-ooc "><strong><span
+                        highlighter="bed.ooc">{{bed.ooc}}</span></strong> out of commission</span><br/>
+                            </div>
+                            <div class="row available">
+                                <div class="{{bed.type}}-available bold col-xs-12"><i class="icon fa fa-{{bed.type}}"></i> <span
+                                        highlighter="bed.capacity - bed.occupied - bed.ooc">{{bed.capacity - bed.occupied - bed.ooc}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-xs-10">
-          <span class="{{bed.type}}-capacity text-info">Capacity: <span>{{bed.capacity}}</span></span><br/>
-
-          <span class="{{bed.type}}-occupied text-info">Occupied: <span>{{bed.occupied}}</span></span><br/>
-
-          <span class="{{bed.type}}-ooc text-info">Out of commission: <span>{{bed.ooc}}</span></span><br/>
-
-          <span
-            class="{{bed.type}}-available bold">Available: <span>{{bed.capacity - bed.occupied - bed.ooc}}</span></span><br/>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 </div>
 </body>
 </html>
