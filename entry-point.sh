@@ -27,7 +27,7 @@ server {
     root         /usr/share/nginx/html;
 
     location = /health {
-      return 200;
+      return 200 'ok';
       access_log off;
     }
 
