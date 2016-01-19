@@ -1,0 +1,8 @@
+<header class="row">
+    <img src="images/ie.png">
+</header>
+<div example-directive></div>
+<div class="disconnected message fa" ng-if="!connected">CONNECTING</div>
+<div class="container" ng-class="{'disconnected' : !connected}">
+    <div class="irc" ng-repeat="irc in centres track by $index" centre-directive></div>
+</div>
