@@ -4,7 +4,6 @@ function CentreDirective() {
     restrict: 'A',
     templateUrl: 'directives/centre.html',
     scope: {
-      centreID: '=',
       attributes: '='
     },
   };
