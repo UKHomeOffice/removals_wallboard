@@ -1,24 +1,31 @@
 'use strict';
 
 const istanbul = require('browserify-istanbul');
-const isparta  = require('isparta');
+const isparta = require('isparta');
 
 const karmaBaseConfig = {
 
   basePath: '../',
 
-  singleRun: true,
+  singleRun: false,
 
   frameworks: ['jasmine', 'browserify'],
 
   preprocessors: {
-    'app/js/**/*.js': ['browserify', 'coverage']
+    //'app/js/**/*.js': ['browserify', 'coverage']
+    'app/js/**/*.js': ['browserify']
   },
 
-  browsers: ['Chrome'],
+  //browsers: ['Chrome'],
+  browsers: ['PhantomJS'],
 
-  reporters: ['progress', 'coverage'],
+  //reporters: ['progress', 'coverage'],
+  reporters: ['progress'],
 
+  watchify: {
+    delay: 50,
+    poll: 50
+  },
   autoWatch: true,
 
   browserify: {
@@ -28,10 +35,10 @@ const karmaBaseConfig = {
       'babelify',
       'browserify-ngannotate',
       'bulkify',
-      istanbul({
-        instrumenter: isparta,
-        ignore: ['**/node_modules/**', '**/test/**']
-      })
+      //istanbul({
+      //  instrumenter: isparta,
+      //  ignore: ['**/node_modules/**', '**/test/**']
+      //})
     ]
   },
 
@@ -44,6 +51,7 @@ const karmaBaseConfig = {
   files: [
     // app-specific code
     'app/js/main.js',
+    'app/js/**/*.js',
 
     // 3rd-party resources
     'node_modules/angular-mocks/angular-mocks.js',
@@ -73,7 +81,7 @@ const ciAdditions = {
   reporters: ['progress', 'coverage', 'saucelabs']
 };
 
-module.exports = function(config) {
+module.exports = function (config) {
   const isCI = process.env.CI;
   config.set(isCI ? Object.assign(karmaBaseConfig, ciAdditions) : karmaBaseConfig);
 };

@@ -3,6 +3,11 @@
 </header>
 <div example-directive></div>
 <div class="disconnected message fa" ng-if="!connected">CONNECTING</div>
-<div class="container" ng-class="{'disconnected' : !connected}">
-    <div class="irc" ng-repeat="irc in centres track by $index" centre-directive></div>
-</div>
+<ul class="container" ng-class="{'disconnected' : !connected}">
+    <li class="centre"
+         ng-repeat="centre in centres | orderBy:'attributes.name' track by centre.id"
+         centre-directive
+         centreID="centre"
+         attributes="centre.attributes">
+    </li>
+</ul>

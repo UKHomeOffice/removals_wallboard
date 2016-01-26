@@ -1,9 +1,12 @@
 function CentreDirective() {
 
   return {
-    restrict: 'EA',
+    restrict: 'A',
     templateUrl: 'directives/centre.html',
-    scope: false,
+    scope: {
+      centreID: '=',
+      attributes: '='
+    },
   };
 }
 
