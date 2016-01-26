@@ -12,15 +12,14 @@ const karmaBaseConfig = {
   frameworks: ['jasmine', 'browserify'],
 
   preprocessors: {
-    //'app/js/**/*.js': ['browserify', 'coverage']
-    'app/js/**/*.js': ['browserify']
+    'app/js/**/*.js': ['browserify', 'coverage']
+    //'app/js/**/*.js': ['browserify']
   },
 
   //browsers: ['Chrome'],
   browsers: ['PhantomJS'],
 
-  //reporters: ['progress', 'coverage'],
-  reporters: ['progress'],
+  reporters: ['mocha', 'coverage'],
 
   watchify: {
     delay: 50,
@@ -35,10 +34,10 @@ const karmaBaseConfig = {
       'babelify',
       'browserify-ngannotate',
       'bulkify',
-      //istanbul({
-      //  instrumenter: isparta,
-      //  ignore: ['**/node_modules/**', '**/test/**']
-      //})
+      istanbul({
+        instrumenter: isparta,
+        ignore: ['**/node_modules/**', '**/test/**']
+      })
     ]
   },
 
@@ -58,7 +57,8 @@ const karmaBaseConfig = {
 
     // test files
     'test/unit/**/*.js'
-  ]
+  ],
+  coverageReporter: {type: 'text-summary'}
 
 };
 
