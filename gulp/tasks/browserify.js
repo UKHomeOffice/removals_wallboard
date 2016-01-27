@@ -23,7 +23,7 @@ function createSourcemap() {
 
 // Based on: http://blog.avisi.nl/2014/04/25/how-to-keep-a-fast-build-with-browserify-and-reactjs/
 function buildScript(file) {
-  
+
   let bundler = browserify({
     entries: [config.sourceDir + 'js/' + file],
     debug: createSourcemap(),
@@ -32,24 +32,24 @@ function buildScript(file) {
     fullPaths: !global.isProd
   });
 
-  if ( !global.isProd ) {
+  if (!global.isProd) {
     bundler = watchify(bundler);
 
-    bundler.on('update', function() {
+    bundler.on('update', function () {
       rebundle();
       gutil.log('Rebundle...');
     });
   }
 
   const transforms = [
-    { 'name':babelify, 'options': {}},
-    { 'name':debowerify, 'options': {}},
-    { 'name':ngAnnotate, 'options': {}},
-    { 'name':'brfs', 'options': {}},
-    { 'name':'bulkify', 'options': {}}
+    {'name': babelify, 'options': {}},
+    {'name': debowerify, 'options': {}},
+    {'name': ngAnnotate, 'options': {}},
+    {'name': 'brfs', 'options': {}},
+    {'name': 'bulkify', 'options': {}}
   ];
 
-  transforms.forEach(function(transform) {
+  transforms.forEach(function (transform) {
     bundler.transform(transform.name, transform.options);
   });
 
@@ -60,10 +60,10 @@ function buildScript(file) {
     return stream.on('error', handleErrors)
       .pipe(source(file))
       .pipe(gulpif(createSourcemap(), buffer()))
-      .pipe(gulpif(createSourcemap(), sourcemaps.init({ loadMaps: true })))
-      .pipe(gulpif(global.isProd, streamify(uglify({
-        compress: { drop_console: true }
-      }))))
+      .pipe(gulpif(createSourcemap(), sourcemaps.init({loadMaps: true})))
+      //.pipe(gulpif(global.isProd, streamify(uglify({
+      //  compress: { drop_console: true }
+      //}))))
       .pipe(gulpif(createSourcemap(), sourcemaps.write(sourceMapLocation)))
       .pipe(gulp.dest(config.scripts.dest))
       .pipe(browserSync.stream());
@@ -73,7 +73,7 @@ function buildScript(file) {
 
 }
 
-gulp.task('browserify', function() {
+gulp.task('browserify', function () {
 
   return buildScript('main.js');
 
