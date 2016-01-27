@@ -50,15 +50,9 @@ export default {
     dest: 'app/js'
   },
 
-  gzip: {
-    src: 'build/**/*.{html,xml,json,css,js,js.map,css.map}',
-    dest: 'build/',
-    options: {}
-  },
-
   browserify: {
     bundleName: 'main.js',
-    prodSourcemap: false
+    prodSourcemap: true
   },
 
   test: {
@@ -66,7 +60,7 @@ export default {
     protractor: 'test/protractor.conf.js'
   },
 
-  init: function() {
+  init: function () {
     this.views.watch = [
       this.views.index,
       this.views.src
