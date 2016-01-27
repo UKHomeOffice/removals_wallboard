@@ -1,0 +1,12 @@
+<h2 class="text-primary">{{attributes.name}}</h2>
+<button ng-click="showdetails=!showdetails">Toggle details</button>
+
+<p>Male Beds {{attributes.maleAvailability}}</p>
+<p>Female Beds {{attributes.femaleAvailability}}</p>
+
+<table ng-if="showdetails">
+    <tr ng-repeat="(key,value) in attributes">
+        <td>{{key}}</td>
+        <td>{{value}}</td>
+    </tr>
+</table>

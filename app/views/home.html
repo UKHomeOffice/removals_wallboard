@@ -1,0 +1,12 @@
+<header class="row">
+    <img src="images/ie.png">
+</header>
+<div example-directive></div>
+<div class="disconnected message fa" ng-if="!connected">CONNECTING</div>
+<ul class="container" ng-class="{'disconnected' : !connected}">
+    <li class="centre"
+        ng-repeat="centre in centres | orderBy:'attributes.name' track by centre.id"
+        centre-directive
+        attributes="centre.attributes">
+    </li>
+</ul>
