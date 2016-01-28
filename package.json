@@ -68,7 +68,8 @@
   "scripts": {
     "test": "./node_modules/.bin/gulp test",
     "webdriver-update": "./node_modules/.bin/webdriver-manager update",
-    "postinstall": "npm run webdriver-update"
+    "postinstall": "npm run webdriver-update",
+    "build": "gulp build"
   },
   "license": "MIT"
 }
