@@ -9,11 +9,12 @@ for f in /etc/secrets/* ; do
     fi
 done
 
-cat <<- EOF > /usr/share/nginx/html/config.json
-{
+cat <<- EOF > /usr/share/nginx/html/config.js
+var config = {
   "backend": "${BACKEND:-http://localhost:8000}",
   "keycloakUrl": "${KEYCLOAKURL:-http://localhost:8000}",
-  "clientId": "${CLIENTID:-ircbd-dev}"
+  "clientId": "${CLIENTID:-ircbd-dev}",
+  "keycloakAccountService": "${KEYCLOAKACCOUNTSERVICE:-http://localhost:8000}"
 }
 EOF
 
