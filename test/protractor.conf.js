@@ -10,6 +10,8 @@ exports.config = {
 
   capabilities: {
     browserName: 'chrome',
+    'phantomjs.binary.path': require('phantomjs').path,
+    'phantomjs.ghostdriver.cli.args': ['--loglevel=DEBUG'],
     'tunnel-identifier': process.env.TRAVIS_JOB_NUMBER,
     build: process.env.TRAVIS_BUILD_NUMBER,
     name: 'Protractor Tests'
