@@ -1,9 +1,129 @@
-@import 'vars';
-@import 'typography';
+//colors
+$color_mine_shaft_approx: #333333;
+$black: black;
+$white: #ffffff;
+$red: #B1171D;
+$blue: #4A90E2;
+$color_concrete_approx: #f3f3f3;
+$color_celeste_approx: #ccc;
+
+//fonts
+$font_generic: "Arial", "sans-serif";
+$font_bold: "Arial Bold", "Arial", "sans-serif";
 
 body {
-  font-family: Helvetica, sans-serif;
-  color: $font-color--dark;
-  background-color: $background--light;
-  padding: $half-space;
+  width: 480px;
+  font-family: $font_generic;
+  color: $color_mine_shaft_approx;
+  margin: 0;
+}
+
+header {
+  .banner {
+    background-color: $black;
+    img {
+      padding: 0.6em 1.2em;
+      float: left;
+    }
+    h1 {
+      margin: 0;
+      line-height: 1.5em;
+      font-size: 2em;
+      color: $white;
+    }
+  }
+  h2 {
+    margin: 0;
+    font-size: 2.2em;
+    padding: 1em 0.5em;
+  }
+  #happybrowser {
+    color: $red;
+    padding: 3em 0;
+    font-size: 3em;
+    text-align: center;
+  }
+}
+
+.centre {
+  padding-bottom: 2em;
+  h3 {
+    font-size: 3em;
+    margin: 0 0 0 0.3em;
+    float: left;
+    display: inline-block;
+  }
+  .time {
+    font-size: 0.8em;
+    text-align: right;
+    display: block;
+    padding-top: 1.5em;
+    &:after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+  }
+  .summary {
+    margin: 1em 0 0 4em;
+    .availability {
+      display: block;
+      font-weight: 700;
+      font-family: $font_bold;
+      font-size: 4em;
+      &.highlight {
+        color: $red;
+      }
+    }
+    .detail-toggle {
+      cursor: pointer;
+      float: right;
+      color: $blue;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  .details {
+    margin: 1em 0;
+    background-color: $color_concrete_approx;
+    padding: 0.5em 1em 1em;
+    clear: both;
+    table {
+      border-collapse: collapse;
+      line-height: 2.5em;
+      width: 100%;
+      thead,
+      tfoot {
+        font-weight: 700;
+        font-family: $font_bold;
+      }
+      tr {
+        border-bottom: 1px solid $color_celeste_approx;
+        th,
+        td {
+          text-align: left;
+          &:last-child {
+            text-align: right;
+          }
+        }
+      }
+      tbody {
+        .left-indent {
+          padding-left: 45px;
+        }
+      }
+      tfoot {
+        border-top: 4px solid $black;
+        border-bottom: 4px solid $black;
+        font-size: 2em;
+        line-height: 1.8em;
+      }
+    }
+  }
+}
+
+ul.container {
+  list-style: none;
+  padding: 0;
 }
