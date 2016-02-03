@@ -19,7 +19,7 @@ describe('Unit: CentreDirective', function () {
   });
 
   it('should bind a title property to its template', function () {
-    expect(element.find('h2').text()).toBe('A sample title');
+    expect(element.find('h3').text()).toBe('A sample title');
   });
 
 });

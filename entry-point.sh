@@ -9,15 +9,18 @@ for f in /etc/secrets/* ; do
     fi
 done
 
-cat <<- EOF > config.json
-{
-  "backend": "${BACKEND:-http://localhost:8000}"
+cat <<- EOF > /usr/share/nginx/html/config.js
+var config = {
+  "backend": "${BACKEND:-http://localhost:8000}",
+  "keycloakUrl": "${KEYCLOAKURL:-http://localhost:8000}",
+  "clientId": "${CLIENTID:-ircbd-dev}",
+  "keycloakAccountService": "${KEYCLOAKACCOUNTSERVICE:-http://localhost:8000}"
 }
 EOF
 
 
 sed -i '/include \/etc\/nginx\/conf.d/q' /etc/nginx/nginx.conf
-echo '}' >> /etc/nginx/nginx.conf 
+echo '}' >> /etc/nginx/nginx.conf
 
 cat <<- EOF > /etc/nginx/conf.d/server.conf
 server {

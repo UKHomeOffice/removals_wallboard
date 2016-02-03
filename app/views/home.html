@@ -1,7 +1,15 @@
-<header class="row">
-    <img src="images/ie.png">
+<header>
+    <div class="banner">
+        <img width=35 height=26 src="/images/crown_image.png">
+        <h1>IRC Bed Management</h1>
+    </div>
+    <div id="happybrowser" style="display:none">
+        You are using a non-supported browser. Please <a href="http://chrome.com/">change your browser to
+        Chrome</a> to improve your experience.
+    </div>
+    <h2>IRC bed availability</h2>
 </header>
-<div example-directive></div>
+
 <div class="disconnected message fa" ng-if="!connected">CONNECTING</div>
 <ul class="container" ng-class="{'disconnected' : !connected}">
     <li class="centre"

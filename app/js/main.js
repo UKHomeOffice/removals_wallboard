@@ -10,6 +10,7 @@ import './filters';
 import './controllers';
 import './services';
 import './directives';
+require('angular-moment');
 
 // create and bootstrap application
 const requires = [
@@ -18,7 +19,8 @@ const requires = [
   'app.filters',
   'app.controllers',
   'app.services',
-  'app.directives'
+  'app.directives',
+  'angularMoment'
 ];
 
 // mount on window for testing

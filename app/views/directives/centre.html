@@ -1,12 +1,24 @@
-<h2 class="text-primary">{{attributes.name}}</h2>
-<button ng-click="showdetails=!showdetails">Toggle details</button>
+<div class="centre" id="centre-{{centre.id}}">
+    <h3 class="text-primary">{{attributes.name}}</h3>
+    <span class="time">Last updated: {{attributes.heartbeatRecieved | amDateFormat:'HH:mm:ss'}}</span>
 
-<p>Male Beds {{attributes.maleAvailability}}</p>
-<p>Female Beds {{attributes.femaleAvailability}}</p>
+    <centre-gender-directive
+            ng-if="attributes.maleCapacity > 0"
+            gender="'Male'"
+            availability="attributes.maleAvailability"
+            ooc="attributes.maleOutOfCommission"
+            capacity="attributes.maleCapacity"
+            inuse="attributes.maleInUse"
+    >
+    </centre-gender-directive>
 
-<table ng-if="showdetails">
-    <tr ng-repeat="(key,value) in attributes">
-        <td>{{key}}</td>
-        <td>{{value}}</td>
-    </tr>
-</table>
+    <centre-gender-directive
+            ng-if="attributes.femaleCapacity > 0"
+            gender="'Female'"
+            availability="attributes.femaleAvailability"
+            ooc="attributes.femaleOutOfCommission"
+            capacity="attributes.femaleCapacity"
+            inuse="attributes.femaleInUse"
+    >
+    </centre-gender-directive>
+</div>

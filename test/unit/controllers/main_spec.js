@@ -1,6 +1,12 @@
 /*global angular */
 
 'use strict';
+var config = {
+  "backend": "http://localhost:8080",
+  "keycloakUrl": "http://localhost:8000",
+  "clientId": "ircbd-dev",
+  "keycloakAccountService": "http://localhost:8000"
+};
 
 var SocketMock = {};
 describe('Unit: MainCtrl', function () {
