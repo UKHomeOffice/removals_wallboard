@@ -30,6 +30,11 @@ exports.config = {
     'e2e/**/*.js'
   ],
 
+  plugins: [{
+    package: 'protractor-console',
+    logLevels: ['debug', 'info', 'warning', 'severe']
+  }],
+
   sauceUser: process.env.SAUCE_USERNAME,
 
   sauceKey: process.env.SAUCE_ACCESS_KEY
