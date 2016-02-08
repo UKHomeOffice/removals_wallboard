@@ -2,3 +2,4 @@ node_modules
 coverage
 app/js/templates.js
 build
+/phantomjsdriver.log

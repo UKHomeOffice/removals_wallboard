@@ -58,6 +58,7 @@
     "phantomjs": "^2.1.2",
     "pretty-hrtime": "^1.0.1",
     "protractor": "^3.0.0",
+    "protractor-console": "^2.0.0",
     "run-sequence": "^1.1.5",
     "sails.io.js": "^0.13.1",
     "socket.io-client": "^1.4.4",
