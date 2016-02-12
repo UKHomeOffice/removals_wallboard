@@ -8,6 +8,7 @@ RUN yum install -y  \
   curl \
   which \
   nginx \
+  gcc-c++ \
   bzip2
 
 RUN mkdir -p /opt/nodejs
