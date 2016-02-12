@@ -3,3 +3,4 @@ coverage
 app/js/templates.js
 build
 /phantomjsdriver.log
+.idea
