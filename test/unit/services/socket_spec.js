@@ -9,7 +9,7 @@ describe('Unit: SocketService', function () {
   beforeEach(function () {
     angular.mock.module('app');
 
-    module(function ($provide) {
+    angular.mock.module(function ($provide) {
       $provide.value('sailsIOClientService', function () {
         return {
           sails: {sdk: {version: "12", lib: "bar"}}
