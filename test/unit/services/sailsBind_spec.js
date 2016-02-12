@@ -22,7 +22,7 @@ describe('Unit: sailsBind', function () {
       }
     };
 
-    module(function ($provide) {
+    angular.mock.module(function ($provide) {
       $provide.value('SocketService', SocketService);
     });
 
