@@ -35,10 +35,12 @@ RUN mkdir -p /home/app
 
 WORKDIR /home/app
 
-COPY . .
-
-RUN rm -rf node_modules
+RUN npm install phantomjs-prebuilt
+ADD package.json /home/app/package.json
 RUN npm install
+
+
+COPY . .
 
 USER root
 RUN npm run build
