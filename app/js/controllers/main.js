@@ -1,7 +1,7 @@
 /**
  * @ngInject
  */
-function MainCtrl($scope, SocketService, sailsBind) {
+function MainCtrl($scope, KeycloakInitService, SocketService, sailsBind) {
   $scope.connected = false;
 
   SocketService.socket.on('connect', () =>
