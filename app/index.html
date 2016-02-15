@@ -1,46 +1,20 @@
 <!doctype html>
 <html class="no-js">
 <head>
-  <base href="/">
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title ng-bind="pageTitle"></title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width">
+    <base href="/">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title ng-bind="pageTitle"></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
 
-  <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
 
 <div ui-view></div>
 
 <script src="config.js"></script>
-<script>
-  "use strict";
-  if (config.backend === undefined) {
-    throw "Missing backend in config.";
-  }
-  if (config.clientId === undefined) {
-    throw "Missing clientId in config.";
-  }
-  if (config.keycloakUrl === undefined) {
-    throw "Missing keycloakUrl in config.";
-  }
-  var client = new XMLHttpRequest();
-  client.withCredentials = true;
-  client.open("GET", config.backend, true);
-  client.send();
-  client.onerror = function () {
-    if (!getParameterByName('code').length) {
-      window.location = config.keycloakUrl + encodeURI("?redirect_uri=" + window.location + "&client_id=" + config.clientId + "&response_type=code");
-    }
-  }
-  function getParameterByName (name) {
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(window.location);
-    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-  }
-</script>
 <script src="js/main.js"></script>
 </body>
 </html>
