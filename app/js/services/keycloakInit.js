@@ -11,11 +11,11 @@ const keycloakRedirect = require('keycloak-redirect');
  *   "clientId": "ircbd-api"
  * };
  */
-function KeycloakInitService() {
+function KeycloakInitService($window) {
   'ngInject';
   var config = window.config;
   var client = new XMLHttpRequest();
-  keycloakRedirect.authenticate(config, client);
+  keycloakRedirect.authenticate(config, client, $window);
 
   return true;
 }

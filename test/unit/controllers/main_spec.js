@@ -15,7 +15,9 @@ describe('Unit: MainCtrl', function () {
 
   beforeEach(function () {
     // instantiate the app module
-    angular.mock.module('app');
+    angular.mock.module('app', function ($provide) {
+      $provide.value('$window', {location: {href: 'dummy'}});
+    });
     angular.mock.inject(function ($controller, $rootScope) {
       $scope = $rootScope.$new();
       KeycloakService = jasmine.createSpy('KeycloakService');
