@@ -11,17 +11,21 @@ var config = {
 var SocketMock = {};
 describe('Unit: MainCtrl', function () {
 
-  var ctrl, $scope, sailsBind, SocketService;
+  var ctrl, $scope, KeycloakService, sailsBind, SocketService;
 
   beforeEach(function () {
     // instantiate the app module
-    angular.mock.module('app');
+    angular.mock.module('app', function ($provide) {
+      $provide.value('$window', {location: {href: 'dummy'}});
+    });
     angular.mock.inject(function ($controller, $rootScope) {
       $scope = $rootScope.$new();
+      KeycloakService = jasmine.createSpy('KeycloakService');
       sailsBind = jasmine.createSpy('sailsBind');
       SocketService = {socket: {on: jasmine.createSpy('SocketService')}};
       ctrl = $controller('MainCtrl', {
         $scope: $scope,
+        KeycloakService: KeycloakService,
         sailsBind: sailsBind,
         SocketService: SocketService
       });
