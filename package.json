@@ -74,7 +74,6 @@
   },
   "scripts": {
     "test": "gulp unit",
-    "webdriver-update": "webdriver-manager update",
     "postinstall": "node_modules/gulp-protractor/node_modules/protractor/bin/webdriver-manager update",
     "build": "gulp prod"
   },
