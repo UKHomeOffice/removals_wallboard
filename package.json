@@ -60,7 +60,7 @@
     "ng-mock-e2e": "^0.1.1",
     "phantomjs-prebuilt": "^2.1.4",
     "pretty-hrtime": "^1.0.1",
-    "protractor": "^3.0.0",
+    "protractor": "^3.1.1",
     "protractor-console": "^2.0.0",
     "run-sequence": "^1.1.5",
     "sails.io.js": "^0.13.1",
@@ -75,7 +75,7 @@
   "scripts": {
     "test": "gulp unit",
     "webdriver-update": "webdriver-manager update",
-    "postinstall": "npm run webdriver-update",
+    "postinstall": "node_modules/gulp-protractor/node_modules/protractor/bin/webdriver-manager update",
     "build": "gulp prod"
   },
   "license": "MIT"
