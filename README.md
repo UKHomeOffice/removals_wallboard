@@ -175,8 +175,12 @@ All e2e tests are run with `gulp protractor`.
 
 **Notes:**
 
-- before running the Protractor tests, the application server must be running (start it with `gulp dev`)
-- the Protractor library used for the end-to-end tests may require installing the [Java JDK](http://www.oracle.com/technetwork/java/javase/downloads/index-jsp-138363.html) beforehand.
+- Node 4.2.2 Required
+- Protractor uses the latest version of webdriver, thus you may have to update the Webdriver in gulp-protractor - `post` npm install:
+
+```
+node_modules/gulp-protractor/node_modules/protractor/bin/webdriver-manager update
+```
 
 ##### Unit Tests
 
