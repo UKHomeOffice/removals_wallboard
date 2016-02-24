@@ -1,5 +1,5 @@
 <div class="summary">
-        <span class="availability" ng-class="availability < 0 ? 'highlight': ''">
+        <span class="availability" ng-class="availability < 1 ? 'highlight': ''">
             {{availability == 0 ? 'FULL' : availability}}
         </span>
     <span class="status"
@@ -32,7 +32,7 @@
         <tfoot>
         <tr>
             <td>Availability</td>
-            <td>{{availability}}</td>
+            <td>{{availability == 0 ? 'FULL' : availability}}</td>
         </tr>
         </tfoot>
     </table>
