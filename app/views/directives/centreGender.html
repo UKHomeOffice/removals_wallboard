@@ -3,37 +3,49 @@
             {{availability == 0 ? 'FULL' : availability}}
         </span>
     <span class="status"
-          ng-class="availability < 0 ? 'highlight': ''">{{availability < 0 ? 'No': ''}} Available {{gender}} Beds</span>
-    <a class="detail-toggle" ng-click="showdetails=!showdetails"> {{showdetails ? 'Hide' : 'Show'}} numbers
-    </a>
+          ng-class="availability < 1 ? 'highlight': ''">{{availability < 0 ? 'No': ''}} Available {{gender}} Beds</span>
+  <a class="detail-toggle" ng-click="showdetails=!showdetails"> {{showdetails ? 'Hide' : 'Show'}} numbers
+  </a>
 </div>
 <div class="details" ng-if="showdetails">
-    <table>
-        <thead>
-        <tr>
-            <th>Category</th>
-            <th>Total</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>Contractual Capacity</td>
-            <td>{{capacity}}</td>
-        </tr>
-        <tr>
-            <td class="left-indent">Occupied</td>
-            <td>{{inuse}}</td>
-        </tr>
-        <tr>
-            <td class="left-indent">Beds out of commission</td>
-            <td>{{ooc}}</td>
-        </tr>
-        </tbody>
-        <tfoot>
-        <tr>
-            <td>Availability</td>
-            <td>{{availability == 0 ? 'FULL' : availability}}</td>
-        </tr>
-        </tfoot>
-    </table>
+  <table>
+    <thead>
+    <tr>
+      <th>Category</th>
+      <th>Last Updated</th>
+      <th>Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>Contractual Capacity</td>
+      <td>N/A</td>
+      <td>{{capacity}}</td>
+    </tr>
+    <tr>
+      <td class="left-indent">Occupied</td>
+      <td>{{heartbeatreceived | amDateFormat:'HH:mm:ss'}}</td>
+      <td>{{inuse}}</td>
+    </tr>
+    <tr>
+      <td class="left-indent">Beds out of commission</td>
+      <td>{{heartbeatreceived | amDateFormat:'HH:mm:ss'}}</td>
+      <td>{{ooc}}</td>
+    </tr>
+    <tr class="availability">
+      <td colspan="2">Availability</td>
+      <td>{{availability == 0 ? 'FULL' : availability}}</td>
+    </tr>
+    <tr ng-if="scheduledout !== undefined">
+      <td class="left-indent">Scheduled outgoing</td>
+      <td>{{cidreceiveddate | amDateFormat:'HH:mm:ss'}}</td>
+      <td>{{scheduledout}}</td>
+    </tr>
+    <tr ng-if="scheduledin !== undefined">
+      <td class="left-indent">Scheduled incoming</td>
+      <td>{{cidreceiveddate | amDateFormat:'HH:mm:ss'}}</td>
+      <td>{{scheduledin}}</td>
+    </tr>
+    </tbody>
+  </table>
 </div>
