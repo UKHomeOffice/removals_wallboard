@@ -8,7 +8,11 @@ function CentreGenderDirective() {
       gender: '=',
       inuse: '=',
       ooc: '=',
-      availability: '='
+      availability: '=',
+      scheduledout: '=',
+      scheduledin: '=',
+      cidreceiveddate: '=',
+      heartbeatreceived: '='
     },
   };
 }

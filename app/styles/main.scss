@@ -94,7 +94,7 @@ header {
       line-height: 2.5em;
       width: 100%;
       thead,
-      tfoot {
+      .availability {
         font-weight: 700;
         font-family: $font_bold;
       }
@@ -113,7 +113,7 @@ header {
           padding-left: 45px;
         }
       }
-      tfoot {
+      .availability {
         border-top: 4px solid $black;
         border-bottom: 4px solid $black;
         font-size: 2em;
