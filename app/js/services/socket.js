@@ -1,7 +1,7 @@
 function SocketService (socketIOClientService, sailsIOClientService) {
   'ngInject';
   const io = sailsIOClientService(socketIOClientService);
-  var config = config || {backend: 'http://localhost:8080'};
+  var config = window.config || {backend: 'http://localhost:8080'};
   io.sails.url = config.backend;
   io.sails.transports = ['polling'];
   io.sails.query = io.sails.query || {};
