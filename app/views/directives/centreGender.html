@@ -1,9 +1,8 @@
 <div class="summary">
-        <span class="availability" ng-class="availability < 1 ? 'highlight': ''">
-            {{availability == 0 ? 'FULL' : availability}}
-        </span>
-    <span class="status"
-          ng-class="availability < 1 ? 'highlight': ''">{{availability < 0 ? 'No': ''}} Available {{gender}} Beds</span>
+  <span class="availability" ng-class="availability < 1 ? 'highlight': ''">
+      {{availability == 0 ? 'FULL' : availability}}
+  </span>
+  <span class="status">{{availability < 0 ? 'No': ''}} Available {{gender}} Beds</span>
   <a class="detail-toggle" ng-click="showdetails=!showdetails"> {{showdetails ? 'Hide' : 'Show'}} numbers
   </a>
 </div>
@@ -34,7 +33,7 @@
     </tr>
     <tr class="availability">
       <td colspan="2">Availability</td>
-      <td>{{availability == 0 ? 'FULL' : availability}}</td>
+      <td ng-class="availability < 1 ? 'highlight': ''">{{availability == 0 ? 'FULL' : availability}}</td>
     </tr>
     <tr ng-if="scheduledout !== undefined">
       <td class="left-indent">Scheduled outgoing</td>
