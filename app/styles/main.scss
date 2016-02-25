@@ -32,6 +32,21 @@ header {
       color: $white;
     }
   }
+  h2 {
+    margin: 0;
+    font-size: 2.2em;
+    padding: 1em 0.5em;
+  }
+  .disconnected.message {
+    margin: 1em 0.3em;
+    font-family: $font_bold;
+    font-size: 2.2em;
+    font-weight: 700;
+    padding: 0.5em;
+    border: $red 0.2em solid;
+
+  }
+
   #happybrowser {
     color: $red;
     padding: 3em 0;
