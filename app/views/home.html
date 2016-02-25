@@ -1,20 +1,19 @@
 <header>
-    <div class="banner">
-        <img width=35 height=26 src="/images/crown_image.png">
-        <h1>IRC Bed Management</h1>
-    </div>
-    <div id="happybrowser" style="display:none">
-        You are using a non-supported browser. Please <a href="http://chrome.com/">change your browser to
-        Chrome</a> to improve your experience.
-    </div>
-    <h2>IRC bed availability</h2>
+  <div class="banner">
+    <img width=35 height=26 src="/images/crown_image.png">
+    <h1>IRC Bed Management</h1>
+  </div>
+  <div id="happybrowser" style="display:none">
+    You are using a non-supported browser. Please <a href="http://chrome.com/">change your browser to
+    Chrome</a> to improve your experience.
+  </div>
+  <div class="disconnected message" ng-if="!connected">Connecting to service...</div>
 </header>
 
-<div class="disconnected message fa" ng-if="!connected">CONNECTING</div>
 <ul class="container" ng-class="{'disconnected' : !connected}">
-    <li class="centre"
-        ng-repeat="centre in centres | orderBy:'attributes.name' track by centre.id"
-        centre-directive
-        attributes="centre.attributes">
-    </li>
+  <li class="centre"
+      ng-repeat="centre in centres | orderBy:'attributes.name' track by centre.id"
+      centre-directive
+      attributes="centre.attributes">
+  </li>
 </ul>
