@@ -31,6 +31,7 @@ server {
 
     location = /health {
       return 200 'ok';
+      add_header Content-Type text/plain;
       access_log off;
     }
 
