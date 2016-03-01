@@ -1,5 +1,5 @@
 <div class="summary">
-  <span class="availability" ng-class="availability < 1 ? 'highlight': ''" ng-bind="availability"></span>
+  <span class="availability" ng-class="highlight" ng-bind="availability"></span>
   <span class="status" ng-bind="status"></span>
   <a class="detail-toggle" ng-click="showdetails=!showdetails"> {{showdetails ? 'Hide' : 'Show'}} numbers
   </a>
@@ -31,7 +31,7 @@
     </tr>
     <tr class="availability">
       <td colspan="2">Availability</td>
-      <td ng-class="availability < 1 ? 'highlight': ''" ng-bind="availability"></td>
+      <td ng-class="highlight" ng-bind="availability"></td>
     </tr>
     <tr ng-if="scheduledout !== undefined">
       <td class="left-indent">Scheduled outgoing</td>

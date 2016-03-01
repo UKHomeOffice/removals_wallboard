@@ -13,7 +13,8 @@ function CentreGenderDirective () {
       scheduledin: '=',
       cidreceiveddate: '=',
       heartbeatreceived: '=',
-      status: '='
+      status: '=',
+      highlight: '='
     },
   };
 }
