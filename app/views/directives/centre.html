@@ -10,8 +10,9 @@
     inuse="attributes.maleInUse"
     scheduledout="attributes.maleActiveMovementsOut"
     scheduledin="attributes.maleActiveMovementsIn"
-    cidreceiveddate="attributes.cidReceivedDate"
-    heartbeatreceived="attributes.heartbeatRecieved"
+    cidreceiveddate="attributes.cidReceivedDate | amDateFormat:'HH:mm:ss'"
+    heartbeatreceived="attributes.heartbeatRecieved | amDateFormat:'HH:mm:ss'"
+    status="attributes.statusMale"
   >
   </centre-gender-directive>
 
@@ -24,8 +25,9 @@
     inuse="attributes.femaleInUse"
     scheduledout="attributes.femaleActiveMovementsOut"
     scheduledin="attributes.femaleActiveMovementsIn"
-    cidreceiveddate="attributes.cidReceivedDate"
-    heartbeatreceived="attributes.heartbeatRecieved"
+    cidreceiveddate="attributes.cidReceivedDate | amDateFormat:'HH:mm:ss'"
+    heartbeatreceived="attributes.heartbeatRecieved | amDateFormat:'HH:mm:ss'"
+    status="attributes.statusFemale"
   >
   </centre-gender-directive>
 </div>

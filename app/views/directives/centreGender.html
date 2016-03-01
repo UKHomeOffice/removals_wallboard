@@ -1,8 +1,6 @@
 <div class="summary">
-  <span class="availability" ng-class="availability < 1 ? 'highlight': ''">
-      {{availability == 0 ? 'FULL' : availability}}
-  </span>
-  <span class="status">{{availability < 0 ? 'No': ''}} Available {{gender}} Beds</span>
+  <span class="availability" ng-class="availability < 1 ? 'highlight': ''" ng-bind="availability"></span>
+  <span class="status" ng-bind="status"></span>
   <a class="detail-toggle" ng-click="showdetails=!showdetails"> {{showdetails ? 'Hide' : 'Show'}} numbers
   </a>
 </div>
@@ -19,31 +17,31 @@
     <tr>
       <td>Contractual Capacity</td>
       <td>N/A</td>
-      <td>{{capacity}}</td>
+      <td ng-bind="capacity"></td>
     </tr>
     <tr>
       <td class="left-indent">Occupied</td>
-      <td>{{heartbeatreceived | amDateFormat:'HH:mm:ss'}}</td>
-      <td>{{inuse}}</td>
+      <td ng-bind="heartbeatreceived"></td>
+      <td ng-bind="inuse">}</td>
     </tr>
     <tr>
       <td class="left-indent">Beds out of commission</td>
-      <td>{{heartbeatreceived | amDateFormat:'HH:mm:ss'}}</td>
-      <td>{{ooc}}</td>
+      <td ng-bind="heartbeatreceived"></td>
+      <td ng-bind="ooc"></td>
     </tr>
     <tr class="availability">
       <td colspan="2">Availability</td>
-      <td ng-class="availability < 1 ? 'highlight': ''">{{availability == 0 ? 'FULL' : availability}}</td>
+      <td ng-class="availability < 1 ? 'highlight': ''" ng-bind="availability"></td>
     </tr>
     <tr ng-if="scheduledout !== undefined">
       <td class="left-indent">Scheduled outgoing</td>
-      <td>{{cidreceiveddate | amDateFormat:'HH:mm:ss'}}</td>
-      <td>{{scheduledout}}</td>
+      <td ng-bind="cidreceiveddate"></td>
+      <td ng-bind="scheduledout"></td>
     </tr>
     <tr ng-if="scheduledin !== undefined">
       <td class="left-indent">Scheduled incoming</td>
-      <td>{{cidreceiveddate | amDateFormat:'HH:mm:ss'}}</td>
-      <td>{{scheduledin}}</td>
+      <td ng-bind="cidreceiveddate"></td>
+      <td ng-bind="scheduledin"></td>
     </tr>
     </tbody>
   </table>
