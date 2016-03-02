@@ -1,4 +1,4 @@
-function CentreGenderDirective() {
+function CentreGenderDirective () {
 
   return {
     restrict: 'E',
@@ -12,7 +12,9 @@ function CentreGenderDirective() {
       scheduledout: '=',
       scheduledin: '=',
       cidreceiveddate: '=',
-      heartbeatreceived: '='
+      heartbeatreceived: '=',
+      status: '=',
+      highlight: '='
     },
   };
 }
