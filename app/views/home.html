@@ -14,6 +14,7 @@
   <li class="centre"
       ng-repeat="centre in centres | orderBy:'attributes.name' track by centre.id"
       centre-directive
-      attributes="centre.attributes">
+      attributes="centre.attributes"
+      cid="centre.id">
   </li>
 </ul>
