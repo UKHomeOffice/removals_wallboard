@@ -29,6 +29,11 @@
       <td ng-bind="heartbeatreceived"></td>
       <td ng-bind="ooc"></td>
     </tr>
+    <tr ng-if="prebooking !== undefined">
+      <td class="left-indent">Prebookings</td>
+      <td ng-bind="prebookingreceived"></td>
+      <td ng-bind="prebooking"></td>
+    </tr>
     <tr class="availability">
       <td colspan="2">Availability</td>
       <td ng-class="highlight" ng-bind="availability"></td>
