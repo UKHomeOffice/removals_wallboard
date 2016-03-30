@@ -1,4 +1,4 @@
-function CentreGenderDirective () {
+function CentreGenderDirective() {
 
   return {
     restrict: 'E',
@@ -13,6 +13,8 @@ function CentreGenderDirective () {
       scheduledin: '=',
       cidreceiveddate: '=',
       heartbeatreceived: '=',
+      prebookingreceived: '=',
+      prebooking: '=',
       status: '=',
       highlight: '='
     },
