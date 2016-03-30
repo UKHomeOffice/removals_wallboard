@@ -73,6 +73,7 @@
     "watchify": "^3.7.0"
   },
   "scripts": {
+    "start": "gulp dev",
     "test": "gulp unit",
     "postinstall": "node_modules/gulp-protractor/node_modules/protractor/bin/webdriver-manager update",
     "build": "gulp prod"
