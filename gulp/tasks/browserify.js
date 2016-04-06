@@ -11,7 +11,6 @@ import streamify    from 'gulp-streamify';
 import watchify     from 'watchify';
 import browserify   from 'browserify';
 import babelify     from 'babelify';
-import uglify       from 'gulp-uglify';
 import handleErrors from '../util/handleErrors';
 import browserSync  from 'browser-sync';
 import debowerify   from 'debowerify';
