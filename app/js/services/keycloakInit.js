@@ -15,7 +15,9 @@ function KeycloakInitService($window) {
   'ngInject';
   var config = window.config;
   var client = new XMLHttpRequest();
-  keycloakRedirect.authenticate(config, client, $window);
+  setTimeout(function () {
+    keycloakRedirect.authenticate(config, client, $window);
+  }, 2000);
 
   return true;
 }
