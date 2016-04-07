@@ -10,25 +10,33 @@ $color_celeste_approx: #ccc;
 //fonts
 $font_generic: "Arial", "sans-serif";
 $font_bold: "Arial Bold", "Arial", "sans-serif";
+$font_bold_weight: 700;
+
+$left_margin: 10px;
+$indent: 55px;
+
+$base_font_size: 12px;
+$heading_font_size: 23px;
 
 body {
-  width: 480px;
+  width: 340px;
   font-family: $font_generic;
   color: $color_mine_shaft_approx;
   margin: 0;
+  font-size: $base_font_size;
 }
 
 header {
   .banner {
     background-color: $black;
     img {
-      padding: 0.6em 1.2em;
+      padding: 9px $left_margin 0 $left_margin;
       float: left;
     }
     h1 {
       margin: 0;
-      line-height: 1.5em;
-      font-size: 2em;
+      line-height: 2em;
+      font-size: $heading_font_size;
       color: $white;
     }
   }
@@ -41,7 +49,7 @@ header {
     margin: 1em 0.3em;
     font-family: $font_bold;
     font-size: 2.2em;
-    font-weight: 700;
+    font-weight: $font_bold_weight;
     padding: 0.5em;
     border: $red 0.2em solid;
 
@@ -56,19 +64,18 @@ header {
 }
 
 .centre {
-  padding-bottom: 2em;
+  padding-bottom: 1em;
   h3 {
-    font-size: 3em;
-    margin: 0 0 0 0.3em;
+    font-size: $heading_font_size;
+    margin: 0 0 0 $left_margin;
     float: left;
     display: inline-block;
     text-transform: capitalize;
   }
   .time {
-    font-size: 0.8em;
     text-align: right;
     display: block;
-    padding-top: 1.5em;
+    padding-top: 10px;
     &:after {
       content: '';
       display: block;
@@ -79,17 +86,18 @@ header {
     color: $red;
   }
   .summary {
-    margin: 1em 0 0 4em;
+    margin: 1em 0 0 $indent;
     .availability {
       display: block;
-      font-weight: 700;
+      font-weight: $font_bold_weight;
       font-family: $font_bold;
-      font-size: 4em;
+      font-size: 33px;
     }
     .detail-toggle {
       cursor: pointer;
       float: right;
       color: $blue;
+      margin-top: -$base_font_size;
       &:hover {
         text-decoration: underline;
       }
@@ -98,36 +106,43 @@ header {
   .details {
     margin: 1em 0;
     background-color: $color_concrete_approx;
-    padding: 0.5em 1em 1em;
+    padding: 0.5em $left-margin 0.5em $left-margin;
     clear: both;
     table {
       border-collapse: collapse;
-      line-height: 2.5em;
-      width: 100%;
-      thead,
-      .availability {
-        font-weight: 700;
-        font-family: $font_bold;
-      }
       tr {
+        vertical-align: bottom;
         border-bottom: 1px solid $color_celeste_approx;
+        th,
+        td:first-child,
+        td:last-child {
+          font-weight: $font_bold_weight;
+          font-family: $font_bold;
+        }
+        td:first-child,
+        &.availability {
+          font-size: 15px;
+        }
         th,
         td {
           text-align: left;
+          padding: 6px 0;
           &:last-child {
             text-align: right;
           }
         }
       }
       tbody {
-        .left-indent {
+        tr:not(:first-child) td:first-child {
           padding-left: 45px;
+        }
+        tr:last-child {
+          border-bottom: 0;
         }
       }
       .availability {
         border-top: 4px solid $black;
         border-bottom: 4px solid $black;
-        font-size: 2em;
         line-height: 1.8em;
       }
     }
