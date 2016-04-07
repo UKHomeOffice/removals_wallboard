@@ -1,6 +1,6 @@
 <div class="centre" id="centre-{{cid}}">
   <h3 class="text-primary">{{attributes.name}}</h3>
-  <span class="time">Last Updated: {{attributes.heartbeatRecieved | amDateFormat:'HH:mm:ss'}}</span>
+  <span class="time">Last Updated: {{attributes.heartbeatReceived | amDateFormat:'HH:mm:ss'}}</span>
   <centre-gender-directive
     ng-if="attributes.maleCapacity > 0"
     gender="'Male'"

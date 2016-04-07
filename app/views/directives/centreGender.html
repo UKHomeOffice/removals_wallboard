@@ -20,31 +20,32 @@
       <td ng-bind="capacity"></td>
     </tr>
     <tr>
-      <td class="left-indent">Occupied</td>
+      <td>Occupied</td>
       <td ng-bind="heartbeatreceived"></td>
       <td ng-bind="inuse">}</td>
     </tr>
     <tr>
-      <td class="left-indent">Beds out of commission</td>
+      <td>Beds out of commission</td>
       <td ng-bind="heartbeatreceived"></td>
       <td ng-bind="ooc"></td>
     </tr>
     <tr ng-if="prebooking !== undefined">
-      <td class="left-indent">Prebookings</td>
+      <td>Prebookings</td>
       <td ng-bind="prebookingreceived"></td>
       <td ng-bind="prebooking"></td>
     </tr>
     <tr class="availability">
-      <td colspan="2">Availability</td>
+      <td>Availability</td>
+      <td></td>
       <td ng-class="highlight" ng-bind="availability"></td>
     </tr>
     <tr ng-if="scheduledout !== undefined">
-      <td class="left-indent">Scheduled outgoing</td>
+      <td>Scheduled outgoing</td>
       <td ng-bind="cidreceiveddate"></td>
       <td ng-bind="scheduledout"></td>
     </tr>
     <tr ng-if="scheduledin !== undefined">
-      <td class="left-indent">Scheduled incoming</td>
+      <td>Scheduled incoming</td>
       <td ng-bind="cidreceiveddate"></td>
       <td ng-bind="scheduledin"></td>
     </tr>

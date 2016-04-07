@@ -71,7 +71,7 @@
   "scripts": {
     "start": "gulp dev",
     "test": "gulp unit",
-    "postinstall": "node_modules/gulp-protractor/node_modules/protractor/bin/webdriver-manager update",
+    "postinstall": "webdriver-manager update",
     "build": "gulp prod"
   },
   "license": "MIT"
