@@ -15,6 +15,7 @@ function CentreGenderDirective() {
       heartbeatreceived: '=',
       prebookingreceived: '=',
       prebooking: '=',
+      contingency: '=',
       status: '=',
       highlight: '='
     },
