@@ -1,5 +1,7 @@
 # Removals Wallboard
 
+[![Build](https://travis-ci.org/UKHomeOffice/removals_wallboard.png)](https://travis-ci.org/UKHomeOffice/removals_wallboard)
+
 ## Quickstart:
 
  Get [NodeJS](https://nodejs.org) via [nvm](https://github.com/creationix/nvm)
