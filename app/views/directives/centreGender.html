@@ -42,7 +42,7 @@
     <tr ng-if="expectedin !== undefined">
       <td>Expected incoming</td>
       <td ng-bind="cidreceiveddate"></td>
-      <td ng-bind="expectedin"></td>
+      <td ng-bind="expectedin.length"></td>
     </tr>
     <tr ng-if="unexpectedin !== undefined">
       <td>Unexpected incoming</td>
@@ -55,9 +55,13 @@
       <td ng-class="highlight" ng-bind="availability"></td>
     </tr>
     <tr ng-if="expectedout !== undefined">
-      <td>Expected outgoing</td>
+      <td ng-click="showoutgoing=!showoutgoing">Scheduled outgoing
+      <ul ng-if="showoutgoing">
+        <li ng-repeat="individualscheduledout in scheduledout" >{{individualscheduledout.cid_id}}</li>
+      </ul>
+      </td>
       <td ng-bind="cidreceiveddate"></td>
-      <td ng-bind="expectedout"></td>
+      <td ng-bind="scheduledout.length"></td>
     </tr>
     </tbody>
   </table>
