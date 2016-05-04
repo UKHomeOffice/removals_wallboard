@@ -24,6 +24,13 @@ body {
   color: $color_mine_shaft_approx;
   margin: 0;
   font-size: $base_font_size;
+  a {
+    text-decoration: none;
+    color: $blue;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 header {
@@ -63,6 +70,12 @@ header {
   }
 }
 
+footer {
+  margin-left: $left_margin;
+  border-top: 1px solid $color_celeste_approx;
+  padding: 10px 0;
+}
+
 .centre {
   padding-bottom: 1em;
   h3 {
@@ -94,13 +107,8 @@ header {
       font-size: 33px;
     }
     .detail-toggle {
-      cursor: pointer;
       float: right;
-      color: $blue;
       margin-top: -$base_font_size;
-      &:hover {
-        text-decoration: underline;
-      }
     }
   }
   .details {
