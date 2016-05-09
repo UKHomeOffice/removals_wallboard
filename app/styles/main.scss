@@ -118,7 +118,7 @@ footer {
     clear: both;
     table {
       border-collapse: collapse;
-      tr {
+      tr:not(.drilldown) {
         vertical-align: bottom;
         border-bottom: 1px solid $color_celeste_approx;
         th,
@@ -146,6 +146,12 @@ footer {
         }
         tr:last-child {
           border-bottom: 0;
+        }
+        tr.open {
+          background: url('../images/plus.png') no-repeat top left;
+        }
+        tr.close {
+          background: url('../images/minus.png') no-repeat top left;
         }
       }
       .availability {

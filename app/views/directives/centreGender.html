@@ -29,15 +29,43 @@
       <td ng-bind="heartbeatreceived"></td>
       <td ng-bind="ooc"></td>
     </tr>
-    <tr ng-if="prebooking !== undefined">
-      <td>Prebookings</td>
+
+    <tr class="{{showContingency ? 'close' : 'open'}}">
+      <td><a ng-click="showPrebooking != showPrebooking">Prebookings</a>
+        <ul ng-if="showPrebooking" ng-repeat="thePrebooking in prebooking">
+          <li>{{thePrebooking.requester}} ({{thePrebooking.cid_id}})</li>
+        </ul>
+        <table ng-if="showPrebooking">
+          <thead>
+          <tr>
+            <th>Requester</th>
+            <th>CID id</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="thePrebooking in prebooking">
+            <td>{{thePrebooking.requester}}</td>
+            <td>{{thePrebooking.cid_id}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </td>
       <td ng-bind="prebookingreceived"></td>
-      <td ng-bind="prebooking"></td>
+      <td ng-bind="prebooking.length"></td>
     </tr>
-    <tr ng-if="contingency !== undefined">
+    <tr class="{{showContingency ? 'close' : 'open'}}" ng-if="contingency !== undefined"
+        ng-click="showContingency=!showContingency">
       <td>Contingency</td>
       <td ng-bind="prebookingreceived"></td>
-      <td ng-bind="contingency"></td>
+      <td ng-bind="contingency.length"></td>
+    </tr>
+    <tr class="drilldown" ng-if="showContingency">
+      <td>CID number</td>
+      <td colspan="2">Requester</td>
+    </tr>
+    <tr class="drilldown" ng-if="showContingency" ng-repeat="theContingency in contingency">
+      <td>{{theContingency.cid_id}}</td>
+      <td colspan="2">{{theContingency.requester}}</td>
     </tr>
     <tr ng-if="expectedin !== undefined">
       <td>Expected incoming</td>
@@ -54,11 +82,11 @@
       <td></td>
       <td ng-class="highlight" ng-bind="availability"></td>
     </tr>
-    <tr ng-if="expectedout !== undefined">
-      <td ng-click="showoutgoing=!showoutgoing">Scheduled outgoing
-      <ul ng-if="showoutgoing">
-        <li ng-repeat="individualscheduledout in scheduledout" >{{individualscheduledout.cid_id}}</li>
-      </ul>
+    <tr ng-if="scheduledout !== undefined">
+      <td ng-click="showoutgoing=!showoutgoing" class="{{showoutgoing ? close : open}}">Scheduled outgoing
+        <ul ng-if="showoutgoing">
+          <li ng-repeat="individualscheduledout in scheduledout">{{individualscheduledout.cid_id}}</li>
+        </ul>
       </td>
       <td ng-bind="cidreceiveddate"></td>
       <td ng-bind="scheduledout.length"></td>
