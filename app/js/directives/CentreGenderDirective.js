@@ -9,8 +9,8 @@ function CentreGenderDirective() {
       inuse: '=',
       ooc: '=',
       availability: '=',
-      scheduledin: '=',
-      scheduledout: '=',
+      expectedin: '=',
+      expectedout: '=',
       unexpectedin: '=',
       cidreceiveddate: '=',
       heartbeatreceived: '=',
@@ -19,7 +19,7 @@ function CentreGenderDirective() {
       contingency: '=',
       status: '=',
       highlight: '='
-    },
+    }
   };
 }
 
