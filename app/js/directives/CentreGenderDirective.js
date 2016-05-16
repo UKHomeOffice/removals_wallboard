@@ -12,7 +12,6 @@ function CentreGenderDirective() {
       scheduledin: '=',
       scheduledout: '=',
       unexpectedin: '=',
-      unexpectedout: '=',
       cidreceiveddate: '=',
       heartbeatreceived: '=',
       prebookingreceived: '=',
