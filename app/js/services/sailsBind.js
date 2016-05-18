@@ -8,20 +8,19 @@ function sailsBind(SocketService) {
       SocketService.socket.get('/' + model, response => scope.$apply(() => scope[model] = response.data));
       SocketService.socket.on(model, response =>
         scope.$apply(() => {
-          var index = _.findIndex(scope[model], _.matchesProperty('id', response.data.id));
-          if (response.verb === 'deleted') {
-            delete scope[model][index];
-          }
-          else {
-            //update
-            if (index !== -1) {
+          var index = _.findIndex(scope[model], ['id', response.id.toString()]);
+          if (index !== -1) {
+            if (response.verb === 'destroyed') {
+              scope[model].splice(index, 1);
+            }
+            else if (response.verb === 'updated') {
               scope[model][index] = _.merge(scope[model][index], response.data);
             }
-            //create
-            else {
-              scope[model].push(response.data);
-            }
           }
+          if (response.verb === 'created' && index === -1) {
+            scope[model].push(response.data);
+          }
+
         })
       );
     });
