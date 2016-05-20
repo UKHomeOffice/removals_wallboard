@@ -39,10 +39,10 @@
       <td ng-bind="prebookingreceived"></td>
       <td ng-bind="contingency"></td>
     </tr>
-    <tr ng-if="scheduledin !== undefined">
-      <td>Scheduled incoming</td>
+    <tr ng-if="expectedin !== undefined">
+      <td>Expected incoming</td>
       <td ng-bind="cidreceiveddate"></td>
-      <td ng-bind="scheduledin"></td>
+      <td ng-bind="expectedin"></td>
     </tr>
     <tr ng-if="unexpectedin !== undefined">
       <td>Unexpected incoming</td>
@@ -54,10 +54,10 @@
       <td></td>
       <td ng-class="highlight" ng-bind="availability"></td>
     </tr>
-    <tr ng-if="scheduledout !== undefined">
-      <td>Scheduled outgoing</td>
+    <tr ng-if="expectedout !== undefined">
+      <td>Expected outgoing</td>
       <td ng-bind="cidreceiveddate"></td>
-      <td ng-bind="scheduledout"></td>
+      <td ng-bind="expectedout"></td>
     </tr>
     </tbody>
   </table>
