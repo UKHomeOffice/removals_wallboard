@@ -116,50 +116,52 @@ footer {
     background-color: $color_concrete_approx;
     padding: 0.5em $left-margin 0.5em $left-margin;
     clear: both;
-    table {
-      border-collapse: collapse;
-      tr:not(.drilldown) {
-        vertical-align: bottom;
-        border-bottom: 1px solid $color_celeste_approx;
-        th,
-        td:first-child,
-        td:last-child {
-          font-weight: $font_bold_weight;
-          font-family: $font_bold;
-        }
-        td:first-child,
-        &.availability {
-          font-size: 15px;
-        }
-        th,
-        td {
-          text-align: left;
-          padding: 6px 0;
-          &:last-child {
-            text-align: right;
-          }
-        }
-      }
-      tbody {
-        tr:not(:first-child) td:first-child {
-          padding-left: 45px;
-        }
-        tr:last-child {
-          border-bottom: 0;
-        }
-        tr.open {
-          background: url('../images/plus.png') no-repeat top left;
-        }
-        tr.close {
-          background: url('../images/minus.png') no-repeat top left;
-        }
-      }
-      .availability {
-        border-top: 4px solid $black;
-        border-bottom: 4px solid $black;
-        line-height: 1.8em;
+  }
+}
+.details > table {
+  border-collapse: collapse;
+  tr:not(.drilldown) {
+    vertical-align: bottom;
+    border-bottom: 1px solid $color_celeste_approx;
+    th,
+    td:first-child,
+    td:last-child {
+      font-weight: $font_bold_weight;
+      font-family: $font_bold;
+    }
+    td:first-child,
+    &.availability {
+      font-size: 15px;
+    }
+    th,
+    td {
+      text-align: left;
+      padding: 6px 0;
+      &:last-child {
+        text-align: right;
       }
     }
+  }
+  tbody {
+    tr:not(:first-child) td:first-child {
+      padding-left: 45px;
+    }
+    tr:last-child {
+      border-bottom: 0;
+    }
+    tr.open td:first-child {
+      background: url('../images/plus.png') no-repeat 0px 5px;
+      background-size: 20px 20px;
+    }
+    tr.close td:first-child {
+      background: url('../images/minus.png') no-repeat 0px 5px;
+      background-size: 20px 20px;
+    }
+  }
+  .availability {
+    border-top: 4px solid $black;
+    border-bottom: 4px solid $black;
+    line-height: 1.8em;
   }
 }
 
