@@ -1,0 +1,21 @@
+<section class="reports">
+  <form class="container" ng-controller="ReportController">
+    <fieldset>
+      <legend>Occupation Statistics Report</legend>
+      <label for="from">From:
+        <input id="from" ng-model="from" type="datetime-local"/>
+      </label>
+      <label for="to">To:
+        <input id="to" ng-model="to" type="datetime-local"/>
+      </label>
+
+      <button id="getSummary" type="button" ng-csv="getSummary()" csv-header="summaryHeaders" lazy-load
+              filename="summary.csv">Get
+        Summary
+      </button>
+      <button id="getRaw" type="button" ng-csv="getRaw()" csv-header="rawHeaders" lazy-load filename="raw.csv">
+        Get Raw Data
+      </button>
+    </fieldset>
+  </form>
+</section>

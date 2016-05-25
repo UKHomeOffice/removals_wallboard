@@ -10,7 +10,7 @@
   <div class="disconnected message" ng-if="!connected">Connecting to service...</div>
 </header>
 
-<ul class="container" ng-class="{'disconnected' : !connected}">
+<ul class="container">
   <li class="centre"
       ng-repeat="centre in centres | orderBy:'attributes.name' track by centre.id"
       centre-directive
@@ -18,6 +18,9 @@
       cid="centre.id">
   </li>
 </ul>
+
+<reports-directive ng-if="connected"></reports-directive>
+
 <footer ng-if="keycloakLinkPath !== undefined">
   <a ng-href="{{keycloakLinkPath}}" ng-bind="keycloakLinkText" target="_blank"></a>
 </footer>
