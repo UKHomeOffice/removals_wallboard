@@ -20,7 +20,9 @@ const requires = [
   'app.controllers',
   'app.services',
   'app.directives',
-  'angularMoment'
+  'angularMoment',
+  require('angular-sanitize'),
+  require('ng-csv')
 ];
 
 // mount on window for testing

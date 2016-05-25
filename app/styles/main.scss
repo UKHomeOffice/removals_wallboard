@@ -161,3 +161,10 @@ ul.container {
   list-style: none;
   padding: 0;
 }
+
+section.reports {
+  margin: $left-margin;
+  label {
+    display: block;
+  }
+}
