@@ -44,6 +44,7 @@
         ng-class="expectedin.length>0 ? showIncoming ? 'close' : 'open' : ''">
       <td>
         Expected incoming
+        <h4 ng-if="showIncoming">CID number</h4>
         <ul ng-if="showIncoming">
           <li ng-repeat="theExpectedin in expectedin">{{theExpectedin.cid_id}}</li>
         </ul>
@@ -51,6 +52,7 @@
       <td ng-bind="cidreceiveddate"></td>
       <td ng-bind="expectedin.length"></td>
     </tr>
+
     <tr ng-if="unexpectedin !== undefined">
       <td>Unexpected incoming</td>
       <td ng-bind="cidreceiveddate"></td>
