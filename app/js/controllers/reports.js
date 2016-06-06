@@ -39,7 +39,7 @@ function ReportCtrl($scope, SocketService) {
   $scope.summaryHeaders = ["centre", "maleInUseMax", "maleInUseMean", "maleInUseMin", "femaleInUseMax", "femaleInUseMean", "femaleInUseMin", "maleOutOfCommissionMax", "maleOutOfCommissionMean", "maleOutOfCommissionMin", "femaleOutOfCommissionMax", "femaleOutOfCommissionMean", "femaleOutOfCommissionMin"];
 
   $scope.getRaw = () => new Promise((resolve) =>
-    SocketService.socket.get(`/heartbeat?where={"createdAt":{"lessThan": "${$scope.to.toISOString()}", "greaterThan": "${$scope.from.toISOString()}"}}`, response => resolve(_.map(response.data, (row) => {
+    SocketService.socket.get(`/heartbeat?limit=${Number.MAX_SAFE_INTEGER}&where={"createdAt":{"lessThan": "${$scope.to.toISOString()}", "greaterThan": "${$scope.from.toISOString()}"}}`, response => resolve(_.map(response.data, (row) => {
 
       row.timestamp = row.attributes.timestamp;
       row.centre = row.attributes.centre.attributes.name;
