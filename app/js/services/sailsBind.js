@@ -1,28 +1,12 @@
-var _ = require('lodash');
+const _ = require('lodash');
 
-function sailsBind(SocketService) {
+function sailsBind(SocketService, sailsResponseProcessor) {
   'ngInject';
 
-  var sailsBind = (model, scope) => {
+  var sailsBind = function (model, scope) {
     SocketService.socket.on('connect', function () {
       SocketService.socket.get('/' + model, response => scope.$apply(() => scope[model] = response.data));
-      SocketService.socket.on(model, response =>
-        scope.$apply(() => {
-          var index = _.findIndex(scope[model], ['id', response.id.toString()]);
-          if (index !== -1) {
-            if (response.verb === 'destroyed') {
-              scope[model].splice(index, 1);
-            }
-            else if (response.verb === 'updated') {
-              scope[model][index] = _.merge(scope[model][index], response.data);
-            }
-          }
-          if (response.verb === 'created' && index === -1) {
-            scope[model].push(response.data);
-          }
-
-        })
-      );
+      SocketService.socket.on(model, response => scope.$apply(() => sailsResponseProcessor(model, scope, response)));
     });
   };
   return sailsBind;
