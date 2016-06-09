@@ -43,7 +43,7 @@ describe('UNIT centreGenderDirective', function () {
   xdescribe('the `scope` property', function () {
     it('should only have attribute names in lowercase (otherwise they won\'t work properly)', function () {
       Object.getOwnPropertyNames(directive.scope).forEach(function () {
-        expect(/[a-z_]/.test(attr), 'attribute named "'+attr+'" is not lowercase');
+        expect(/[a-z_]/.test(attr), 'attribute named "' + attr + '" is not lowercase');
       });
     });
   });

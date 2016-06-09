@@ -9,7 +9,7 @@ function MainCtrl($scope, KeycloakInitService, SocketService, sailsBind) {
 
   sailsBind('centres', $scope);
 
-  SocketService.socket.on('disconnect', ()   =>
+  SocketService.socket.on('disconnect', () =>
     $scope.$apply(() => $scope.connected = false));
 }
 

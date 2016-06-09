@@ -6,7 +6,7 @@ import gulp        from 'gulp';
 import gulpif      from 'gulp-if';
 import browserSync from 'browser-sync';
 
-gulp.task('images', function() {
+gulp.task('images', function () {
 
   return gulp.src(config.images.src)
     .pipe(changed(config.images.dest)) // Ignore unchanged files

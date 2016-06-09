@@ -1,4 +1,4 @@
-function SocketService (socketIOClientService, sailsIOClientService) {
+function SocketService(socketIOClientService, sailsIOClientService) {
   'ngInject';
   const io = sailsIOClientService(socketIOClientService);
   var config = window.config || {backend: 'http://localhost:8080'};
