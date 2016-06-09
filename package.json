@@ -76,5 +76,8 @@
     "postinstall": "webdriver-manager update",
     "build": "gulp prod"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "govuk_frontend_toolkit": "^4.12.0"
+  }
 }
