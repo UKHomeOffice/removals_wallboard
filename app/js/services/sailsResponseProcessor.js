@@ -1,8 +1,6 @@
 const _ = require('lodash');
 
 function sailsResponseProcessor() {
-  'ngInject';
-
   const updateObject = (obj, updates) => Object.getOwnPropertyNames(updates).forEach(prop => {
     if (!_.isFunction(obj[prop])) {
       if (!_.isArray(obj[prop]) && _.isObject(obj[prop])) {
