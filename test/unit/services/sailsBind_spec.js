@@ -16,8 +16,8 @@ describe('Unit: sailsBind', function () {
             return f();
           }
         }),
-        get: jasmine.createSpy('SocketService.Get').and.callFake(function (o, f) {
-          f({response: {data: ['foo', 'bar']}});
+        get: jasmine.createSpy('SocketService.Get').and.callFake(function (model, fn) {
+          return fn({data: ['fu', 'bar']});
         })
       }
     };
@@ -25,13 +25,12 @@ describe('Unit: sailsBind', function () {
     angular.mock.module(function ($provide) {
       $provide.value('SocketService', SocketService);
     });
-
     angular.mock.inject(function (sailsBind, $rootScope) {
       $scope = $rootScope.$new();
       service = sailsBind;
       service('centre', $scope);
+      $scope.$digest();
     });
-
   });
 
   it('should exist', function () {
@@ -42,18 +41,8 @@ describe('Unit: sailsBind', function () {
     expect(SocketService.socket.on.calls.argsFor(0)[0]).toBe('connect');
   });
 
-  xit('create', function () {
-
-  });
-  xit('update', function () {
-
-  });
-  xit('delete', function () {
-
-  });
-
-  xit('should get the initial payload', function () {
+  it('should get the initial payload', function () {
     expect(SocketService.socket.get.calls.argsFor(0)[0]).toBe('/centre');
-    expect($scope.centre).toBe(['foo', 'bar']);
+    expect($scope.centre).toEqual(['fu', 'bar']);
   });
 });

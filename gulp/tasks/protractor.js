@@ -11,7 +11,7 @@ import {
 
 gulp.task('webdriver', webdriver);
 
-gulp.task('protractor', ['prod', 'webdriver'], function(cb) {
+gulp.task('protractor', ['prod', 'webdriver'], function (cb) {
 
   const testFiles = gulp.src('test/e2e/**/*.js');
 
@@ -20,7 +20,7 @@ gulp.task('protractor', ['prod', 'webdriver'], function(cb) {
     dir: config.buildDir
   }).then((server) => {
     testFiles.pipe(protractor({
-        configFile: config.test.protractor
+      configFile: config.test.protractor
     })).on('error', (err) => {
       // Make sure failed tests cause gulp to exit non-zero
       throw err;

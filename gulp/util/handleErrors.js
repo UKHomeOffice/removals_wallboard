@@ -2,9 +2,9 @@
 
 import notify from 'gulp-notify';
 
-export default function(error) {
+export default function (error) {
 
-  if( !global.isProd ) {
+  if (!global.isProd) {
 
     var args = Array.prototype.slice.call(arguments);
 

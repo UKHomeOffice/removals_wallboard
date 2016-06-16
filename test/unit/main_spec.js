@@ -1,7 +1,7 @@
 /*global Angular */
-describe('UNIT main.js', function() {
+describe('UNIT main.js', function () {
 
-  xit('sets the requires array with the right elements.', function(){
+  xit('sets the requires array with the right elements.', function () {
 
   });
 

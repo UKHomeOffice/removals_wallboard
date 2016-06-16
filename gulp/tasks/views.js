@@ -7,7 +7,7 @@ import merge         from 'merge-stream';
 import templateCache from 'gulp-angular-templatecache';
 
 // Views task
-gulp.task('views', function() {
+gulp.task('views', function () {
 
   // Put our index.html in the dist folder
   const indexFile = gulp.src(config.views.index)
