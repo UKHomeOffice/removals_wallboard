@@ -53,11 +53,19 @@
       <td ng-bind="expectedin.length"></td>
     </tr>
 
-    <tr ng-if="unexpectedin !== undefined">
-      <td>Unexpected incoming</td>
+    <tr ng-if="unexpectedin !== undefined" ng-click="showUnexpectedIncoming = unexpectedin.length>0 && !showUnexpectedIncoming"
+        ng-class="unexpectedin.length>0 ? showUnexpectedIncoming ? 'close' : 'open' : ''">
+      <td>
+        Unexpected incoming
+        <h4 ng-if="showUnexpectedIncoming">CID number</h4>
+        <ul ng-if="showUnexpectedIncoming">
+          <li ng-repeat="theUnexpectedin in unexpectedin">{{theUnexpectedin.cid_id}}</li>
+        </ul>
+      </td>
       <td ng-bind="cidreceiveddate"></td>
-      <td ng-bind="unexpectedin"></td>
+      <td ng-bind="unexpectedin.length"></td>
     </tr>
+
     <tr class="availability">
       <td>Availability</td>
       <td></td>
