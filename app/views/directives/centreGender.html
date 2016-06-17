@@ -71,10 +71,18 @@
       <td></td>
       <td ng-class="highlight" ng-bind="availability"></td>
     </tr>
-    <tr ng-if="expectedout !== undefined">
-      <td>Expected outgoing</td>
+
+    <tr ng-if="expectedout !== undefined" ng-click="showExpectedOutgoing = expectedout.length>0 && !showExpectedOutgoing"
+        ng-class="expectedout.length>0 ? showExpectedOutgoing ? 'close' : 'open' : ''">
+      <td>
+        Expected outgoing
+        <h4 ng-if="showExpectedOutgoing">CID number</h4>
+        <ul ng-if="showExpectedOutgoing">
+          <li ng-repeat="theExpectedout in expectedout">{{theExpectedout.cid_id}}</li>
+        </ul>
+      </td>
       <td ng-bind="cidreceiveddate"></td>
-      <td ng-bind="expectedout"></td>
+      <td ng-bind="expectedout.length"></td>
     </tr>
     </tbody>
   </table>
