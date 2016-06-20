@@ -45,7 +45,7 @@
       <td>
         Expected incoming
         <h4 ng-if="showIncoming">CID number</h4>
-        <ul ng-if="showIncoming">
+        <ul ng-if="showIncoming" ng-click="$event.stopPropagation()">
           <li ng-repeat="theExpectedin in expectedin">{{theExpectedin.cid_id}}</li>
         </ul>
       </td>
@@ -58,7 +58,7 @@
       <td>
         Unexpected incoming
         <h4 ng-if="showUnexpectedIncoming">CID number</h4>
-        <ul ng-if="showUnexpectedIncoming">
+        <ul ng-if="showUnexpectedIncoming" ng-click="$event.stopPropagation()">
           <li ng-repeat="theUnexpectedin in unexpectedin">{{theUnexpectedin.cid_id}}</li>
         </ul>
       </td>
@@ -77,7 +77,7 @@
       <td>
         Expected outgoing
         <h4 ng-if="showExpectedOutgoing">CID number</h4>
-        <ul ng-if="showExpectedOutgoing">
+        <ul ng-if="showExpectedOutgoing" ng-click="$event.stopPropagation()">
           <li ng-repeat="theExpectedout in expectedout">{{theExpectedout.cid_id}}</li>
         </ul>
       </td>
