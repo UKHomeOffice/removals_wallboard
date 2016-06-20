@@ -53,7 +53,9 @@ describe('sailsResponseProcessor', function () {
       id: '1', verb: 'updated',
       data: {
         attributes: {
-          availability: 5, expectedins: [{id: 2}]
+          capacity: 10,
+          availability: 5,
+          expectedins: [{id: 2}]
         }
       }
     };
