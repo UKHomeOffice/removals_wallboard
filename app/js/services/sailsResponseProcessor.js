@@ -3,12 +3,7 @@ const _ = require('lodash');
 function sailsResponseProcessor() {
   const updateObject = (obj, updates) => Object.getOwnPropertyNames(updates).forEach(prop => {
     if (!_.isFunction(obj[prop])) {
-      if (!_.isArray(obj[prop]) && _.isObject(obj[prop])) {
-        updateObject(obj[prop], updates[prop]);
-      }
-      else if (obj[prop] !== updates[prop]) {
-        obj[prop] = updates[prop];
-      }
+      obj[prop] = updates[prop];
     }
   });
 
