@@ -57,15 +57,15 @@ function buildScript(file) {
     const sourceMapLocation = global.isProd ? './' : '';
 
     return stream.on('error', handleErrors)
-    .pipe(source(file))
-    .pipe(gulpif(createSourcemap(), buffer()))
-    .pipe(gulpif(createSourcemap(), sourcemaps.init({loadMaps: true})))
-    //.pipe(gulpif(global.isProd, streamify(uglify({
-    //  compress: { drop_console: true }
-    //}))))
-    .pipe(gulpif(createSourcemap(), sourcemaps.write(sourceMapLocation)))
-    .pipe(gulp.dest(config.scripts.dest))
-    .pipe(browserSync.stream());
+      .pipe(source(file))
+      .pipe(gulpif(createSourcemap(), buffer()))
+      .pipe(gulpif(createSourcemap(), sourcemaps.init({loadMaps: true})))
+      //.pipe(gulpif(global.isProd, streamify(uglify({
+      //  compress: { drop_console: true }
+      //}))))
+      .pipe(gulpif(createSourcemap(), sourcemaps.write(sourceMapLocation)))
+      .pipe(gulp.dest(config.scripts.dest))
+      .pipe(browserSync.stream());
   }
 
   return rebundle();
