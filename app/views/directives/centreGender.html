@@ -24,10 +24,15 @@
       <td ng-bind="heartbeatreceived"></td>
       <td ng-bind="inuse">}</td>
     </tr>
-    <tr>
+    <tr ng-class="oocdetail === undefined ? '' : showooc ? 'close':'open'"
+        ng-click="showooc=!showooc">
       <td>Beds out of commission</td>
       <td ng-bind="heartbeatreceived"></td>
-      <td ng-bind="ooc"></td>
+      <td ng-bind="ooctotal"></td>
+    </tr>
+    <tr class="ooc" ng-if="showooc" ng-repeat="(key, value) in oocdetail track by key">
+      <td colspan="2" ng-bind="key"></td>
+      <td ng-bind="value"></td>
     </tr>
     <tr ng-if="prebooking !== undefined">
       <td>Prebookings</td>
@@ -53,7 +58,8 @@
       <td ng-bind="expectedin.length"></td>
     </tr>
 
-    <tr ng-if="unexpectedin !== undefined" ng-click="showUnexpectedIncoming = unexpectedin.length>0 && !showUnexpectedIncoming"
+    <tr ng-if="unexpectedin !== undefined"
+        ng-click="showUnexpectedIncoming = unexpectedin.length>0 && !showUnexpectedIncoming"
         ng-class="unexpectedin.length>0 ? showUnexpectedIncoming ? 'close' : 'open' : ''">
       <td>
         Unexpected incoming
@@ -72,7 +78,8 @@
       <td ng-class="highlight" ng-bind="availability"></td>
     </tr>
 
-    <tr ng-if="expectedout !== undefined" ng-click="showExpectedOutgoing = expectedout.length>0 && !showExpectedOutgoing"
+    <tr ng-if="expectedout !== undefined"
+        ng-click="showExpectedOutgoing = expectedout.length>0 && !showExpectedOutgoing"
         ng-class="expectedout.length>0 ? showExpectedOutgoing ? 'close' : 'open' : ''">
       <td>
         Expected outgoing

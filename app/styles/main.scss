@@ -121,7 +121,7 @@ footer {
 
 .details > table {
   border-collapse: collapse;
-  tr {
+  tr:not(.ooc) {
     vertical-align: top;
     border-bottom: 1px solid $color_celeste_approx;
     th,
@@ -185,6 +185,15 @@ footer {
           font-size: 12px;
           font-weight: normal;
           font-family: $font_generic;
+        }
+      }
+    }
+    tr.ooc {
+      td {
+        text-align: left;
+        padding: 6px 0;
+        &:last-child {
+          text-align: right;
         }
       }
     }
