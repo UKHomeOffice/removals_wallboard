@@ -151,19 +151,33 @@ footer {
       border-bottom: 0;
     }
     tr.open > td:first-child {
-      background: url('../images/plus.png') no-repeat 0px 5px;
-      background-size: 20px 20px;
+      padding-left: 0px;
+    }
+    tr.open > td:first-child:before {
+      content: "";
+      float: left;
+      width: 45px;
+      height: 20px;
+      background: url('../images/accordian-arrow.png') no-repeat 0 -5px;
+      background-size: 30px;
+    }
+    tr.close > td:first-child:before {
+      content: "";
+      float: left;
+      width: 45px;
+      height: 20px;
+      background: url('../images/accordian-arrow.png') no-repeat 0 -35px;
+      background-size: 30px;
     }
     tr.close > td:first-child {
-      background: url('../images/minus.png') no-repeat 0px 5px;
-      background-size: 20px 20px;
+      padding-left: 0px;
       h4 {
-        padding: 8px 0px 4px;
+        padding: 8px 0px 4px 45px;
         margin: 0px;
         font-size: small;
       }
       ul {
-        padding-left: 0px;
+        padding-left: 45px;
         list-style-type: none;
         li {
           padding-top: 4px;

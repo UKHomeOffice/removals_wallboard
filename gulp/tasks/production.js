@@ -10,6 +10,6 @@ gulp.task('prod', ['clean'], function (cb) {
 
   global.isProd = true;
 
-  runSequence(['styles', 'images', 'views'], 'browserify', cb);
+  runSequence(['styles', 'images', 'govuk-images', 'views'], 'browserify', cb);
 
 });

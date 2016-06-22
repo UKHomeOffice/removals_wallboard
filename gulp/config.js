@@ -25,6 +25,11 @@ export default {
     dest: 'build/images'
   },
 
+  govuk_images: {
+    src: 'node_modules/govuk_frontend_toolkit/images/accordian-arrow.png',
+    dest: 'build/images'
+  },
+
   fonts: {
     src: ['app/fonts/**/*'],
     dest: 'build/fonts'
