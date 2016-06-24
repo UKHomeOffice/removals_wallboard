@@ -1,7 +1,7 @@
 <div class="centre" id="centre-{{cid}}">
   <h3 class="text-primary">{{attributes.name}}</h3>
   <span class="time">Last Updated:
-    <span title="{{attributes.heartbeatReceived}}"
+    <span ng-attr-title="{{attributes.heartbeatReceived}}"
           am-time-ago="attributes.heartbeatReceived"></span></span>
   <centre-gender-directive
     ng-if="attributes.maleCapacity > 0"
