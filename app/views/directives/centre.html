@@ -1,6 +1,8 @@
 <div class="centre" id="centre-{{cid}}">
   <h3 class="text-primary">{{attributes.name}}</h3>
-  <span class="time">Last Updated: {{attributes.heartbeatReceived | amDateFormat:'HH:mm:ss'}}</span>
+  <span class="time">Last Updated:
+    <span ng-attr-title="{{attributes.heartbeatReceived}}"
+          am-time-ago="attributes.heartbeatReceived"></span></span>
   <centre-gender-directive
     ng-if="attributes.maleCapacity > 0"
     gender="'Male'"
@@ -12,9 +14,9 @@
     expectedin="attributes.maleExpectedIn"
     expectedout="attributes.maleExpectedOut"
     unexpectedin="attributes.maleUnexpectedIn"
-    cidreceiveddate="attributes.cidReceivedDate | amDateFormat:'HH:mm:ss'"
-    heartbeatreceived="attributes.heartbeatReceived | amDateFormat:'HH:mm:ss'"
-    prebookingreceived="attributes.prebookingReceived | amDateFormat:'HH:mm:ss'"
+    cidreceiveddate="attributes.cidReceivedDate"
+    heartbeatreceived="attributes.heartbeatReceived"
+    prebookingreceived="attributes.prebookingReceived"
     prebooking="attributes.malePrebooking"
     contingency="attributes.maleContingency"
     status="attributes.statusMale"
@@ -33,9 +35,9 @@
     expectedin="attributes.femaleExpectedIn"
     expectedout="attributes.femaleExpectedOut"
     unexpectedin="attributes.femaleUnexpectedIn"
-    cidreceiveddate="attributes.cidReceivedDate | amDateFormat:'HH:mm:ss'"
-    heartbeatreceived="attributes.heartbeatReceived | amDateFormat:'HH:mm:ss'"
-    prebookingreceived="attributes.prebookingReceived | amDateFormat:'HH:mm:ss'"
+    cidreceiveddate="attributes.cidReceivedDate"
+    heartbeatreceived="attributes.heartbeatReceived"
+    prebookingreceived="attributes.prebookingReceived"
     prebooking="attributes.femalePrebooking"
     contingency="attributes.femaleContingency"
     status="attributes.statusFemale"

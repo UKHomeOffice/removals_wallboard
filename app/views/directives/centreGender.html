@@ -21,13 +21,13 @@
     </tr>
     <tr>
       <td>Occupied</td>
-      <td ng-bind="heartbeatreceived"></td>
-      <td ng-bind="inuse">}</td>
+      <td><span am-time-ago="heartbeatreceived" ng-attr-title="{{heartbeatreceived}}"></span></td>
+      <td ng-bind="inuse"></td>
     </tr>
     <tr ng-class="oocdetail === undefined ? '' : showooc ? 'close':'open'"
         ng-click="showooc=!showooc">
       <td>Beds out of commission</td>
-      <td ng-bind="heartbeatreceived"></td>
+      <td><span am-time-ago="heartbeatreceived" ng-attr-title="{{heartbeatreceived}}"></span></td>
       <td ng-bind="ooctotal"></td>
     </tr>
     <tr class="ooc" ng-if="showooc" ng-repeat="(key, value) in oocdetail track by key">
@@ -36,12 +36,12 @@
     </tr>
     <tr ng-if="prebooking !== undefined">
       <td>Prebookings</td>
-      <td ng-bind="prebookingreceived"></td>
+      <td><span am-time-ago="prebookingreceived" ng-attr-title="{{prebookingreceived}}"></span></td>
       <td ng-bind="prebooking"></td>
     </tr>
     <tr ng-if="contingency !== undefined">
       <td>Contingency</td>
-      <td ng-bind="prebookingreceived"></td>
+      <td><span am-time-ago="prebookingreceived" ng-attr-title="{{prebookingreceived}}"></span></td>
       <td ng-bind="contingency"></td>
     </tr>
 
@@ -54,7 +54,7 @@
           <li ng-repeat="theExpectedin in expectedin">{{theExpectedin.cid_id}}</li>
         </ul>
       </td>
-      <td ng-bind="cidreceiveddate"></td>
+      <td><span am-time-ago="cidreceiveddate" ng-attr-title="{{cidreceiveddate}}"></span></td>
       <td ng-bind="expectedin.length"></td>
     </tr>
 
@@ -68,7 +68,7 @@
           <li ng-repeat="theUnexpectedin in unexpectedin">{{theUnexpectedin.cid_id}}</li>
         </ul>
       </td>
-      <td ng-bind="cidreceiveddate"></td>
+      <td><span am-time-ago="cidreceiveddate" ng-attr-title="{{cidreceiveddate}}"></span></td>
       <td ng-bind="unexpectedin.length"></td>
     </tr>
 
@@ -88,7 +88,7 @@
           <li ng-repeat="theExpectedout in expectedout">{{theExpectedout.cid_id}}</li>
         </ul>
       </td>
-      <td ng-bind="cidreceiveddate"></td>
+      <td><span am-time-ago="cidreceiveddate" ng-attr-title="{{cidreceiveddate}}"></span></td>
       <td ng-bind="expectedout.length"></td>
     </tr>
     </tbody>
