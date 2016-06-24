@@ -150,27 +150,23 @@ footer {
     > tr:last-child {
       border-bottom: 0;
     }
-    tr.open > td:first-child {
-      padding-left: 0px;
-    }
-    tr.open > td:first-child:before {
-      content: "";
-      float: left;
-      width: 45px;
-      height: 20px;
-      background: url('../images/accordian-arrow.png') no-repeat 0 -5px;
-      background-size: 30px;
+    tr.open, tr.close {
+      > td:first-child {
+        padding-left: 0px;
+      }
+      > td:first-child:before {
+        content: "";
+        float: left;
+        width: 45px;
+        height: 20px;
+        background: url('../images/accordian-arrow.png') no-repeat 0 -5px;
+        background-size: 30px;
+      }
     }
     tr.close > td:first-child:before {
-      content: "";
-      float: left;
-      width: 45px;
-      height: 20px;
-      background: url('../images/accordian-arrow.png') no-repeat 0 -35px;
-      background-size: 30px;
+      background-position: 0 -35px;
     }
     tr.close > td:first-child {
-      padding-left: 0px;
       h4 {
         padding: 8px 0px 4px 45px;
         margin: 0px;
