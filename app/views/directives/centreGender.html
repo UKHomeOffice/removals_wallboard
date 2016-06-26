@@ -24,6 +24,7 @@
       <td><span am-time-ago="heartbeatreceived" ng-attr-title="{{heartbeatreceived}}"></span></td>
       <td ng-bind="inuse"></td>
     </tr>
+
     <tr ng-class="oocdetail === undefined ? '' : showooc ? 'close':'open'"
         ng-click="showooc=!showooc">
       <td>Beds out of commission</td>
@@ -34,11 +35,39 @@
       <td colspan="2" ng-bind="key"></td>
       <td ng-bind="value"></td>
     </tr>
-    <tr ng-if="prebooking !== undefined">
+
+    <tr ng-if="prebooking !== undefined" ng-click="showprebooking = prebooking>0 && !showprebooking"
+        ng-class="prebooking>0 ? showprebooking ? 'close' : 'open' : ''">
       <td>Prebookings</td>
       <td><span am-time-ago="prebookingreceived" ng-attr-title="{{prebookingreceived}}"></span></td>
       <td ng-bind="prebooking"></td>
     </tr>
+    <tr class="ooc" ng-if="showprebooking || true">
+      <td colspan="3">
+        <table>
+          <thead>
+            <tr>
+              <th>Requester</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="(name, requester) in prebookingdetail track by name">
+              <td ng-click="requester.showcids = requester.cids.length>0 && !requester.showcids"
+                  ng-class="requester.cids.length>0 ? requester.showcids ? 'close' : 'open' : ''">
+                {{name}}
+                <h4 ng-if="requester.showcids">CID number</h4>
+                <ul ng-if="requester.showcids" ng-click="$event.stopPropagation()">
+                  <li ng-repeat="theCID in requester.cids track by theCID.id">{{theCID.cid_id}}</li>
+                </ul>
+              </td>
+              <td ng-bind="requester.total"></td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+
     <tr ng-if="contingency !== undefined">
       <td>Contingency</td>
       <td><span am-time-ago="prebookingreceived" ng-attr-title="{{prebookingreceived}}"></span></td>
