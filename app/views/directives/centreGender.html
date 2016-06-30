@@ -44,52 +44,40 @@
       <td><span am-time-ago="prebookingreceived" ng-attr-title="{{prebookingreceived}}"></span></td>
       <td ng-bind="contingency"></td>
     </tr>
-
-    <tr ng-if="expectedin !== undefined" ng-click="showIncoming = expectedin.length>0 && !showIncoming"
-        ng-class="expectedin.length>0 ? showIncoming ? 'close' : 'open' : ''">
-      <td>
-        Expected incoming
-        <h4 ng-if="showIncoming">CID number</h4>
-        <ul ng-if="showIncoming" ng-click="$event.stopPropagation()">
-          <li ng-repeat="theExpectedin in expectedin">{{theExpectedin.cid_id}}</li>
-        </ul>
-      </td>
+    <tr ng-class="expectedin.length === 0 ? '' : showExpectedIncoming ? 'close':'open'"
+        ng-click="showExpectedIncoming=!showExpectedIncoming">
+      <td>Expected incoming</td>
       <td><span am-time-ago="cidreceiveddate" ng-attr-title="{{cidreceiveddate}}"></span></td>
       <td ng-bind="expectedin.length"></td>
     </tr>
-
-    <tr ng-if="unexpectedin !== undefined"
-        ng-click="showUnexpectedIncoming = unexpectedin.length>0 && !showUnexpectedIncoming"
-        ng-class="unexpectedin.length>0 ? showUnexpectedIncoming ? 'close' : 'open' : ''">
-      <td>
-        Unexpected incoming
-        <h4 ng-if="showUnexpectedIncoming">CID number</h4>
-        <ul ng-if="showUnexpectedIncoming" ng-click="$event.stopPropagation()">
-          <li ng-repeat="theUnexpectedin in unexpectedin">{{theUnexpectedin.cid_id}}</li>
-        </ul>
-      </td>
+    <tr class="details" ng-if="showExpectedIncoming" ng-repeat="item in expectedin">
+      <td colspan="2" ng-bind="item.cid_id"></td>
+      <td>1</td>
+    </tr>
+    <tr ng-class="unexpectedin.length === 0 ? '' : showUnexpectedIncoming ? 'close':'open'"
+        ng-click="showUnexpectedIncoming=!showUnexpectedIncoming">
+      <td>Unexpected incoming</td>
       <td><span am-time-ago="cidreceiveddate" ng-attr-title="{{cidreceiveddate}}"></span></td>
       <td ng-bind="unexpectedin.length"></td>
     </tr>
-
+    <tr class="details" ng-if="showUnexpectedIncoming" ng-repeat="item in unexpectedin">
+      <td colspan="2" ng-bind="item.cid_id"></td>
+      <td>1</td>
+    </tr>
     <tr class="availability">
       <td>Availability</td>
       <td></td>
       <td ng-class="highlight" ng-bind="availability"></td>
     </tr>
-
-    <tr ng-if="expectedout !== undefined"
-        ng-click="showExpectedOutgoing = expectedout.length>0 && !showExpectedOutgoing"
-        ng-class="expectedout.length>0 ? showExpectedOutgoing ? 'close' : 'open' : ''">
-      <td>
-        Expected outgoing
-        <h4 ng-if="showExpectedOutgoing">CID number</h4>
-        <ul ng-if="showExpectedOutgoing" ng-click="$event.stopPropagation()">
-          <li ng-repeat="theExpectedout in expectedout">{{theExpectedout.cid_id}}</li>
-        </ul>
-      </td>
+    <tr ng-class="expectedout.length === 0 ? '' : showExpectedOutgoing ? 'close':'open'"
+        ng-click="showExpectedOutgoing=!showExpectedOutgoing">
+      <td>Expected outgoing</td>
       <td><span am-time-ago="cidreceiveddate" ng-attr-title="{{cidreceiveddate}}"></span></td>
       <td ng-bind="expectedout.length"></td>
+    </tr>
+    <tr class="details" ng-if="showExpectedOutgoing" ng-repeat="item in expectedout">
+      <td colspan="2" ng-bind="item.cid_id"></td>
+      <td>1</td>
     </tr>
     </tbody>
   </table>

@@ -121,7 +121,7 @@ footer {
 
 .details > table {
   border-collapse: collapse;
-  tr:not(.ooc) {
+  tr:not(.details) {
     vertical-align: top;
     border-bottom: 1px solid $color_celeste_approx;
     th,
@@ -171,24 +171,8 @@ footer {
     }
     tr.close > td:first-child {
       padding-left: 0px;
-      h4 {
-        padding: 8px 0px 4px 45px;
-        margin: 0px;
-        font-size: small;
-      }
-      ul {
-        padding-left: 45px;
-        list-style-type: none;
-        li {
-          padding-top: 4px;
-          border-top: thin solid $color_celeste_approx;
-          font-size: 12px;
-          font-weight: normal;
-          font-family: $font_generic;
-        }
-      }
     }
-    tr.ooc {
+    tr.details {
       td {
         text-align: left;
         padding: 6px 0;
