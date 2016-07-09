@@ -37,6 +37,7 @@ WORKDIR /home/app
 
 RUN npm install phantomjs-prebuilt
 ADD package.json /home/app/package.json
+ADD npm-shrinkwrap.json /home/app/npm-shrinkwrap.json
 RUN npm install
 
 
