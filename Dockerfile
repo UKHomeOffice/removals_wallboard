@@ -34,8 +34,8 @@ RUN mkdir -p /home/app
 
 WORKDIR /home/app
 
-COPY package.json .
-COPY npm-shrinkwrap.json .
+COPY package.json /home/app/
+COPY npm-shrinkwrap.json /home/app/
 RUN npm install
 
 COPY . .
