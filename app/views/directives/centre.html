@@ -6,7 +6,7 @@
   <centre-gender-directive
     ng-if="attributes.maleCapacity > 0"
     gender="'Male'"
-    availability="attributes.maleAvailability"
+    availability="maleAvailability"
     ooctotal="attributes.maleOutOfCommissionTotal"
     oocdetail="attributes.maleOutOfCommissionDetail"
     capacity="attributes.maleCapacity"
@@ -19,15 +19,15 @@
     prebookingreceived="attributes.prebookingReceived"
     prebooking="attributes.malePrebooking"
     contingency="attributes.maleContingency"
-    status="attributes.statusMale"
-    highlight="attributes.highlightMale"
+    status="statusMale"
+    highlight="highlightMale"
   >
   </centre-gender-directive>
 
   <centre-gender-directive
     ng-if="attributes.femaleCapacity > 0"
     gender="'Female'"
-    availability="attributes.femaleAvailability"
+    availability="femaleAvailability"
     ooctotal="attributes.femaleOutOfCommissionTotal"
     oocdetail="attributes.femaleOutOfCommissionDetail"
     capacity="attributes.femaleCapacity"
@@ -40,8 +40,8 @@
     prebookingreceived="attributes.prebookingReceived"
     prebooking="attributes.femalePrebooking"
     contingency="attributes.femaleContingency"
-    status="attributes.statusFemale"
-    highlight="attributes.highlightFemale"
+    status="statusFemale"
+    highlight="highlightFemale"
   >
   </centre-gender-directive>
 </div>
