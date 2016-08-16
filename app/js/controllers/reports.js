@@ -6,7 +6,7 @@ const _ = require('lodash');
  */
 function ReportCtrl($scope, SocketService) {
   const socketGet = (url) => new Promise((resolve) => SocketService.socket.get(url, resolve))
-  const formatReasons = (gender, row) => _.join(_.flatMap(row[gender] || [], (value, key) => `${key}: ${value}`), ', ')
+  const formatReasons = (gender, row) => _.join(_.flatMap(row[gender] || [], (value, key) => `${key}: ${value}`).sort(), ', ')
   //set defaults
   $scope.from = moment().subtract(1, 'days').startOf('day').toDate();
   $scope.to = moment().subtract(1, 'days').endOf('day').toDate();
