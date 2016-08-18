@@ -8,12 +8,25 @@
       <label for="to">To:
         <input id="to" ng-model="to" type="datetime-local"/>
       </label>
-
-      <button id="getSummary" type="button" ng-csv="getSummary()" csv-header="summaryHeaders" lazy-load
-              filename="summary.csv">Get
-        Summary
+      <button
+        id="getSummary"
+        type="button"
+        ng-disabled="summaryInProgress"
+        ng-csv="getSummary()"
+        csv-header="summaryHeaders"
+        lazy-load
+        filename="summary.csv"
+      >Get Summary
       </button>
-      <button id="getRaw" type="button" ng-csv="getRaw()" csv-header="rawHeaders" lazy-load filename="raw.csv">
+      <button
+        id="getRaw"
+        type="button"
+        ng-disabled="rawInProgress"
+        ng-csv="getRaw()"
+        csv-header="rawHeaders"
+        lazy-load
+        filename="raw.csv"
+      >
         Get Raw Data
       </button>
     </fieldset>
