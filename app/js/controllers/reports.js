@@ -1,20 +1,30 @@
 const moment = require('moment');
 const _ = require('lodash');
+const promise = require('bluebird');
 
 /**
  * @ngInject
  */
 function ReportCtrl($scope, SocketService) {
-  const socketGet = (url) => new Promise((resolve) => SocketService.socket.get(url, resolve))
+  const socketGet = (url) => new promise((resolve) => SocketService.socket.get(url, resolve))
+
   const formatReasons = (gender, row) => _.join(_.flatMap(row[gender] || [], (value, key) => `${key}: ${value}`).sort(), ', ')
+
+  const progressIndicator = promise.method((report, inProgress) =>
+    $scope.$apply(() =>
+      $scope[`${report}InProgress`] = inProgress
+    ))
+
   //set defaults
   $scope.from = moment().subtract(1, 'days').startOf('day').toDate();
   $scope.to = moment().subtract(1, 'days').endOf('day').toDate();
 
   $scope.getSummary = () =>
-    socketGet(`/heartbeat/summary?where={"createdAt":{"lessThan": "${$scope.to.toISOString()}", "greaterThan": "${$scope.from.toISOString()}"}}`)
-      .then(response =>_.map(response.data, (row) => {
+    progressIndicator('summary', true)
+      .finally(() => progressIndicator('summary', false))
+      .then(() => socketGet(`/heartbeat/summary?where={"createdAt":{"lessThan": "${$scope.to.toISOString()}", "greaterThan": "${$scope.from.toISOString()}"}}`))
 
+      .then(response =>_.map(response.data, (row) => {
         row.maleInUseMax = row.maleInUse.max;
         row.maleInUseMean = row.maleInUse.mean;
         row.maleInUseMin = row.maleInUse.min;
@@ -69,22 +79,18 @@ function ReportCtrl($scope, SocketService) {
 
   $scope.summaryHeaders = ["centre", "maleInUseMax", "maleInUseMean", "maleInUseMin", "femaleInUseMax", "femaleInUseMean", "femaleInUseMin", "maleOutOfCommissionMax", "maleOutOfCommissionMean", "maleOutOfCommissionMin", "femaleOutOfCommissionMax", "femaleOutOfCommissionMean", "femaleOutOfCommissionMin", "maleBedReasons", "femaleBedReasons"];
 
-  $scope.getRaw = () => new Promise((resolve) =>
-    SocketService.socket.get(`/heartbeat?limit=${Number.MAX_SAFE_INTEGER}&where={"createdAt":{"lessThan": "${$scope.to.toISOString()}", "greaterThan": "${$scope.from.toISOString()}"}}`, response => resolve(_.map(response.data, (row) => {
+  $scope.getRaw = () =>
+    progressIndicator('raw', true)
+      .finally(() => progressIndicator('raw', false))
+      .then(() => socketGet(`/heartbeat?limit=${Number.MAX_SAFE_INTEGER}&where={"createdAt":{"lessThan": "${$scope.to.toISOString()}", "greaterThan": "${$scope.from.toISOString()}"}}`))
+      .then(response => response.data)
+      .map(row => row.attributes)
+      .map(row => {
+        row.centre = row.centre.attributes.name;
+        return row;
+      });
 
-      row.timestamp = row.attributes.timestamp;
-      row.centre = row.attributes.centre.attributes.name;
-      row.maleInUse = row.attributes.maleInUse;
-      row.femaleInUse = row.attributes.femaleInUse;
-      row.maleOutOfCommission = row.attributes.maleOutOfCommission;
-      row.femaleOutOfCommission = row.attributes.femaleOutOfCommission;
-      delete row.links;
-      delete row.id;
-      delete row.attributes;
-      return row;
-    })))
-  );
-  $scope.rawHeaders = ["timestamp", "centre", "maleInUse", "femaleInUse", "maleOutOfCommission", "femaleOutOfCommission"];
+  $scope.rawHeaders = ["centre", "timestamp", "maleInUse", "femaleInUse", "maleOutOfCommission", "femaleOutOfCommission"];
 
 }
 
