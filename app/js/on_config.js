@@ -1,7 +1,10 @@
 function OnConfig($stateProvider, $locationProvider, $urlRouterProvider) {
   'ngInject';
 
-  $locationProvider.html5Mode(true);
+  $locationProvider.html5Mode({
+    enabled: true,
+    requireBase: false
+  });
 
   $stateProvider
     .state('Home', {

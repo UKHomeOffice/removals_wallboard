@@ -6,6 +6,7 @@ $red: #B1171D;
 $blue: #4A90E2;
 $color_concrete_approx: #f3f3f3;
 $color_celeste_approx: #ccc;
+$button: #00823b;
 
 //fonts
 $font_generic: "Arial", "sans-serif";
@@ -13,7 +14,7 @@ $font_bold: "Arial Bold", "Arial", "sans-serif";
 $font_bold_weight: 700;
 
 $left_margin: 10px;
-$indent: 55px;
+$indent: 30px;
 
 $base_font_size: 12px;
 $heading_font_size: 23px;
@@ -96,19 +97,26 @@ footer {
     }
   }
   .highlight {
-    color: $red;
+    color: white;
+    background: $red;
   }
   .summary {
     margin: 1em 0 0 $indent;
     .availability {
-      display: block;
+      //display: block;
       font-weight: $font_bold_weight;
       font-family: $font_bold;
       font-size: 33px;
+      &:after {
+        content: "";
+        display: block;
+        margin-bottom: -0.25em;
+      }
     }
     .detail-toggle {
       float: right;
-      margin-top: -$base_font_size;
+      padding: $base_font_size 0 $base_font_size $base_font_size;
+      margin-top: -($base_font_size*2);
     }
   }
   .details {
@@ -145,7 +153,7 @@ footer {
   }
   > tbody {
     > tr:not(:first-child) td:first-child {
-      padding-left: 45px;
+      padding-left: $indent;
     }
     > tr:last-child {
       border-bottom: 0;
@@ -156,7 +164,7 @@ footer {
     tr.open > td:first-child:before {
       content: "";
       float: left;
-      width: 45px;
+      width: $indent;
       height: 20px;
       background: url('../images/accordian-arrow.png') no-repeat 0 -5px;
       background-size: 30px;
@@ -164,7 +172,7 @@ footer {
     tr.close > td:first-child:before {
       content: "";
       float: left;
-      width: 45px;
+      width: $indent;
       height: 20px;
       background: url('../images/accordian-arrow.png') no-repeat 0 -35px;
       background-size: 30px;
@@ -172,12 +180,12 @@ footer {
     tr.close > td:first-child {
       padding-left: 0px;
       h4 {
-        padding: 8px 0px 4px 45px;
+        padding: 8px 0px 4px $indent;
         margin: 0px;
         font-size: small;
       }
       ul {
-        padding-left: 45px;
+        padding-left: $indent;
         list-style-type: none;
         li {
           padding-top: 4px;
@@ -187,6 +195,9 @@ footer {
           font-family: $font_generic;
         }
       }
+    }
+    span[am-time-ago] {
+      font-size: 0.8em;
     }
     tr.ooc {
       td {
@@ -214,5 +225,39 @@ section.reports {
   margin: $left-margin;
   label {
     display: block;
+  }
+}
+
+[ng-click],
+[data-ng-click],
+[x-ng-click] {
+  cursor: pointer;
+}
+
+.hidden {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+button,
+input[type="button"],
+input[type="submit"] {
+  background-color: $button;
+  margin: 0.5em;
+  padding: 0.67em 2em;
+  border: none;
+  font-size: $base_font_size;
+  cursor: pointer;
+  color: white;
+  &:disabled,
+  &[disabled="disabled"],
+  &[disabled] {
+    filter: alpha(opacity=50);
+    cursor: auto;
+    opacity: 0.5;
   }
 }

@@ -1,10 +1,11 @@
 function CentreGenderDirective() {
-
+"ngInject";
   return {
     restrict: 'E',
     templateUrl: 'directives/centreGender.html',
     scope: {
       capacity: '=',
+      centre: '=',
       gender: '=',
       inuse: '=',
       ooctotal: '=',

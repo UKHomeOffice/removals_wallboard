@@ -11,12 +11,14 @@ import './controllers';
 import './services';
 import './directives';
 require('angular-moment');
+require('angular-aria');
 
 // create and bootstrap application
 const requires = [
+  'ngAria',
   'ui.router',
   'templates',
-  'app.filters',
+  // 'app.filters',
   'app.controllers',
   'app.services',
   'app.directives',
