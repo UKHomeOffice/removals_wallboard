@@ -1,7 +1,7 @@
 <header>
   <div class="banner">
-    <img width=35 height=26 src="/images/crown_image.png">
-    <h1>IRC Bed Management</h1>
+    <img width=35 height=26 src="/images/crown_image.png" alt="Crown">
+    <h1 aria-label="I.R.C Bed Management">IRC Bed Management</h1>
   </div>
   <div id="happybrowser" style="display:none">
     You are using a non-supported browser. Please <a href="http://chrome.com/">change your browser to
@@ -9,8 +9,9 @@
   </div>
   <div class="disconnected message" ng-if="!connected">Connecting to service...</div>
 </header>
-
-<ul class="container">
+<section>
+  <h2 class="hidden">Centres</h2>
+<ul class="container" aria-live="off">
   <li class="centre"
       ng-repeat="centre in centres | orderBy:'attributes.name' track by centre.id"
       centre-directive
@@ -18,7 +19,7 @@
       cid="centre.id">
   </li>
 </ul>
-
+</section>
 <reports-directive ng-if="connected"></reports-directive>
 
 <footer ng-if="keycloakLinkPath !== undefined">

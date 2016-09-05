@@ -1,7 +1,7 @@
 import angular from 'angular';
 
 const bulk = require('bulk-require');
-const directivesModule = angular.module('app.directives', []);
+const directivesModule = angular.module('app.directives', ['ngAria']);
 const directives = bulk(__dirname, ['./**/!(*index|*.spec).js']);
 
 function declare(directiveMap) {

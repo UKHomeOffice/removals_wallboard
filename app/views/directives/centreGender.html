@@ -1,8 +1,14 @@
 <div class="summary">
-  <span class="availability" ng-class="highlight" ng-bind="availability"></span>
-  <span class="status" ng-bind="status"></span>
-  <a class="detail-toggle" ng-click="showdetails=!showdetails"> {{showdetails ? 'Hide' : 'Show'}} numbers
+  <span class="availability" ng-class="highlight" ng-bind="availability" aria-live="off"></span>
+  <span class="status" ng-bind="status" aria-live="off"></span>
+  <a href="#" class="detail-toggle"
+     ng-click="showdetails=!showdetails"
+     aria-expanded="showdetails"
+     title="{{showdetails ? 'Hide' : 'Show'}} details for {{gender}} beds in {{centre}}"
+     aria-label="{{showdetails ? 'Hide' : 'Show'}} details for {{gender}} beds in {{centre}}"> {{showdetails ? 'Hide' :
+    'Show'}} numbers
   </a>
+
 </div>
 <div class="details" ng-if="showdetails">
   <table>
@@ -21,84 +27,89 @@
     </tr>
     <tr>
       <td>Occupied</td>
-      <td><span am-time-ago="heartbeatreceived" ng-attr-title="{{heartbeatreceived}}"></span></td>
-      <td ng-bind="inuse"></td>
+      <td><span am-time-ago="heartbeatreceived" ng-attr-title="{{heartbeatreceived}}" aria-live="off"></span></td>
+      <td ng-bind="inuse" aria-live="off"></td>
     </tr>
     <tr ng-class="oocdetail === undefined ? '' : showooc ? 'close':'open'"
-        ng-click="showooc=!showooc">
+        ng-click="showooc=!showooc" aria-expanded="showooc">
       <td>Beds out of commission</td>
-      <td><span am-time-ago="heartbeatreceived" ng-attr-title="{{heartbeatreceived}}"></span></td>
-      <td ng-bind="ooctotal"></td>
+      <td><span am-time-ago="heartbeatreceived" ng-attr-title="{{heartbeatreceived}}" aria-live="off"></span></td>
+      <td ng-bind="ooctotal" aria-live="off"></td>
     </tr>
     <tr class="ooc" ng-if="showooc" ng-repeat="(key, value) in oocdetail track by key">
-      <td colspan="2" ng-bind="key"></td>
-      <td ng-bind="value"></td>
+      <td colspan="2" ng-bind="key" aria-live="off"></td>
+      <td ng-bind="value" aria-live="off"></td>
     </tr>
-    <tr ng-class="prebookingtotal < 1 ? '' : showprebooking ? 'close':'open'"
-        ng-click="showprebooking=!showprebooking">
+    <tr ng-class="prebookingtotal < 1 ? '' : showprebooking ? 'close' : 'open'"
+        ng-click="showprebooking=!showprebooking"
+        aria-expanded="showprebooking">
       <td>Prebookings</td>
-      <td><span am-time-ago="prebookingreceived" ng-attr-title="{{prebookingreceived}}"></span></td>
-      <td ng-bind="prebookingtotal"></td>
+      <td><span am-time-ago="prebookingreceived" ng-attr-title="{{prebookingreceived}}" aria-live="off"></span></td>
+      <td ng-bind="prebookingtotal" aria-live="off"></td>
     </tr>
     <tr class="ooc" ng-if="showprebooking" ng-repeat="(key, value) in prebookingdetail track by key">
-      <td colspan="2" ng-bind="key"></td>
-      <td ng-bind="value"></td>
+      <td colspan="2" ng-bind="key" aria-live="off"></td>
+      <td ng-bind="value" aria-live="off"></td>
     </tr>
     <tr ng-class="contingencytotal < 1 ? '' : showcontingency ? 'close':'open'"
-        ng-click="showcontingency=!showcontingency">
+        ng-click="showcontingency=!showcontingency"
+        aria-expanded="showcontingency">
       <td>Contingency</td>
-      <td><span am-time-ago="prebookingreceived" ng-attr-title="{{contingencyreceived}}"></span></td>
-      <td ng-bind="contingencytotal"></td>
+      <td><span am-time-ago="prebookingreceived" ng-attr-title="{{contingencyreceived}}" aria-live="off"></span></td>
+      <td ng-bind="contingencytotal" aria-live="off"></td>
     </tr>
     <tr class="ooc" ng-if="showcontingency" ng-repeat="(key, value) in contingencydetail track by key">
-      <td colspan="2" ng-bind="key"></td>
-      <td ng-bind="value"></td>
+      <td colspan="2" ng-bind="key" aria-live="off"></td>
+      <td ng-bind="value" aria-live="off"></td>
     </tr>
     <tr ng-if="expectedin !== undefined" ng-click="showIncoming = expectedin.length>0 && !showIncoming"
-        ng-class="expectedin.length>0 ? showIncoming ? 'close' : 'open' : ''">
+        ng-class="expectedin.length>0 ? showIncoming ? 'close' : 'open' : ''"
+        aria-expanded="showIncoming">
       <td>
         Expected incoming
         <h4 ng-if="showIncoming">CID number</h4>
-        <ul ng-if="showIncoming" ng-click="$event.stopPropagation()">
+        <ul ng-if="showIncoming" ng-click="$event.stopPropagation()" aria-live="off">
           <li ng-repeat="theExpectedin in expectedin">{{theExpectedin.cid_id}}</li>
         </ul>
       </td>
-      <td><span am-time-ago="cidreceiveddate" ng-attr-title="{{cidreceiveddate}}"></span></td>
-      <td ng-bind="expectedin.length"></td>
+      <td><span am-time-ago="cidreceiveddate" ng-attr-title="{{cidreceiveddate}}" aria-live="off"></span></td>
+      <td ng-bind="expectedin.length" aria-live="off"></td>
     </tr>
 
     <tr ng-if="unexpectedin !== undefined"
         ng-click="showUnexpectedIncoming = unexpectedin.length>0 && !showUnexpectedIncoming"
-        ng-class="unexpectedin.length>0 ? showUnexpectedIncoming ? 'close' : 'open' : ''">
+        ng-class="unexpectedin.length>0 ? showUnexpectedIncoming ? 'close' : 'open' : ''"
+        aria-expanded="showUnexpectedIncoming">
       <td>
         Unexpected incoming
         <h4 ng-if="showUnexpectedIncoming">CID number</h4>
-        <ul ng-if="showUnexpectedIncoming" ng-click="$event.stopPropagation()">
+        <ul ng-if="showUnexpectedIncoming" ng-click="$event.stopPropagation()" aria-live="off">
           <li ng-repeat="theUnexpectedin in unexpectedin">{{theUnexpectedin.cid_id}}</li>
         </ul>
       </td>
-      <td><span am-time-ago="cidreceiveddate" ng-attr-title="{{cidreceiveddate}}"></span></td>
-      <td ng-bind="unexpectedin.length"></td>
+      <td><span am-time-ago="cidreceiveddate" ng-attr-title="{{cidreceiveddate}}" aria-live="off"></span></td>
+      <td ng-bind="unexpectedin.length" aria-live="off"></td>
     </tr>
 
     <tr class="availability">
       <td>Availability</td>
       <td></td>
-      <td ng-class="highlight" ng-bind="availability"></td>
+      <td ng-class="highlight" ng-bind="availability" aria-live="off"></td>
     </tr>
 
     <tr ng-if="expectedout !== undefined"
         ng-click="showExpectedOutgoing = expectedout.length>0 && !showExpectedOutgoing"
-        ng-class="expectedout.length>0 ? showExpectedOutgoing ? 'close' : 'open' : ''">
+        ng-class="expectedout.length>0 ? showExpectedOutgoing ? 'close' : 'open' : ''"
+        aria-expanded="showExpectedOutgoing">
       <td>
         Expected outgoing
         <h4 ng-if="showExpectedOutgoing">CID number</h4>
-        <ul ng-if="showExpectedOutgoing" ng-click="$event.stopPropagation()">
+        <ul ng-if="showExpectedOutgoing" ng-click="$event.stopPropagation()" aria-live="off">
           <li ng-repeat="theExpectedout in expectedout">{{theExpectedout.cid_id}}</li>
         </ul>
       </td>
-      <td><span am-time-ago="cidreceiveddate" ng-attr-title="{{cidreceiveddate}}"></span></td>
-      <td ng-bind="expectedout.length"></td>
+      <td><span am-time-ago="cidreceiveddate" ng-attr-title="{{cidreceiveddate}}" aria-live="off"></span></td>
+      <td ng-bind="expectedout.length" aria-live="off"></td>
     </tr>
     </tbody>
   </table>
