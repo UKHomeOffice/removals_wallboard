@@ -30,7 +30,7 @@
       <td><span am-time-ago="heartbeatreceived" ng-attr-title="{{heartbeatreceived}}" aria-live="off"></span></td>
       <td ng-bind="inuse" aria-live="off"></td>
     </tr>
-    <tr ng-class="oocdetail === undefined ? '' : showooc ? 'close':'open'"
+    <tr ng-class="showooc ? 'close':'open'"
         ng-click="showooc=!showooc" aria-expanded="showooc">
       <td>Beds out of commission</td>
       <td><span am-time-ago="heartbeatreceived" ng-attr-title="{{heartbeatreceived}}" aria-live="off"></span></td>
