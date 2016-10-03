@@ -76,8 +76,12 @@
       <td ng-bind="expectedin.length" aria-live="off"></td>
     </tr>
 
-    <tr ng-if="unexpectedin !== undefined"
-        ng-click="showUnexpectedIncoming = unexpectedin.length>0 && !showUnexpectedIncoming"
+    <tr class="availability">
+      <td>Availability</td>
+      <td></td>
+      <td ng-class="highlight" ng-bind="availability" aria-live="off"></td>
+    </tr>
+    <tr ng-click="showUnexpectedIncoming = unexpectedin.length>0 && !showUnexpectedIncoming"
         ng-class="unexpectedin.length>0 ? showUnexpectedIncoming ? 'close' : 'open' : ''"
         aria-expanded="showUnexpectedIncoming">
       <td>
@@ -90,15 +94,7 @@
       <td><span am-time-ago="cidreceiveddate" ng-attr-title="{{cidreceiveddate}}" aria-live="off"></span></td>
       <td ng-bind="unexpectedin.length" aria-live="off"></td>
     </tr>
-
-    <tr class="availability">
-      <td>Availability</td>
-      <td></td>
-      <td ng-class="highlight" ng-bind="availability" aria-live="off"></td>
-    </tr>
-
-    <tr ng-if="expectedout !== undefined"
-        ng-click="showExpectedOutgoing = expectedout.length>0 && !showExpectedOutgoing"
+    <tr ng-click="showExpectedOutgoing = expectedout.length>0 && !showExpectedOutgoing"
         ng-class="expectedout.length>0 ? showExpectedOutgoing ? 'close' : 'open' : ''"
         aria-expanded="showExpectedOutgoing">
       <td>
