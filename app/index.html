@@ -5,15 +5,17 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title ng-bind="pageTitle"></title>
-  <meta name="description" content="">
+  <!--<meta name="description" content="">-->
   <meta name="viewport" content="width=device-width">
   <link rel="stylesheet" href="css/main.css">
   <script src="/config.js"></script>
 </head>
-<body>
-
-<div ui-view></div>
-
+<body ui-view>
 <script src="js/main.js"></script>
+<div id="happybrowser" class="error-summary">
+  <h1 class="heading-medium error-summary-heading">You are using an un-supported browser</h1>
+  <p>Please <a href="http://chrome.com/">change your browser to
+    Chrome</a> to improve your experience.</p>
+</div>
 </body>
 </html>

@@ -1,26 +1,46 @@
-<header>
-  <div class="banner">
-    <img width=35 height=26 src="/images/crown_image.png" alt="Crown">
-    <h1 aria-label="I.R.C Bed Management">IRC Bed Management</h1>
+<header role="banner" id="global-header" class="with-proposition">
+  <div class="header-wrapper">
+    <div class="header-global">
+      <div class="header-logo">
+        <a href="https://www.gov.uk" title="Go to the GOV.UK homepage" id="logo" class="content">
+          <img src="images/gov.uk_logotype_crown_invert_trans.png?0.18.3" width="36" height="32" alt=""> GOV.UK
+        </a>
+      </div>
+    </div>
+    <h1>IRC Bed Management</h1>
+</header>
+<div id="global-header-bar"></div>
+<main id="content" role="main">
+
+  <div class="phase-banner">
+    <p>
+      <strong class="phase-tag">BETA</strong>
+      <span>This is a new service – your feedback will help us to improve it.</span>
+    </p>
   </div>
   <div id="happybrowser" style="display:none">
     You are using a non-supported browser. Please <a href="http://chrome.com/">change your browser to
     Chrome</a> to improve your experience.
   </div>
-  <div class="disconnected message" ng-if="!connected">Connecting to service...</div>
-</header>
-<section>
-  <h2 class="hidden">Centres</h2>
-<ul class="container" aria-live="off">
-  <li class="centre"
-      ng-repeat="centre in centres | orderBy:'attributes.name' track by centre.id"
-      centre-directive
-      attributes="centre.attributes"
-      cid="centre.id">
-  </li>
-</ul>
-</section>
-<reports-directive ng-if="connected"></reports-directive>
+
+  <div class="disconnected message error-summary" ng-if="!connected">
+    <h1 class="heading-medium error-summary-heading">Issue with connection to service</h1>
+    <p>Retrying in the background... (You don't need to do anything)</p>
+  </div>
+  <section ng-if="connected">
+    <h2 class="hidden">Centres</h2>
+    <ul class="container" id="centres">
+      <li class="centre"
+          ng-repeat="centre in centres | orderBy:'attributes.name' track by centre.id"
+          centre-directive
+          attributes="centre.attributes"
+          id="centre-{{centre.id}}"
+          cid="centre.id">
+      </li>
+    </ul>
+  </section>
+  <reports-directive ng-if="connected"></reports-directive>
+</main>
 
 <footer ng-if="keycloakLinkPath !== undefined">
   <a ng-href="{{keycloakLinkPath}}" ng-bind="keycloakLinkText" target="_blank"></a>

@@ -1,228 +1,125 @@
-//colors
-$color_mine_shaft_approx: #333333;
-$black: black;
-$white: #ffffff;
-$red: #B1171D;
-$blue: #4A90E2;
-$color_concrete_approx: #f3f3f3;
-$color_celeste_approx: #ccc;
-$button: #00823b;
+$path: "../images/";
 
-//fonts
-$font_generic: "Arial", "sans-serif";
-$font_bold: "Arial Bold", "Arial", "sans-serif";
-$font_bold_weight: 700;
+@import 'govuk-elements';
+@import 'govuk-template';
 
-$left_margin: 10px;
-$indent: 30px;
-
-$base_font_size: 12px;
-$heading_font_size: 23px;
-
-body {
-  width: 340px;
-  font-family: $font_generic;
-  color: $color_mine_shaft_approx;
-  margin: 0;
-  font-size: $base_font_size;
-  a {
-    text-decoration: none;
-    color: $blue;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
+.phase-banner {
+  @include phase-banner(beta);
 }
 
-header {
-  .banner {
-    background-color: $black;
-    img {
-      padding: 9px $left_margin 0 $left_margin;
-      float: left;
-    }
-    h1 {
-      margin: 0;
-      line-height: 2em;
-      font-size: $heading_font_size;
-      color: $white;
-    }
-  }
-  h2 {
-    margin: 0;
-    font-size: 2.2em;
-    padding: 1em 0.5em;
-  }
-  .disconnected.message {
-    margin: 1em 0.3em;
-    font-family: $font_bold;
-    font-size: 2.2em;
-    font-weight: $font_bold_weight;
-    padding: 0.5em;
-    border: $red 0.2em solid;
-
-  }
-
-  #happybrowser {
-    color: $red;
-    padding: 3em 0;
-    font-size: 3em;
-    text-align: center;
-  }
+.heading-help {
+  display: block;
+  @include copy-14;
 }
 
-footer {
-  margin-left: $left_margin;
-  border-top: 1px solid $color_celeste_approx;
-  padding: 10px 0;
-}
-
-.centre {
-  padding-bottom: 1em;
-  h3 {
-    font-size: $heading_font_size;
-    margin: 0 0 0 $left_margin;
-    float: left;
-    display: inline-block;
-    text-transform: capitalize;
+header#global-header {
+  #logo {
+    background-image: url('/images/gov.uk_logotype_crown.png')
   }
-  .time {
-    text-align: right;
-    display: block;
-    padding-top: 10px;
-    &:after {
-      content: '';
-      display: block;
-      clear: both;
-    }
-  }
-  .highlight {
+  h1 {
+    @include heading-24;
     color: white;
-    background: $red;
-  }
-  .summary {
-    margin: 1em 0 0 $indent;
-    .availability {
-      //display: block;
-      font-weight: $font_bold_weight;
-      font-family: $font_bold;
-      font-size: 33px;
-      &:after {
-        content: "";
-        display: block;
-        margin-bottom: -0.25em;
-      }
-    }
-    .detail-toggle {
-      float: right;
-      padding: $base_font_size 0 $base_font_size $base_font_size;
-      margin-top: -($base_font_size*2);
-    }
-  }
-  .details {
-    margin: 1em 0;
-    background-color: $color_concrete_approx;
-    padding: 0.5em $left-margin 0.5em $left-margin;
-    clear: both;
   }
 }
 
-.details > table {
-  border-collapse: collapse;
-  tr:not(.ooc) {
-    vertical-align: top;
-    border-bottom: 1px solid $color_celeste_approx;
-    th,
-    td:first-child,
-    td:last-child {
-      font-weight: $font_bold_weight;
-      font-family: $font_bold;
-    }
-    td:first-child,
-    &.availability {
-      font-size: 15px;
-    }
-    th,
-    td {
-      text-align: left;
-      padding: 6px 0;
-      &:last-child {
-        text-align: right;
-      }
-    }
+main {
+  > section {
+    margin-top: 0.5em;
   }
-  > tbody {
-    > tr:not(:first-child) td:first-child {
-      padding-left: $indent;
-    }
-    > tr:last-child {
-      border-bottom: 0;
-    }
-    tr.open > td:first-child {
-      padding-left: 0px;
-    }
-    tr.open > td:first-child:before {
-      content: "";
-      float: left;
-      width: $indent;
-      height: 20px;
-      background: url('../images/accordian-arrow.png') no-repeat 0 -5px;
-      background-size: 30px;
-    }
-    tr.close > td:first-child:before {
-      content: "";
-      float: left;
-      width: $indent;
-      height: 20px;
-      background: url('../images/accordian-arrow.png') no-repeat 0 -35px;
-      background-size: 30px;
-    }
-    tr.close > td:first-child {
-      padding-left: 0px;
-      h4 {
-        padding: 8px 0px 4px $indent;
-        margin: 0px;
-        font-size: small;
+  @extend %site-width-container;
+  #centres {
+    list-style: none;
+    @extend %grid-row;
+    .centre {
+      @include grid-column(1/2, desktop);
+      & > div {
+        border: 2px solid $black;
+        padding: $gutter/2;
+        margin-bottom: $gutter;
       }
-      ul {
-        padding-left: $indent;
-        list-style-type: none;
-        li {
-          padding-top: 4px;
-          border-top: thin solid $color_celeste_approx;
-          font-size: 12px;
-          font-weight: normal;
-          font-family: $font_generic;
+      h3 {
+        &:after {
+          content: "";
+          display: block;
+          width: 2em;
+          float: right;
+          height: 1.5em;
+          background: url('/images/accordian-arrow.png') no-repeat 0 -5px;
+          background-size: 1.5em;
+
+        }
+        &.close:after {
+          background-position: 0 -1.5em;
         }
       }
-    }
-    span[am-time-ago] {
-      font-size: 0.8em;
-    }
-    tr.ooc {
-      td {
-        text-align: left;
-        padding: 6px 0;
-        &:last-child {
+
+      ul:before {
+        content: attr(aria-label);
+        font-weight: bold;
+      }
+      h3 {
+        @include heading-36;
+      }
+      table {
+        tr.detail {
+          background: $grey-4;
+          ul {
+            @include grid-column(1/2, tablet);
+          }
+        }
+        tr.totals {
+          background: $grey-3;
+          .numeric {
+            font-weight: bold;
+          }
+        }
+        td.numeric {
           text-align: right;
         }
+        tr.open > td:first-child {
+          padding-left: 0px;
+        }
+        tbody {
+          .highlight {
+            color: $white;
+            background: $red;
+            padding: 0.5em 1em;
+          }
+          tr th {
+            padding-left: 32px;
+            position: relative;
+          }
+          tr.detail td:first-child {
+            padding-left: 10px;
+          }
+          tr.open > th:before, tr.close > th:before {
+            content: "";
+            display: block;
+            position: absolute;
+            left: -10px;
+            width: 32px;
+            height: 1em;
+            background: url('/images/accordian-arrow.png') no-repeat 0 -5px;
+            background-size: 2em;
+          }
+          tr.close > th:before {
+            background-position: 0 -2.5em;
+          }
+        }
       }
     }
   }
-  .availability {
-    border-top: 4px solid $black;
-    border-bottom: 4px solid $black;
-    line-height: 1.8em;
-  }
-}
-
-ul.container {
-  list-style: none;
-  padding: 0;
 }
 
 section.reports {
-  margin: $left-margin;
+  fieldset {
+    border: 1px $black solid;
+    padding: .35em;
+    legend {
+      @include heading-24;
+      padding: 0 0.2em;
+    }
+  }
   label {
     display: block;
   }
@@ -246,18 +143,13 @@ section.reports {
 button,
 input[type="button"],
 input[type="submit"] {
-  background-color: $button;
+  @include button;
   margin: 0.5em;
-  padding: 0.67em 2em;
-  border: none;
-  font-size: $base_font_size;
-  cursor: pointer;
-  color: white;
   &:disabled,
   &[disabled="disabled"],
   &[disabled] {
-    filter: alpha(opacity=50);
+    @include button($grey-3);
+    color: $grey-1;
     cursor: auto;
-    opacity: 0.5;
   }
 }
