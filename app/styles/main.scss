@@ -52,6 +52,16 @@ main {
           background-position: 0 -1.5em;
         }
       }
+      thead {
+        th:nth-child(2) {
+          white-space: nowrap;
+        }
+        th:nth-child(3),
+        th:nth-child(4) {
+          text-align: center;
+          padding-right: 0;
+        }
+      }
 
       ul:before {
         content: attr(aria-label);
@@ -78,6 +88,13 @@ main {
         }
         tr.open > td:first-child {
           padding-left: 0px;
+        }
+        th {
+          @include core-14($font-weight: 800);
+        }
+        td {
+          @include core-14($font-weight: 400);
+          white-space: nowrap;
         }
         tbody {
           .highlight {

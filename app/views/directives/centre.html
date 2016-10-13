@@ -39,12 +39,14 @@
       <td ng-if="attributes.maleCapacity > 0" class="numeric" ng-bind="attributes.maleOutOfCommissionTotal"></td>
       <td ng-if="attributes.femaleCapacity > 0" class="numeric" ng-bind="attributes.femaleOutOfCommissionTotal"></td>
     </tr>
-    <tr class="detail" ng-if="showooc" ng-repeat="(key, value) in attributes.maleOutOfCommissionDetail track by key">
+    <tr ng-if="attributes.maleCapacity > 0 && showooc" class="detail"
+        ng-repeat="(key, value) in attributes.maleOutOfCommissionDetail track by key">
       <td colspan="2" ng-bind="key"></td>
       <td ng-bind="value" class="numeric"></td>
       <td ng-if="attributes.femaleCapacity > 0"></td>
     </tr>
-    <tr class="detail" ng-if="showooc" ng-repeat="(key, value) in attributes.femaleOutOfCommissionDetail track by key">
+    <tr ng-if="attributes.femaleCapacity > 0 && showooc" class="detail"
+        ng-repeat="(key, value) in attributes.femaleOutOfCommissionDetail track by key">
       <td colspan="2" ng-bind="key"></td>
       <td ng-if="attributes.maleCapacity > 0"></td>
       <td ng-bind="value" class="numeric"></td>
@@ -91,7 +93,7 @@
       </td>
     </tr>
     <tr class="totals">
-      <th colspan="2">Estimated available beds <span class="heading-help">Guideline only – it may include some double counting.<br/>Check with the centre if you are unsure.</span>
+      <th colspan="2">Estimated available beds <span class="heading-help">Guideline only – it may include double counting.<br/>Check with the centre if you are unsure.</span>
       </th>
       <td ng-if="attributes.maleCapacity > 0" class="numeric"><span ng-class="highlightMale"
                                                                     ng-bind="maleAvailability"></span></td>
