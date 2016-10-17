@@ -1,53 +1,128 @@
-<div class="centre" id="centre-{{cid}}">
-  <h3 class="text-primary" aria-live="off">{{attributes.name}}</h3>
-  <span class="time">Last Updated:
-    <span aria-live="off" ng-attr-title="{{attributes.heartbeatReceived}}"
-          am-time-ago="attributes.heartbeatReceived"></span></span>
-  <centre-gender-directive
-    ng-if="attributes.maleCapacity > 0"
-    centre="attributes.name"
-    gender="'Male'"
-    availability="maleAvailability"
-    ooctotal="attributes.maleOutOfCommissionTotal"
-    oocdetail="attributes.maleOutOfCommissionDetail"
-    capacity="attributes.maleCapacity"
-    inuse="attributes.maleInUse"
-    expectedin="attributes.maleExpectedIn"
-    expectedout="attributes.maleExpectedOut"
-    unexpectedin="attributes.maleUnexpectedIn"
-    cidreceiveddate="attributes.cidReceivedDate"
-    heartbeatreceived="attributes.heartbeatReceived"
-    prebookingreceived="attributes.prebookingReceived"
-    prebookingtotal="attributes.malePrebookingTotal"
-    prebookingdetail="attributes.malePrebookingDetail"
-    contingencytotal="attributes.maleContingencyTotal"
-    contingencydetail="attributes.maleContingencyDetail"
-    status="statusMale"
-    highlight="highlightMale"
-  >
-  </centre-gender-directive>
+<div>
+  <h3 ng-click="show=!show" ng-class="show ? 'close':'open'">{{attributes.name}}</h3>
 
-  <centre-gender-directive
-    ng-if="attributes.femaleCapacity > 0"
-    centre="attributes.name"
-    gender="'Female'"
-    availability="femaleAvailability"
-    ooctotal="attributes.femaleOutOfCommissionTotal"
-    oocdetail="attributes.femaleOutOfCommissionDetail"
-    capacity="attributes.femaleCapacity"
-    inuse="attributes.femaleInUse"
-    expectedin="attributes.femaleExpectedIn"
-    expectedout="attributes.femaleExpectedOut"
-    unexpectedin="attributes.femaleUnexpectedIn"
-    cidreceiveddate="attributes.cidReceivedDate"
-    heartbeatreceived="attributes.heartbeatReceived"
-    prebookingreceived="attributes.prebookingReceived"
-    prebookingtotal="attributes.femalePrebookingTotal"
-    prebookingdetail="attributes.femalePrebookingDetail"
-    contingencytotal="attributes.femaleContingencyTotal"
-    contingencydetail="attributes.femaleContingencyDetail"
-    status="statusFemale"
-    highlight="highlightFemale"
-  >
-  </centre-gender-directive>
+  <unexpected-directive gender="Male" cids="attributes.maleUnexpectedIn"></unexpected-directive>
+  <unexpected-directive gender="Female" cids="attributes.femaleUnexpectedIn"></unexpected-directive>
+
+  <table ng-if="!show">
+    <thead>
+    <tr>
+      <th scope="col">Breakdown</th>
+      <th scope="col">Accurate as of</th>
+      <th ng-if="male" class="numeric male" scope="col">Male (<span ng-bind="attributes.maleCapacity"></span>)</th>
+      <th ng-if="female" class="numeric female" scope="col">Female
+        (<span ng-bind="attributes.femaleCapacity"></span>)
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr row-directive
+        title="In use"
+        date="attributes.heartbeatReceived"
+        attr="InUse"
+        attributes="attributes"
+        male="male" female="female"></tr>
+
+    <tr row-directive
+        title="Out of commission"
+        date="attributes.heartbeatReceived"
+        attr="OutOfCommissionTotal"
+        attributes="attributes" male="male" female="female"
+        ng-class="showooc ? 'close':'open'"
+        ng-click="showooc=!showooc"
+        aria-controls="{{cid}}-showooc"
+        aria-expanded="{{showooc}}"
+    ></tr>
+
+    <tr id="{{cid}}-showooc" class="detail" ng-if="showooc"
+        ng-repeat="(key,detail) in ooc track by key">
+      <td colspan="2" ng-bind="key"></td>
+      <td ng-bind="detail.male" class="numeric male"></td>
+      <td ng-bind="detail.female" class="numeric female"></td>
+    </tr>
+
+
+    <tr row-directive
+        title="Prebooked"
+        date="attributes.prebookingReceived"
+        attr="PrebookingTotal"
+        attributes="attributes" male="male" female="female"
+        ng-class="showprebooking ? 'close':'open'"
+        ng-click="showprebooking=!showprebooking"
+        aria-controls="{{cid}}-showprebooking"
+        aria-expanded="{{showprebooking}}"
+    ></tr>
+
+    <tr id="{{cid}}-showprebooking" class="detail" ng-if="showprebooking"
+        ng-repeat="(key,detail) in PrebookingDetail track by key">
+      <td colspan="2" ng-bind="key"></td>
+      <td ng-bind="detail.male" class="numeric male"></td>
+      <td ng-bind="detail.female" class="numeric female"></td>
+    </tr>
+
+    <tr row-directive
+        title="Contingency"
+        date="attributes.prebookingReceived"
+        attr="ContingencyTotal"
+        attributes="attributes" male="male" female="female"
+        ng-class="showcontingency ? 'close':'open'"
+        ng-click="showcontingency=!showcontingency"
+        aria-controls="{{cid}}-showcontingency"
+        aria-expanded="{{showcontingency}}"
+    ></tr>
+
+    <tr id="{{cid}}-showcontingency" class="detail" ng-if="showcontingency"
+        ng-repeat="(key,detail) in ContingencyDetail track by key">
+      <td colspan="2" ng-bind="key"></td>
+      <td ng-bind="detail.male" class="numeric male"></td>
+      <td ng-bind="detail.female" class="numeric female"></td>
+    </tr>
+
+    <tr row-directive
+        title="Reserved"
+        headinghelp="Outstanding movements into the centre"
+        date="attributes.cidReceivedDate"
+        attr="ExpectedIn.length"
+        attributes="attributes"
+        male="male" female="female"
+        ng-class="showincoming ? 'close':'open'"
+        ng-click="showincoming=!showincoming"
+        aria-controls="{{cid}}-showincoming"
+        aria-expanded="{{showincoming}}"
+    ></tr>
+
+    <tr id="{{cid}}-showincoming" class="detail" ng-if="showincoming">
+      <td colspan="4">
+        <cid-list-directive cids="attributes.maleExpectedIn" gender="Male"></cid-list-directive>
+        <cid-list-directive cids="attributes.femaleExpectedIn" gender="Female"></cid-list-directive>
+      </td>
+    </tr>
+    <tr class="totals">
+      <th colspan="2">Estimated available beds <span class="heading-help">Guideline only – it may include double counting.<br/>Check with the centre if you are unsure.</span>
+      </th>
+      <td ng-if="male" class="numeric male"><span ng-class="highlightMale"
+                                                  ng-bind="maleAvailability"></span></td>
+      <td ng-if="female" class="numeric female"><span ng-class="highlightFemale"
+                                                      ng-bind="femaleAvailability"></span></td>
+    </tr>
+
+    <tr row-directive
+        title="Outgoings"
+        date="attributes.cidReceivedDate"
+        attr="ExpectedOut.length"
+        attributes="attributes" male="male" female="female"
+        ng-class="showoutgoing ? 'close':'open'"
+        ng-click="showoutgoing=!showoutgoing"
+        aria-controls="{{cid}}-showoutgoing"
+        aria-expanded="{{showoutgoing}}"
+    ></tr>
+    <tr id="{{cid}}-showoutgoing" class="detail" ng-if="showoutgoing">
+      <td colspan="4">
+        <cid-list-directive cids="attributes.maleExpectedOut" gender="Male"></cid-list-directive>
+        <cid-list-directive cids="attributes.femaleExpectedOut" gender="Female"></cid-list-directive>
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
 </div>

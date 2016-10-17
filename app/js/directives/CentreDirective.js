@@ -1,3 +1,5 @@
+const _ = require("lodash");
+
 function CentreDirective() {
 
   return {
@@ -8,16 +10,37 @@ function CentreDirective() {
       attributes: '='
     },
     link: function (scope, element, attrs) {
-      scope.$watch('attributes.maleAvailability', function (newvalue) {
-        scope.highlightMale = newvalue < 1 ? 'highlight' : '';
-        scope.maleAvailability = newvalue === 0 ? 'FULL' : newvalue;
-        scope.statusMale = newvalue < 1 ? 'No Available Male Beds' : 'Available Male Beds';
-      });
+
+      scope.male = scope.attributes.maleCapacity > 0
+      scope.female = scope.attributes.femaleCapacity > 0
+
+      const detailaggregate = (detail, value) => {
+        scope[value] = {};
+        if (scope.male) {
+          scope.$watch(`attributes.male${detail}`, (newvalue) =>
+            _.forEach(newvalue, (v, k) => _.set(scope, `${value}.${k}.male`, v))
+          );
+        }
+        if (scope.female) {
+          scope.$watch(`attributes.female${detail}`, (newvalue) =>
+            _.forEach(newvalue, (v, k) => _.set(scope, `${value}.${k}.female`, v))
+          );
+        }
+      }
+
+      detailaggregate('OutOfCommissionDetail', 'ooc');
+      detailaggregate('PrebookingDetail', 'PrebookingDetail');
+      detailaggregate('ContingencyDetail', 'ContingencyDetail');
+
       scope.$watch('attributes.femaleAvailability', function (newvalue) {
         scope.highlightFemale = newvalue < 1 ? 'highlight' : '';
         scope.femaleAvailability = newvalue === 0 ? 'FULL' : newvalue;
-        scope.statusFemale = newvalue < 1 ? 'No Available Female Beds' : 'Available Female Beds';
       });
+      scope.$watch('attributes.maleAvailability', function (newvalue) {
+        scope.highlightMale = newvalue < 1 ? 'highlight' : '';
+        scope.maleAvailability = newvalue === 0 ? 'FULL' : newvalue;
+      });
+
     },
   };
 }

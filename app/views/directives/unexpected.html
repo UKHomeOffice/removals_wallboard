@@ -1,0 +1,6 @@
+<div class="panel panel-border-wide unexpected {{gender}}" ng-if="cids.length > 0">
+  <ul aria-label="{{cids.length}} {{gender}} check-ins do not have movement orders – check these CIDs with the
+  IRC:">
+    <li ng-repeat="theUnexpectedin in cids">{{theUnexpectedin.cid_id}}</li>
+  </ul>
+</div>

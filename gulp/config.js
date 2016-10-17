@@ -12,7 +12,11 @@ export default {
     src: 'app/styles/**/*.scss',
     dest: 'build/css',
     prodSourcemap: false,
-    sassIncludePaths: []
+    sassIncludePaths: [
+      'node_modules/govuk_frontend_toolkit/stylesheets',
+      'node_modules/govuk-elements-sass/public/sass',
+      'node_modules/govuk_template_mustache/assets/stylesheets'
+    ]
   },
 
   scripts: {
@@ -26,7 +30,11 @@ export default {
   },
 
   govuk_images: {
-    src: 'node_modules/govuk_frontend_toolkit/images/accordian-arrow.png',
+    src: [
+      'node_modules/govuk_frontend_toolkit/images/*',
+      'node_modules/govuk_template_mustache/assets/stylesheets/images/*',
+      'node_modules/govuk_template_mustache/assets/images/*'
+    ],
     dest: 'build/images'
   },
 
