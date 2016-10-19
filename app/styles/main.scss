@@ -72,6 +72,9 @@ main {
         tr {
           &.detail {
             background: $grey-4;
+            &.prebooking td {
+              text-transform: uppercase;
+            }
             ul {
               @include grid-column(1/2, tablet);
             }

@@ -53,7 +53,7 @@
         aria-expanded="{{showprebooking}}"
     ></tr>
 
-    <tr id="{{cid}}-showprebooking" class="detail" ng-if="showprebooking"
+    <tr id="{{cid}}-showprebooking" class="detail prebooking" ng-if="showprebooking"
         ng-repeat="(key,detail) in PrebookingDetail track by key">
       <td colspan="2" ng-bind="key"></td>
       <td ng-bind="detail.male" class="numeric male"></td>
