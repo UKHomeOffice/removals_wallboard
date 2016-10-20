@@ -1,7 +1,8 @@
 <tr>
   <th>{{title}}
     <span ng-if="headinghelp" class="heading-help" ng-bind="headinghelp"></span></th>
-  <td am-time-ago="date" title="{{date | amDateFormat:'LL LTS'}}"></td>
+  <td am-time-ago="date" title="{{date | amDateFormat:'LL LTS'}}"
+      ng-class="highlight"></td>
   <td ng-if="male" class="numeric male" ng-bind="maleValue"></td>
   <td ng-if="female" class="numeric female" ng-bind="femaleValue"></td>
 </tr>
