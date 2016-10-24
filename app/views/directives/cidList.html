@@ -1,3 +1,6 @@
 <ul ng-if="cids.length > 0" aria-label="{{gender}} CIDs:" class="male">
-  <li ng-repeat="cid in cids" ng-bind="cid.cid_id"></li>
+  <li ng-repeat="cid in cids">
+    <span class="cid" ng-bind="cid.cid_id"></span>
+    <span class="timestamp" ng-bind="cid.timestamp | amDateFormat:'DD/MM/YY'"></span>
+  </li>
 </ul>
