@@ -106,6 +106,14 @@ main {
             background: $red;
             padding: 0.5em 1em;
           }
+          .timestamp {
+            &:before {
+              content: "(";
+            }
+            &:after {
+              content: ")";
+            }
+          }
           tr th {
             padding-left: 32px;
             position: relative;
