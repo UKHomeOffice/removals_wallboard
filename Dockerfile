@@ -1,22 +1,17 @@
-FROM quay.io/ukhomeofficedigital/centos-base
+FROM quay.io/ukhomeofficedigital/nodejs-base:v6.9.1
 
-RUN rpm --rebuilddb
-RUN yum-config-manager --enable cr
-RUN yum install -y yum-utils epel-release
-RUN yum install -y  \
-  git \
-  curl \
-  which \
-  nginx \
-  gcc-c++ \
-  bzip2
-
-RUN mkdir -p /opt/nodejs
-WORKDIR /opt/nodejs
-RUN curl https://nodejs.org/dist/v4.4.7/node-v4.4.7-linux-x64.tar.gz | tar xz --strip-components=1
-
-COPY entry-point.sh /entry-point.sh
-RUN chmod +x /entry-point.sh
+RUN rpm --rebuilddb && \
+    yum update && \
+    yum-config-manager --enable cr && \
+    yum install -y \
+      yum-utils \
+      epel-release && \
+    yum install -y \
+      git \
+      fontconfig \
+      nginx \
+      gcc-c++ \
+      bzip2
 
 RUN mkdir -p /var/log/nginx &&\
     ln -s /dev/stderr /var/log/nginx/error.log && \
@@ -28,24 +23,19 @@ USER app
 # internal homeoffice firewalls block ssh/git protocol
 RUN git config --global url."https://".insteadOf git://
 
-ENV PATH=${PATH}:/opt/nodejs/bin
-
 RUN mkdir -p /home/app
 
 WORKDIR /home/app
 
-COPY package.json /home/app/
-COPY npm-shrinkwrap.json /home/app/
+COPY package.json npm-shrinkwrap.json ./
 RUN npm install
 
 COPY . .
 
 USER root
-RUN npm run build
-RUN npm test
+RUN npm run build && \
+    npm test && \
+    cp -fr build/* /usr/share/nginx/html/
 
-
-RUN cp -fr build/* /usr/share/nginx/html/
-
-ENTRYPOINT ["/entry-point.sh"]
+ENTRYPOINT ["/home/app/entry-point.sh"]
 CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
