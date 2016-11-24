@@ -20,15 +20,26 @@
       >Get Summary
       </button>
       <button
-        id="getRaw"
+        id="getHeartbeats"
         type="button"
-        ng-disabled="rawInProgress"
-        ng-csv="getRaw()"
-        csv-header="rawHeaders"
+        ng-disabled="heartbeatsInProgress"
+        ng-csv="getHeartbeats()"
+        csv-header="heartbeatHeaders"
         lazy-load
-        filename="raw.csv"
+        filename="heartbeats.csv"
       >
-        Get Raw Data
+        Get Heartbeats
+      </button>
+      <button
+        id="getDetaineeEvents"
+        type="button"
+        ng-disabled="detaineeInProgress"
+        ng-csv="getDetaineeEvents()"
+        csv-header="detaineeHeaders"
+        lazy-load
+        filename="detaineeevents.csv"
+      >
+        Get Detainee Events
       </button>
     </fieldset>
   </form>
