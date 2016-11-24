@@ -24,7 +24,7 @@ function ReportCtrl($scope, SocketService) {
       .finally(() => progressIndicator('summary', false))
       .then(() => socketGet(`/heartbeat/summary?where={"createdAt":{"lessThan": "${$scope.to.toISOString()}", "greaterThan": "${$scope.from.toISOString()}"}}`))
 
-      .then(response =>_.map(response.data, (row) => {
+      .then(response => _.map(response.data, (row) => {
         row.maleInUseMax = row.maleInUse.max;
         row.maleInUseMean = row.maleInUse.mean;
         row.maleInUseMin = row.maleInUse.min;
@@ -79,9 +79,9 @@ function ReportCtrl($scope, SocketService) {
 
   $scope.summaryHeaders = ["centre", "maleInUseMax", "maleInUseMean", "maleInUseMin", "femaleInUseMax", "femaleInUseMean", "femaleInUseMin", "maleOutOfCommissionMax", "maleOutOfCommissionMean", "maleOutOfCommissionMin", "femaleOutOfCommissionMax", "femaleOutOfCommissionMean", "femaleOutOfCommissionMin", "maleBedReasons", "femaleBedReasons"];
 
-  $scope.getRaw = () =>
-    progressIndicator('raw', true)
-      .finally(() => progressIndicator('raw', false))
+  $scope.getHeartbeats = () =>
+    progressIndicator('heartbeats', true)
+      .finally(() => progressIndicator('heartbeats', false))
       .then(() => socketGet(`/heartbeat?limit=${Number.MAX_SAFE_INTEGER}&where={"createdAt":{"lessThan": "${$scope.to.toISOString()}", "greaterThan": "${$scope.from.toISOString()}"}}`))
       .then(response => response.data)
       .map(row => row.attributes)
@@ -90,8 +90,18 @@ function ReportCtrl($scope, SocketService) {
         return row;
       });
 
-  $scope.rawHeaders = ["centre", "timestamp", "maleInUse", "femaleInUse", "maleOutOfCommission", "femaleOutOfCommission"];
+  $scope.heartbeatHeaders = ["centre", "timestamp", "maleInUse", "femaleInUse", "maleOutOfCommission", "femaleOutOfCommission"];
 
+  $scope.detaineeHeaders = ["timestamp", "centre", "operation", "cid_id", "gender", "nationality", "centre person id"];
+
+  $scope.getDetaineeEvents = () =>
+    progressIndicator('detainee', true)
+      .finally(() => progressIndicator('detainee', false))
+      .then(() => socketGet(`/bedevent/detainees?where={"timestamp":{"lessThan": "${$scope.to.toISOString()}", "greaterThan": "${$scope.from.toISOString()}"}}`))
+      .then(response => _.flatMap(response.data, (rows, centre) =>
+          _.map(rows, row => _.set(row, "centre", centre))
+        )
+      )
 }
 
 export default {
