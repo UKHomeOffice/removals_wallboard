@@ -1,7 +1,7 @@
 FROM quay.io/ukhomeofficedigital/nodejs-base:v6.9.1
 
 RUN rpm --rebuilddb && \
-    yum update && \
+    yum update -y && \
     yum-config-manager --enable cr && \
     yum install -y \
       yum-utils \
