@@ -55,7 +55,7 @@
 
     <tr id="{{cid}}-showprebooking" class="detail prebooking" ng-if="showprebooking"
         ng-repeat="(key,detail) in PrebookingDetail track by key">
-      <td colspan="2" ng-bind="key"></td>
+      <td colspan="2" ng-bind="key.toUpperCase()"></td>
       <td ng-bind="detail.male" class="numeric male"></td>
       <td ng-bind="detail.female" class="numeric female"></td>
     </tr>
@@ -73,7 +73,7 @@
 
     <tr id="{{cid}}-showcontingency" class="detail" ng-if="showcontingency"
         ng-repeat="(key,detail) in ContingencyDetail track by key">
-      <td colspan="2" ng-bind="key"></td>
+      <td colspan="2" ng-bind="key.toUpperCase()"></td>
       <td ng-bind="detail.male" class="numeric male"></td>
       <td ng-bind="detail.female" class="numeric female"></td>
     </tr>
