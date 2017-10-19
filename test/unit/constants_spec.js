@@ -21,7 +21,7 @@ describe('Unit: Constants', function () {
   });
 
   it('should have an application name', function () {
-    expect(constants.appTitle).toEqual('IRC Bed Management Dashboard');
+    expect(constants.appTitle).toEqual('IRC Capacity Management Dashboard');
   });
 
 });
