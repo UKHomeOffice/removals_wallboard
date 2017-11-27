@@ -46,7 +46,7 @@ main {
           width: 2em;
           float: right;
           height: 1.5em;
-          background: url('/images/accordian-arrow.png') no-repeat 0 -5px;
+          background: url('/images/accordion-arrow.png') no-repeat 0 -5px;
           background-size: 1.5em;
         }
         &.close:after {
@@ -129,7 +129,7 @@ main {
             left: -10px;
             width: 32px;
             height: 1em;
-            background: url('/images/accordian-arrow.png') no-repeat 0 -5px;
+            background: url('/images/accordion-arrow.png') no-repeat 0 -5px;
             background-size: 2em;
           }
           tr.close > th:before {
