@@ -31,7 +31,7 @@
         ng-class="showooc ? 'close':'open'"
         ng-click="showooc=!showooc"
         aria-controls="{{cid}}-showooc"
-        aria-expanded="{{showooc}}"
+        aria-expanded="{{showooc === true}}"
     ></tr>
 
     <tr id="{{cid}}-showooc" class="detail" ng-if="showooc"
@@ -50,7 +50,7 @@
         ng-class="showprebooking ? 'close':'open'"
         ng-click="showprebooking=!showprebooking"
         aria-controls="{{cid}}-showprebooking"
-        aria-expanded="{{showprebooking}}"
+        aria-expanded="{{showprebooking === true}}"
     ></tr>
 
     <tr id="{{cid}}-showprebooking" class="detail prebooking" ng-if="showprebooking"
@@ -68,7 +68,7 @@
         ng-class="showcontingency ? 'close':'open'"
         ng-click="showcontingency=!showcontingency"
         aria-controls="{{cid}}-showcontingency"
-        aria-expanded="{{showcontingency}}"
+        aria-expanded="{{showcontingency === true}}"
     ></tr>
 
     <tr id="{{cid}}-showcontingency" class="detail" ng-if="showcontingency"
@@ -87,8 +87,12 @@
         male="male" female="female"
         ng-class="showincoming ? 'close':'open'"
         ng-click="showincoming=!showincoming"
-        aria-controls="{{cid}}-showincoming"
+<<<<<<< Updated upstream
+        aria-controls="{{cid}}-showincoming-0"
         aria-expanded="{{showincoming}}"
+=======
+        aria-expanded="{{showincoming === true}}"
+>>>>>>> Stashed changes
     ></tr>
 
     <tr id="{{cid}}-showincoming" class="detail" ng-if="showincoming">
@@ -114,7 +118,7 @@
         ng-class="showoutgoing ? 'close':'open'"
         ng-click="showoutgoing=!showoutgoing"
         aria-controls="{{cid}}-showoutgoing"
-        aria-expanded="{{showoutgoing}}"
+        aria-expanded="{{showoutgoing === true}}"
     ></tr>
     <tr id="{{cid}}-showoutgoing" class="detail" ng-if="showoutgoing">
       <td colspan="4">
