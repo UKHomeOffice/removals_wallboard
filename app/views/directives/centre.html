@@ -34,7 +34,7 @@
         aria-expanded="{{showooc === true}}"
     ></tr>
 
-    <tr id="{{cid}}-showooc" class="detail" ng-show="showooc"
+    <tr id="{{cid}}-showooc-{{$index}}" class="detail" ng-show="showooc"
         ng-repeat="(key,detail) in ooc track by key">
       <td colspan="2" ng-bind="key"></td>
       <td ng-bind="detail.male" class="numeric male"></td>
@@ -53,7 +53,7 @@
         aria-expanded="{{showprebooking === true}}"
     ></tr>
 
-    <tr id="{{cid}}-showprebooking" class="detail prebooking" ng-show="showprebooking"
+    <tr id="{{cid}}-showprebooking-{{$index}}" class="detail prebooking" ng-show="showprebooking"
         ng-repeat="(key,detail) in PrebookingDetail track by key">
       <td colspan="2" ng-bind="key.toUpperCase()"></td>
       <td ng-bind="detail.male" class="numeric male"></td>
@@ -71,7 +71,7 @@
         aria-expanded="{{showcontingency === true}}"
     ></tr>
 
-    <tr id="{{cid}}-showcontingency" class="detail" ng-show="showcontingency"
+    <tr id="{{cid}}-showcontingency-{{$index}}" class="detail" ng-show="showcontingency"
         ng-repeat="(key,detail) in ContingencyDetail track by key">
       <td colspan="2" ng-bind="key.toUpperCase()"></td>
       <td ng-bind="detail.male" class="numeric male"></td>
