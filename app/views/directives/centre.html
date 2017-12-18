@@ -30,7 +30,6 @@
         attributes="attributes" male="male" female="female"
         ng-class="showooc ? 'close':'open'"
         ng-click="showooc=!showooc"
-        aria-controls="{{cid}}-showooc"
         aria-expanded="{{showooc === true}}"
     ></tr>
 
@@ -49,7 +48,6 @@
         attributes="attributes" male="male" female="female"
         ng-class="showprebooking ? 'close':'open'"
         ng-click="showprebooking=!showprebooking"
-        aria-controls="{{cid}}-showprebooking"
         aria-expanded="{{showprebooking === true}}"
     ></tr>
 
@@ -67,7 +65,6 @@
         attributes="attributes" male="male" female="female"
         ng-class="showcontingency ? 'close':'open'"
         ng-click="showcontingency=!showcontingency"
-        aria-controls="{{cid}}-showcontingency"
         aria-expanded="{{showcontingency === true}}"
     ></tr>
 
@@ -87,8 +84,11 @@
         male="male" female="female"
         ng-class="showincoming ? 'close':'open'"
         ng-click="showincoming=!showincoming"
+<<<<<<< HEAD
 <<<<<<< Updated upstream
         aria-controls="{{cid}}-showincoming-0"
+=======
+>>>>>>> cf52709... BSM-051 Remove aria-controls almost entirely
         aria-expanded="{{showincoming}}"
 =======
         aria-expanded="{{showincoming === true}}"
