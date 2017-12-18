@@ -34,7 +34,7 @@
         aria-expanded="{{showooc === true}}"
     ></tr>
 
-    <tr id="{{cid}}-showooc" class="detail" ng-if="showooc"
+    <tr id="{{cid}}-showooc" class="detail" ng-show="showooc"
         ng-repeat="(key,detail) in ooc track by key">
       <td colspan="2" ng-bind="key"></td>
       <td ng-bind="detail.male" class="numeric male"></td>
@@ -53,7 +53,7 @@
         aria-expanded="{{showprebooking === true}}"
     ></tr>
 
-    <tr id="{{cid}}-showprebooking" class="detail prebooking" ng-if="showprebooking"
+    <tr id="{{cid}}-showprebooking" class="detail prebooking" ng-show="showprebooking"
         ng-repeat="(key,detail) in PrebookingDetail track by key">
       <td colspan="2" ng-bind="key.toUpperCase()"></td>
       <td ng-bind="detail.male" class="numeric male"></td>
@@ -71,7 +71,7 @@
         aria-expanded="{{showcontingency === true}}"
     ></tr>
 
-    <tr id="{{cid}}-showcontingency" class="detail" ng-if="showcontingency"
+    <tr id="{{cid}}-showcontingency" class="detail" ng-show="showcontingency"
         ng-repeat="(key,detail) in ContingencyDetail track by key">
       <td colspan="2" ng-bind="key.toUpperCase()"></td>
       <td ng-bind="detail.male" class="numeric male"></td>
@@ -95,7 +95,7 @@
 >>>>>>> Stashed changes
     ></tr>
 
-    <tr id="{{cid}}-showincoming" class="detail" ng-if="showincoming">
+    <tr id="{{cid}}-showincoming" class="detail" ng-show="showincoming">
       <td colspan="4">
         <cid-list-directive cids="attributes.maleExpectedIn" gender="Male"></cid-list-directive>
         <cid-list-directive cids="attributes.femaleExpectedIn" gender="Female"></cid-list-directive>
@@ -120,7 +120,7 @@
         aria-controls="{{cid}}-showoutgoing"
         aria-expanded="{{showoutgoing === true}}"
     ></tr>
-    <tr id="{{cid}}-showoutgoing" class="detail" ng-if="showoutgoing">
+    <tr id="{{cid}}-showoutgoing" class="detail" ng-show="showoutgoing">
       <td colspan="4">
         <cid-list-directive cids="attributes.maleExpectedOut" gender="Male"></cid-list-directive>
         <cid-list-directive cids="attributes.femaleExpectedOut" gender="Female"></cid-list-directive>
