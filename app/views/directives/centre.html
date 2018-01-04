@@ -84,16 +84,8 @@
         male="male" female="female"
         ng-class="showincoming ? 'close':'open'"
         ng-click="showincoming=!showincoming"
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-        aria-controls="{{cid}}-showincoming-0"
-=======
->>>>>>> cf52709... BSM-051 Remove aria-controls almost entirely
-        aria-expanded="{{showincoming}}"
-=======
         aria-expanded="{{showincoming === true}}"
->>>>>>> Stashed changes
-    ></tr>
+    </tr>
 
     <tr id="{{cid}}-showincoming" class="detail" ng-show="showincoming">
       <td colspan="4">
