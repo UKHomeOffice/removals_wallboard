@@ -2,7 +2,7 @@ pipeline:
     build:
         image: ukhomeoffice/drone-docker
         commands:
-            - docker build -t removals-wallbboard .
+            - docker build -t removals-wallboard .
     push:
         image: ukhomeoffice/drone-docker
         secrets:
