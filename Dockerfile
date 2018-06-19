@@ -17,8 +17,8 @@ RUN mkdir -p /var/log/nginx &&\
     ln -s /dev/stderr /var/log/nginx/error.log && \
     ln -s /dev/stdout /var/log/nginx/access.log
 
-RUN useradd app
-USER app
+RUN adduser -u 1001 app
+USER 1001
 
 # internal homeoffice firewalls block ssh/git protocol
 RUN git config --global url."https://".insteadOf git://
