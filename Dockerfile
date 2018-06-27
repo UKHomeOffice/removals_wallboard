@@ -32,7 +32,7 @@ RUN npm install
 
 COPY . .
 
-USER root
+USER 0
 RUN npm run build && \
     npm test && \
     cp -fr build/* /usr/share/nginx/html/
