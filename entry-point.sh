@@ -9,7 +9,7 @@ for f in /etc/secrets/* ; do
     fi
 done
 
-cat <<- EOF > /usr/share/nginx/html/config.js
+cat <<- EOF > /var/www/config.js
 var config = {
   "backend": "${BACKEND:-http://localhost:8000}",
   "keycloakUrl": "${KEYCLOAKURL:-http://localhost:8000}",
@@ -27,7 +27,7 @@ server {
     listen       ${PORT:-8000} default_server;
     listen       [::]:${PORT:-8000} default_server;
     server_name  _;
-    root         /usr/share/nginx/html;
+    root         /var/www;
 
     location = /health {
       return 200 'ok';

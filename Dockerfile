@@ -1,29 +1,14 @@
-FROM quay.io/ukhomeofficedigital/nodejs-base:v8
+FROM quay.io/ukhomeofficedigital/nginx:v0.2.7
 
-RUN rpm --rebuilddb && \
-    yum update -y && \
-    yum-config-manager --enable cr && \
-    yum install -y \
-      yum-utils \
-      epel-release && \
-    yum install -y \
-      git \
-      fontconfig \
-      nginx \
-      gcc-c++ \
-      bzip2
-
-RUN mkdir -p /var/log/nginx &&\
-    ln -s /dev/stderr /var/log/nginx/error.log && \
-    ln -s /dev/stdout /var/log/nginx/access.log
-
-RUN adduser -u 1001 app
+USER 0
+RUN apk update
+RUN apk add --update --no-cache nodejs-npm git python2 g++ make
+#                                     ^ needed for node-gyp
+RUN chmod +w /var/www
+RUN adduser -D -u 1001 app
 USER 1001
-
-# internal homeoffice firewalls block ssh/git protocol
-RUN git config --global url."https://".insteadOf git://
-
 RUN mkdir -p /home/app
+RUN chmod +x /home/app
 
 WORKDIR /home/app
 
@@ -32,10 +17,9 @@ RUN npm install
 
 COPY . .
 
-USER root
 RUN npm run build && \
-    npm test && \
-    cp -fr build/* /usr/share/nginx/html/
+    npm test
+RUN cp -fr build/* /var/www
+USER 100
 
 ENTRYPOINT ["/home/app/entry-point.sh"]
-CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
