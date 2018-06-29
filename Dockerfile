@@ -18,3 +18,4 @@ RUN chown 100 /var/www/config.js
 
 USER 100
 ENTRYPOINT ["/var/www/entry-point.sh"]
+CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
