@@ -18,6 +18,7 @@ var config = {
 }
 EOF
 
+rm /etc/nginx/conf.d/default.conf
 
 sed -i '/include \/etc\/nginx\/conf.d/q' /etc/nginx/nginx.conf
 echo '}' >> /etc/nginx/nginx.conf
