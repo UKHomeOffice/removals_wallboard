@@ -15,7 +15,6 @@ RUN npm run build
 RUN cp -fr build/* /var/www
 RUN touch /var/www/config.js
 RUN chown 100 /var/www/config.js
-
-USER 100
 ENTRYPOINT ["/var/www/entry-point.sh"]
+USER 100
 CMD ["/usr/sbin/nginx", "-g", "daemon off;"]
