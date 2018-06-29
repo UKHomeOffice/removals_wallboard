@@ -79,5 +79,8 @@
     "postinstall": "webdriver-manager update",
     "build": "gulp prod"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "istanbul": "^0.4.5"
+  }
 }
