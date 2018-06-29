@@ -11,8 +11,7 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build && \
-    npm test
+RUN npm run build
 RUN cp -fr build/* /var/www
 USER 100
 
