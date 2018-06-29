@@ -15,4 +15,4 @@ RUN npm run build
 RUN cp -fr build/* /var/www
 USER 100
 
-ENTRYPOINT ["/home/app/entry-point.sh"]
+ENTRYPOINT ["/var/www/entry-point.sh"]
