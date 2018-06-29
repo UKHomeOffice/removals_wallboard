@@ -14,7 +14,7 @@ COPY . .
 RUN npm run build
 RUN cp -fr build/* /var/www
 RUN touch /var/www/config.js
-RUN chmod +rw /var/www/config.js
+RUN chown 100 /var/www/config.js
 
 USER 100
 ENTRYPOINT ["/var/www/entry-point.sh"]
